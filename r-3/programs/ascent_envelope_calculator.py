@@ -545,15 +545,11 @@ class flight_data_recorder:
 			self.log_fd.close()
 
 class flight_envelope:
-
-
 	def __init__(self, data_recorder):
 		self.data_recorder = data_recorder
 		self.default_fine_bracket_size = 10
 		self.analysis_shallow_limit = 60
 		self.analysis_steep_limit = 1
-		self.coarse_grid_size = 5
-		self.coarse_grid = coarse_grid(self.analysis_steep_limit,self.analysis_shallow_limit,self.coarse_grid_size)
 		self.max_dv = {}
 		self.steep_envelope = {}
 		self.shallow_envelope = {}
@@ -561,13 +557,26 @@ class flight_envelope:
 		self.max_dv_line = {}
 		self.steep_corridor = {}
 		self.shallow_corridor = {}
+		self.envelope_reference_point = {}
+		self.grapher = grapher(self.data_recorder.ship_type)
 
+#=====Search criteria: used as a criterion function for different searches
+
+	def dv_at_95(self,mass,angle):
+		return self.orbits(mass,angle) and ( self.data_recorder.read(mass,angle)[1] >= 0.95 * self.max_dv[mass] )
+
+	def orbits(self,mass,angle):
+		(met,delta_v,state,periapsis,apoapsis) = self.data_recorder.read(mass,angle)
+		return (state & 62) == 0 and apoapsis > 78000 and periapsis > 70000
+		#No resource exhaustion or ship damage, apoapsis close to 80Km, periapsis above kerman line
 
 	def dv_rises_to_steep(self,mass,angle):
 		return self.data_recorder.read(mass,angle)[1] <= self.data_recorder.read(mass,angle-1)[1] and self.orbits(mass,angle-1)
 
 	def dv_rises_to_shallow(self,mass,angle):
 		return self.data_recorder.read(mass,angle)[1] <= self.data_recorder.read(mass,angle+1)[1] and self.orbits(mass,angle+1)
+
+#delta v calculation functions, these are different from others, because max dv is a line and the direction of rise needs to be checked
 
 	def locate_max_dv_ls(self,mass,start_point=None):
 		#Do a linear search for the angle with max dv remaining after orbit
@@ -621,15 +630,121 @@ class flight_envelope:
 		else:
 			return self.locate_max_dv_bs(mass,steep_limit,angle)
 
+#Generic search functions: fine and coarse functions for locating different parts of the envelope
 
-	def dv_at_95(self,mass,angle):
-		return self.orbits(mass,angle) and ( self.data_recorder.read(mass,angle)[1] >= 0.95 * self.max_dv[mass] )
+			# 1 = autopilot stopped				not an indicator
+			# 2 = LF starved				indicator of steep launch
+			# 4 = OX starved				indicator of steep launch
+			# 8 = EC starved				indicator of shallow launch
+			# 16 = Heat problems				indicator of shallow launch
+			# 32 = AOA too big				indicator of shallow launch
+			# 64 = Passed apoapsis during insertion		maybe a shallow indicator if it happens in the atmosphere?
+			# 128 = Stream error				not an indicator
+
+	def envelope_locator(self,mass,steep_limit=None,shallow_limit=None):
+	#Locate a point of the envelope (a mass/angle input where the ship orbits)
+		if mass in self.steep_envelope and mass in self.shallow_envelope:
+			self.reference_point[mass] = ( steep_envelope + shallow_envelope ) / 2
+			return ( steep_envelope + shallow_envelope ) / 2
+
+		if steep_limit == None:
+			steep_limit = self.analysis_steep_limit
+		if shallow_limit == None:
+			shallow_limit = self.analysis_shallow_limit
+
+		test_points = [(steep_limit,shallow_limit)]
+
+		while test_points != []:
+			#print test_points
+			steep_limit = test_points[0][0]
+			shallow_limit = test_points[0][1]
+			angle = ( steep_limit + shallow_limit ) / 2
+
+			#print steep_limit,angle,shallow_limit
+
+			if self.orbits(mass,angle):
+				#We've got a point, hurray!
+				self.envelope_reference_point[mass] = angle
+				return angle
+
+			test_points = test_points[1:]	
+
+			vessel_state = self.data_recorder.read(mass,angle)[2]	
+			apoapsis = self.data_recorder.read(mass,angle)[3]
+
+			if vessel_state & 6 != 0:		#Steep indicators
+				if shallow_limit - angle > 3:
+					test_points.append((angle,shallow_limit))
+				for i in test_points:
+					if i[1] < angle:
+						test_points.remove[i]
+
+			if vessel_state & 56 != 0 or ( vessel_state & 64 and apoapsis < 70000):		#shallow indicators
+				if angle - steep_limit > 3:
+	 				test_points.append((steep_limit,angle))
+				for i in test_points:
+					if i[0] > angle:
+						test_points.remove[i]
+
+			#Trap if we reach an unusual condition, we'll have to fix it in this case
+			#print vessel_state, apoapsis
+			assert(vessel_state & 56 != 0 or ( vessel_state & 64 and apoapsis < 70000) or vessel_state & 6 != 0)
+		return None
+
+	def shallow_envelope_bs(self,mass,steep_limit=None,shallow_limit=None,start_point=None,test_criterion=None):
+		if steep_limit == None:
+			try:
+				steep_limit = self.envelope_reference_point[mass]
+			except KeyError:
+				self.envelope_locator(mass)
+				steep_limit = self.envelope_reference_point[mass]
+				if steep_limit == None:
+					return None
+
+		if shallow_limit == None:
+			shallow_limit = self.analysis_shallow_limit
+
+		angle = ( steep_limit + shallow_limit ) / 2
+
+		#print "Shallow BS Try: ",mass, steep_limit,angle,shallow_limit
+
+		if shallow_limit - steep_limit < 4:		#With 3 or less, it's cheaper to do the linear search
+			return self.fine_search_shallow_envelope(mass,steep_limit,shallow_limit,angle,test_criterion)		
+
+		if test_criterion(mass,angle):
+			return self.shallow_envelope_bs(mass,angle,shallow_limit,test_criterion=test_criterion)
+		else:
+			return self.shallow_envelope_bs(mass,steep_limit,angle,test_criterion=test_criterion)
 
 
-	def orbits(self,mass,angle):
-		(met,delta_v,state,periapsis,apoapsis) = self.data_recorder.read(mass,angle)
-		return (state & 62) == 0 and apoapsis > 78000 and periapsis > 70000
-		#No resource exhaustion or ship damage, apoapsis close to 80Km, periapsis above kerman line
+
+	def steep_envelope_bs(self,mass,steep_limit=None,shallow_limit=None,start_point=None,test_criterion=None):
+		if shallow_limit == None:
+			try:
+				shallow_limit = self.envelope_reference_point[mass]
+			except KeyError:
+				if self.envelope_locator(mass) == None:
+					return None
+
+				shallow_limit = self.envelope_reference_point[mass]
+
+
+		if steep_limit == None:
+			steep_limit = self.analysis_steep_limit
+
+		angle = ( steep_limit + shallow_limit ) / 2
+
+		#print "Steep BS Try: ",mass, steep_limit,angle,shallow_limit
+
+
+		if shallow_limit - steep_limit < 4:		#With 3 or less, it's cheaper to do the linear search
+			return self.fine_search_steep_envelope(mass,steep_limit,shallow_limit,angle,test_criterion)		
+
+		if test_criterion(mass,angle):
+			return self.steep_envelope_bs(mass,steep_limit,angle,test_criterion=test_criterion)
+		else:
+			return self.steep_envelope_bs(mass,angle,shallow_limit,test_criterion=test_criterion)
+
 
 	def fine_search_shallow_envelope(self,mass,steep_limit=None,shallow_limit=None,start_point=None,test_criterion=None):
 		#Do a fine search of the lower end of an envelope content
@@ -768,143 +883,136 @@ class flight_envelope:
 		#When we're in the envelope, we found the envelope limit
 		return angle
 
-	def coarse_search_steep_envelope(self,mass,test_criterion=None):
-		#Return a possible range for the upper part of the envelope, as (shallow,steep) tuple
-		for i in self.coarse_grid.list():
-			#print "Steep Coarse: ",i
-			if test_criterion(mass,i):
-				return (self.coarse_grid.angle(max(0,self.coarse_grid.index(i) - 1)),i)
-		return None
+	def locate_envelope(self,mass,steep=None,shallow=None):
+		steep = self.fine_search_steep_envelope(mass,start_point=steep,test_criterion=self.orbits)
+		shallow = self.fine_search_shallow_envelope(mass,start_point=shallow,test_criterion=self.orbits)
+		if steep != None and shallow != None:
+			return (steep,shallow)
 
-	def coarse_search_shallow_envelope(self,mass,test_criterion=None):
-		start_bracket = self.coarse_search_steep_envelope(mass,test_criterion)
-		if start_bracket == None:
-			return None
-		else:
-			start = start_bracket[1]
-		grid = self.coarse_grid.tail(start)
+		#Fall back to full search if not found
+		steep = self.steep_envelope_bs(mass,test_criterion=self.orbits)
+		if steep == None:
+			return (None,None)
+		shallow = self.shallow_envelope_bs(mass,test_criterion=self.orbits)
+		return (steep,shallow)	
 
-		for i in grid:
-			if not test_criterion(mass,i):
-				return (self.coarse_grid.angle(self.coarse_grid.index(i) - 1),i)
-		return grid[-1]
-
-	def locate_steep_envelope(self,mass,hint=None):
-		#Differential search first
-		result = self.fine_search_steep_envelope(mass,start_point=hint,test_criterion=self.orbits)
-		if result != None:
-			return result
-
-		#If we cannot find via differential search, we try to bracket the envelope
-		bracket = self.coarse_search_steep_envelope(mass,test_criterion=self.orbits)
-		if bracket == None:		#There is no envelope at this mass
-			return None
-
-		#Fine search within bracket
-		steep = bracket[0]
-		shallow = bracket[1]
-		return self.fine_search_steep_envelope(mass,test_criterion=self.orbits,steep_limit=steep,shallow_limit=shallow)
-
-	def locate_shallow_envelope(self,mass,hint=None):
-		#Differential search first
-		result = self.fine_search_shallow_envelope(mass,start_point=hint,test_criterion=self.orbits)
-		if result != None:
-			return result
-
-		#If we cannot find via differential search, we try to bracket the envelope
-		bracket = self.coarse_search_shallow_envelope(mass,test_criterion=self.orbits)
-		if bracket == None:		#There is no envelope at this mass
-			return None
-
-		#Fine search within bracket
-		steep = bracket[0]
-		shallow = bracket[1]
-		return self.fine_search_shallow_envelope(mass,test_criterion=self.orbits,steep_limit=steep,shallow_limit=shallow)
-
+#Plotting function: calculate the envelope components, interpolate and graph them
 
 	def plot_flight_envelope(self):
-		#Plot 100Kg starting envelope
-		steep = self.locate_steep_envelope(100)
-		shallow = self.locate_shallow_envelope(100)
-		size = shallow - steep
 
-		#We are assuming that 100KG always works, beware!
-		self.steep_envelope[100] = steep
-		self.shallow_envelope[100] = shallow
-		self.envelope_size[100] = size
-		mass = 100
+		mass = 0
+		steep = None
+		shallow = None
 
-		#Try to use diff search for the rest
-		while steep != None:
-			mass += 100
-			steep = self.locate_steep_envelope(mass,hint=steep)
-			if steep != None:
-				self.steep_envelope[mass] = steep
-			shallow = self.locate_shallow_envelope(mass,hint=shallow)
-			if shallow != None:
-				self.shallow_envelope[mass] = shallow
-			if steep != None and shallow != None:
-				self.envelope_size[mass] = shallow - steep
+		#Plot envelope in 100Kg increments
+		while True:
+			mass += 50
+			(steep,shallow) = self.locate_envelope(mass,steep=steep,shallow=shallow)
+			if steep == None:
+				break
+			size = shallow - steep
+			self.steep_envelope[mass] = steep
+			self.shallow_envelope[mass] = shallow
+			self.envelope_size[mass] = size
 
-		#Detailed plot of max payload envelope
 		mass = min(max(self.shallow_envelope),max(self.steep_envelope))
 		steep = self.steep_envelope[mass]
 		shallow = self.shallow_envelope[mass]
 
-		while steep != None:
+		#Detailed plot of heavies part of the envelope
+		while True:
 			mass += 10
-			steep = self.locate_steep_envelope(mass,hint=steep)
-			if steep != None:
-				self.steep_envelope[mass] = steep
-			shallow = self.locate_shallow_envelope(mass,hint=shallow)
-			if shallow != None:
-				self.shallow_envelope[mass] = shallow
-			if steep != None and shallow != None:
-				self.envelope_size[mass] = shallow - steep
+			(steep,shallow) = self.locate_envelope(mass,steep=steep,shallow=shallow)
+			if steep == None:
+				break
+			size = shallow - steep
+			self.steep_envelope[mass] = steep
+			self.shallow_envelope[mass] = shallow
+			self.envelope_size[mass] = size
 
 		#Detailed plot of ultralight values
-		for mass in range(100,30,-10):		#Minimum test value is 25Kg, and we start with 30 as it is the first one aligned to the high res grid
-
+		for mass in range(50,30,-10):		#Minimum test value is 25Kg, and we start with 30 as it is the first one aligned to the high res grid
 			steep = self.steep_envelope[mass]
 			shallow = self.shallow_envelope[mass]
 
-			self.steep_envelope[mass-10] = self.locate_steep_envelope(mass-10,hint=steep)
-			self.shallow_envelope[mass-10] = self.locate_shallow_envelope(mass-10,hint=shallow)
+			(steep,shallow) = self.locate_envelope(mass,steep=steep,shallow=shallow)
+
+			self.steep_envelope[mass-10] = steep
+			self.shallow_envelope[mass-10] = shallow
 			self.envelope_size[mass-10] = shallow - steep	
 
+		#Calculate maximum dv and angle
 		for mass in self.steep_envelope:
 			self.max_dv_line[mass] = self.locate_max_dv_bs(mass)
 			self.max_dv[mass] = self.data_recorder.read(mass,self.max_dv_line[mass])[1]
 			start_point = self.max_dv_line[mass]
 
+		#Reassign reference point to maximum delta v angle
+		self.envelope_reference_point = self.max_dv_line
+
+		#Using the new reference points, calculate the launch corridor
 		for mass in self.steep_envelope:
-			#print "Corridor search", mass
 			max_dv_point = self.max_dv_line[mass]
 			self.steep_corridor[mass]  = self.fine_search_steep_envelope(mass,start_point=max_dv_point,test_criterion=self.dv_at_95,steep_limit=self.steep_envelope[mass]-1,shallow_limit=self.shallow_envelope[mass]+1)
 			self.shallow_corridor[mass]  = self.fine_search_shallow_envelope(mass,start_point=max_dv_point,test_criterion=self.dv_at_95,steep_limit=self.steep_envelope[mass]-1,shallow_limit=self.shallow_envelope[mass]+1)
 
+		self.grapher.add_dictionary(self.max_dv_line,"Optimal angle")
+		self.grapher.add_dictionary(self.shallow_corridor,"Shallow launch corridor")
+		self.grapher.add_dictionary(self.steep_corridor,"Steep launch corridor")
+		self.grapher.add_dictionary(self.shallow_envelope,"Shallow limit")
+		self.grapher.add_dictionary(self.steep_envelope,"Steep limit")
 
-class coarse_grid:
-	def __init__(self,steep,shallow,size):
-		temp_grid = range(0,91,size)
-		self.grid = [steep]
-		for i in temp_grid:
-			if i > steep and i < shallow:
-				self.grid.append(i)
-		self.grid.append(shallow)
+		self.grapher.graph_envelopes()
 
-	def tail(self,index):
-		return self.grid[index:]
-	def list(self):
-		return self.grid
-	def angle(self,index):
-		return self.grid[index]
-	def index(self,angle):
-		i=0
-		while self.grid[i] != angle:
-			i += 1
-		return i
+
+from scipy.interpolate import interp1d
+import matplotlib.pyplot as plt
+import numpy as np
+
+class grapher:
+	def __init__(self,type):
+		self.functions = []
+		self.limits = []
+		self.dicts = []
+		self.labels = []
+		self.rocket_type = type
 	
+	def add_dictionary(self,dictionary,description=None):
+		x = []
+		y = []
+
+		for i in dictionary:
+			x.append(i)
+
+		x.sort()
+
+		for i in x:
+			y.append(dictionary[i])
+
+		self.dicts.append((x,y))
+		f = interp1d(x,y,kind='linear')
+		self.functions.append(f)
+		self.limits.append((x[0],x[-1]))
+		self.labels.append(description)
+
+	def graph_envelopes(self):
+		for i in range(len(self.functions)):
+			x = np.arange(self.limits[i][0],self.limits[i][1],1)
+			f = self.functions[i]
+			y = f(x)
+			label = self.labels[i]
+			if label == None:
+				plt.plot(x,y)
+			else:
+				plt.plot(x,y,label=label)
+
+		plt.legend(loc='lower right')
+		plt.title("Ascent envelope", fontsize=12)
+		plt.suptitle(self.rocket_type, fontsize=16, fontweight='bold')
+		plt.xlabel("Payload mass")
+		plt.ylabel("Gravity turn angle")
+		plt.show()
+
 
 
 connection = krpc.connect()
@@ -915,15 +1023,15 @@ envelope = flight_envelope(flight_recorder)
 
 envelope.plot_flight_envelope()
 
-print "Steep", envelope.steep_envelope
-print "Shallow", envelope.shallow_envelope
-print "Size", envelope.envelope_size
-print "Max Delta V angle", envelope.max_dv_line
-print "Max Delta V", envelope.max_dv
-print "DV 95 steep", envelope.steep_corridor
-print "DV 95 shallow", envelope.shallow_corridor
+#print "Steep", envelope.steep_envelope
+#print "Shallow", envelope.shallow_envelope
+#print "Size", envelope.envelope_size
+#print "Max Delta V angle", envelope.max_dv_line
+#print "Max Delta V", envelope.max_dv
+#print "DV 95 steep", envelope.steep_corridor
+#print "DV 95 shallow", envelope.shallow_corridor
 
-time.sleep(2)
+time.sleep(1)
 
 
 #R3-400 max payload = 670 EQ, 470 polar
