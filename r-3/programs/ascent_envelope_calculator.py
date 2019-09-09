@@ -578,6 +578,12 @@ class flight_envelope:
 
 #delta v calculation functions, these are different from others, because max dv is a line and the direction of rise needs to be checked
 
+	def locate_max_dv(self,mass,steep_limit=None,shallow_limit=None,start_point=None):
+		if start_point != None:
+			return self.locate_max_dv_bs(mass,steep_limit,shallow_limit)
+		else:
+			return self.locate_max_dv_ls(mass,start_point)
+
 	def locate_max_dv_ls(self,mass,start_point=None):
 		#Do a linear search for the angle with max dv remaining after orbit
 		#This function takes a starting point and climbs the curve until a local maximum is found
@@ -896,6 +902,20 @@ class flight_envelope:
 		shallow = self.shallow_envelope_bs(mass,test_criterion=self.orbits)
 		return (steep,shallow)	
 
+	def locate_dv95_corridor(self,mass,steep=None,shallow=None):
+		steep = self.fine_search_steep_envelope(mass,start_point=steep,test_criterion=self.dv_at_95)
+		shallow = self.fine_search_shallow_envelope(mass,start_point=shallow,test_criterion=self.dv_at_95)
+		if steep != None and shallow != None:
+			return (steep,shallow)
+
+		#Fall back to full search if not found
+		if steep == None:
+			steep = self.steep_envelope_bs(mass,test_criterion=self.dv_at_95,steep_limit=self.steep_envelope[mass],shallow_limit=self.max_dv_line[mass])
+		if shallow == None:
+			shallow = self.shallow_envelope_bs(mass,test_criterion=self.dv_at_95,steep_limit=self.max_dv_line[mass],shallow_limit=self.shallow_envelope[mass])		
+		return (steep,shallow)	
+
+
 #Plotting function: calculate the envelope components, interpolate and graph them
 
 	def plot_flight_envelope(self):
@@ -906,7 +926,7 @@ class flight_envelope:
 
 		#Plot envelope in 100Kg increments
 		while True:
-			mass += 50
+			mass += 100
 			(steep,shallow) = self.locate_envelope(mass,steep=steep,shallow=shallow)
 			if steep == None:
 				break
@@ -931,7 +951,7 @@ class flight_envelope:
 			self.envelope_size[mass] = size
 
 		#Detailed plot of ultralight values
-		for mass in range(50,30,-10):		#Minimum test value is 25Kg, and we start with 30 as it is the first one aligned to the high res grid
+		for mass in range(100,30,-10):		#Minimum test value is 25Kg, and we start with 30 as it is the first one aligned to the high res grid
 			steep = self.steep_envelope[mass]
 			shallow = self.shallow_envelope[mass]
 
@@ -942,19 +962,35 @@ class flight_envelope:
 			self.envelope_size[mass-10] = shallow - steep	
 
 		#Calculate maximum dv and angle
-		for mass in self.steep_envelope:
-			self.max_dv_line[mass] = self.locate_max_dv_bs(mass)
+		masses = list(self.steep_envelope)
+		masses.sort(reverse=True)
+		start_point = None
+		for mass in masses:
+			self.max_dv_line[mass] = self.locate_max_dv(mass,start_point)
 			self.max_dv[mass] = self.data_recorder.read(mass,self.max_dv_line[mass])[1]
-			start_point = self.max_dv_line[mass]
+			if start_point == None:
+				start_point = self.max_dv_line[mass]
+			else:		#Cheap secant approximation, goes astray on every scale change
+				start_point = 2 * self.max_dv_line[mass] - start_point
 
 		#Reassign reference point to maximum delta v angle
 		self.envelope_reference_point = self.max_dv_line
 
 		#Using the new reference points, calculate the launch corridor
-		for mass in self.steep_envelope:
-			max_dv_point = self.max_dv_line[mass]
-			self.steep_corridor[mass]  = self.fine_search_steep_envelope(mass,start_point=max_dv_point,test_criterion=self.dv_at_95,steep_limit=self.steep_envelope[mass]-1,shallow_limit=self.shallow_envelope[mass]+1)
-			self.shallow_corridor[mass]  = self.fine_search_shallow_envelope(mass,start_point=max_dv_point,test_criterion=self.dv_at_95,steep_limit=self.steep_envelope[mass]-1,shallow_limit=self.shallow_envelope[mass]+1)
+		steep_point = self.envelope_reference_point[masses[0]]
+		shallow_point = self.envelope_reference_point[masses[0]]
+
+		for mass in masses:
+			(self.steep_corridor[mass],self.shallow_corridor[mass]) = self.locate_dv95_corridor(mass,steep=steep_point,shallow=shallow_point)
+
+			if steep_point == None:
+				steep_point = self.steep_corridor[mass]
+			else:	#Cheap secant approximation, goes astray on every scale change
+				steep_point = 2 * self.steep_corridor[mass] - steep_point
+			if shallow_point == None:	
+				shallow_point = self.shallow_corridor[mass]
+			else:		#Cheap secant approximation, goes astray on every scale change
+				shallow_point = 2 * self.shallow_corridor[mass] - shallow_point
 
 		self.grapher.add_dictionary(self.max_dv_line,"Optimal angle")
 		self.grapher.add_dictionary(self.shallow_corridor,"Shallow launch corridor")
@@ -976,7 +1012,22 @@ class grapher:
 		self.dicts = []
 		self.labels = []
 		self.rocket_type = type
-	
+		self.delta_v = None
+
+	def add_deltav(self,dictionary):
+
+		x = []
+		y = []
+		for i in dictionary:
+			x.append(i)
+
+		x.sort()
+
+		for i in x:
+			y.append(dictionary[i])
+		
+		self.delta_v = interp1d(x,y,kind='cubic')
+
 	def add_dictionary(self,dictionary,description=None):
 		x = []
 		y = []
@@ -996,6 +1047,7 @@ class grapher:
 		self.labels.append(description)
 
 	def graph_envelopes(self):
+#		plt.subplot(1,2,1)
 		for i in range(len(self.functions)):
 			x = np.arange(self.limits[i][0],self.limits[i][1],1)
 			f = self.functions[i]
@@ -1004,21 +1056,29 @@ class grapher:
 			if label == None:
 				plt.plot(x,y)
 			else:
-				plt.plot(x,y,label=label)
+				plt.plot(x,y,label=label)				
 
 		plt.legend(loc='lower right')
 		plt.title("Ascent envelope", fontsize=12)
 		plt.suptitle(self.rocket_type, fontsize=16, fontweight='bold')
 		plt.xlabel("Payload mass")
 		plt.ylabel("Gravity turn angle")
+
+#		plt.subplot(1,2,2)
+#		x = np.arange(self.limits[i][0],self.limits[i][1],1)
+#		y = self.delta_v(x)
+#		plt.plot(x,y,label='Remaining delta V after launch')
+#		plt.xlabel("Payload mass")
+#		plt.ylabel("Delta V")
+
 		plt.show()
 
 
 
 connection = krpc.connect()
 mp=mission_planner(connection,'../../../GOG Games/Kerbal Space Program/game/saves/rocket tests')
-mp.load_template('../templates/R3-400-S1-H01N1X.sfs')
-flight_recorder = flight_data_recorder(mp,50,"R3-400-H01N1X",0,log_file="../test-data/r3-test-data.fd")
+mp.load_template('../templates/R3-800-S1-H01N1X.sfs')
+flight_recorder = flight_data_recorder(mp,50,"R3-800-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
 envelope = flight_envelope(flight_recorder)
 
 envelope.plot_flight_envelope()
