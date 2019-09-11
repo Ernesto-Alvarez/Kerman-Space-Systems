@@ -579,7 +579,7 @@ class flight_envelope:
 #delta v calculation functions, these are different from others, because max dv is a line and the direction of rise needs to be checked
 
 	def locate_max_dv(self,mass,steep_limit=None,shallow_limit=None,start_point=None):
-		if start_point != None:
+		if start_point == None:
 			return self.locate_max_dv_bs(mass,steep_limit,shallow_limit)
 		else:
 			return self.locate_max_dv_ls(mass,start_point)
@@ -600,14 +600,14 @@ class flight_envelope:
 		angle = start_point
 
 		while angle >= self.analysis_steep_limit and angle <= self.analysis_shallow_limit:
-			#print "LS Try: ", angle
+			print "LS Try: ", angle
 			if self.dv_rises_to_steep(mass,angle):
 				angle -= 1
 			else:
 				if self.dv_rises_to_shallow(mass,angle):
 					angle += 1
 				else:
-					#print "LS Final result: ", angle
+					print "LS Final result: ", angle
 					return angle
 
 		#Goes to maximum at the limit of the envelope!
@@ -626,7 +626,7 @@ class flight_envelope:
 
 		angle = ( steep_limit + shallow_limit ) / 2
 
-		#print "BS Try: ", steep_limit,angle,shallow_limit
+		print "BS Try: ", steep_limit,angle,shallow_limit
 
 		if shallow_limit - steep_limit < 4:		#With 3 or less, it's cheaper to do the linear search
 			return self.locate_max_dv_ls(mass,angle)
@@ -666,7 +666,7 @@ class flight_envelope:
 			shallow_limit = test_points[0][1]
 			angle = ( steep_limit + shallow_limit ) / 2
 
-			#print steep_limit,angle,shallow_limit
+			print steep_limit,angle,shallow_limit
 
 			if self.orbits(mass,angle):
 				#We've got a point, hurray!
@@ -712,7 +712,7 @@ class flight_envelope:
 
 		angle = ( steep_limit + shallow_limit ) / 2
 
-		#print "Shallow BS Try: ",mass, steep_limit,angle,shallow_limit
+		print "Shallow BS Try: ",mass, steep_limit,angle,shallow_limit
 
 		if shallow_limit - steep_limit < 4:		#With 3 or less, it's cheaper to do the linear search
 			return self.fine_search_shallow_envelope(mass,steep_limit,shallow_limit,angle,test_criterion)		
@@ -740,7 +740,7 @@ class flight_envelope:
 
 		angle = ( steep_limit + shallow_limit ) / 2
 
-		#print "Steep BS Try: ",mass, steep_limit,angle,shallow_limit
+		print "Steep BS Try: ",mass, steep_limit,angle,shallow_limit
 
 
 		if shallow_limit - steep_limit < 4:		#With 3 or less, it's cheaper to do the linear search
@@ -864,7 +864,7 @@ class flight_envelope:
 
 		#While we're in the envelope, move outwards (we might already be outside and then this is skipped)
 		while angle >= steep_limit and test_criterion(mass,angle):
-			#print "Steep fine O: ", mass, angle
+			print "Steep fine O: ", mass, angle
 			angle -= 1
 
 		#If we go out of bounds, the fine search fails, unless we're at the very limit
@@ -876,7 +876,7 @@ class flight_envelope:
 
 		#Then, while we're outside of the envelope, search inwards
 		while angle <= shallow_limit and not test_criterion(mass,angle):
-			#print "Steep fine I: ", mass, angle
+			print "Steep fine I: ", mass, angle
 			angle += 1
 
 		#If we go out of bounds, the fine search end in a similar way as the out-of-bounds above
@@ -922,77 +922,177 @@ class flight_envelope:
 
 	def plot_flight_envelope(self):
 
-		mass = 0
-		steep = None
-		shallow = None
-
 		#Plot envelope in 100Kg increments
-		while True:
-			mass += 100
-			(steep,shallow) = self.locate_envelope(mass,steep=steep,shallow=shallow)
-			if steep == None:
-				break
-			size = shallow - steep
-			self.steep_envelope[mass] = steep
-			self.shallow_envelope[mass] = shallow
-			self.envelope_size[mass] = size
+		#Use secant approximation to calculate the slope and predict future values
+		x2 = 100
+		(y2_steep, y2_shallow) = self.locate_envelope(x2)
+		self.steep_envelope[x2] = y2_steep
+		self.shallow_envelope[x2] = y2_shallow
 
-		mass = min(max(self.shallow_envelope),max(self.steep_envelope))
-		steep = self.steep_envelope[mass]
-		shallow = self.shallow_envelope[mass]
+		x3 = 200
+		(y3_steep, y3_shallow) = self.locate_envelope(x3,steep=y2_steep,shallow=y2_shallow)
+		self.steep_envelope[x3] = y3_steep
+		self.shallow_envelope[x3] = y3_shallow
+
+		while True:
+			x1 = x2
+			y1_steep = y2_steep
+			y1_shallow = y2_shallow
+
+			x2 = x3
+			y2_steep = y3_steep
+			y2_shallow = y3_shallow
+
+			x3 = x2 + 100
+			y3_steep_est = y2_steep + ( ( y2_steep - y1_steep ) * ( x3 - x2 ) / ( x2 - x1 ) ) 
+			y3_shallow_est = y2_shallow + ( ( y2_shallow - y1_shallow ) * ( x3 - x2 ) / ( x2 - x1 ) ) 
+
+			(y3_steep,y3_shallow) = self.locate_envelope(x3,steep=y3_steep_est,shallow=y3_shallow_est)
+
+			#print (x1,y1_steep,y1_shallow)
+			#print (x2,y2_steep,y2_shallow)
+			print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
+
+			if y3_steep == None:
+				break
+
+			size = y3_shallow - y3_steep
+			self.steep_envelope[x3] = y3_steep
+			self.shallow_envelope[x3] = y3_shallow
+			self.envelope_size[x3] = size
+
 
 		#Detailed plot of heavies part of the envelope
+		masses = list(self.steep_envelope)
+		masses.sort()
+
+		x2 = masses[-2]
+		y2_steep = self.steep_envelope[x2]
+		y2_shallow = self.shallow_envelope[x2]
+
+		x3 = masses[-1]
+		y3_steep = self.steep_envelope[x3]
+		y3_shallow = self.shallow_envelope[x3]
+
 		while True:
-			mass += 10
-			(steep,shallow) = self.locate_envelope(mass,steep=steep,shallow=shallow)
-			if steep == None:
+			x1 = x2
+			y1_steep = y2_steep
+			y1_shallow = y2_shallow
+
+			x2 = x3
+			y2_steep = y3_steep
+			y2_shallow = y3_shallow
+
+			x3 = x2 + 10
+			y3_steep_est = y2_steep + ( ( y2_steep - y1_steep ) * ( x3 - x2 ) / ( x2 - x1 ) ) 
+			y3_shallow_est = y2_shallow + ( ( y2_shallow - y1_shallow ) * ( x3 - x2 ) / ( x2 - x1 ) ) 
+
+			(y3_steep,y3_shallow) = self.locate_envelope(x3,steep=y3_steep_est,shallow=y3_shallow_est)
+
+			#print (x1,y1_steep,y1_shallow)
+			#print (x2,y2_steep,y2_shallow)
+			print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
+
+			if y3_steep == None:
 				break
-			size = shallow - steep
-			self.steep_envelope[mass] = steep
-			self.shallow_envelope[mass] = shallow
-			self.envelope_size[mass] = size
+
+			size = y3_shallow - y3_steep
+			self.steep_envelope[x3] = y3_steep
+			self.shallow_envelope[x3] = y3_shallow
+			self.envelope_size[x3] = size
+
 
 		#Detailed plot of ultralight values
-		for mass in range(100,30,-10):		#Minimum test value is 25Kg, and we start with 30 as it is the first one aligned to the high res grid
-			steep = self.steep_envelope[mass]
-			shallow = self.shallow_envelope[mass]
 
-			(steep,shallow) = self.locate_envelope(mass,steep=steep,shallow=shallow)
+		x2 = 200
+		y2_steep = self.steep_envelope[x2]
+		y2_shallow = self.shallow_envelope[x2]
 
-			self.steep_envelope[mass-10] = steep
-			self.shallow_envelope[mass-10] = shallow
-			self.envelope_size[mass-10] = shallow - steep	
+		x3 = 100
+		y3_steep = self.steep_envelope[x3]
+		y3_shallow = self.shallow_envelope[x3]		
+
+		while x3 > 30:
+			x1 = x2
+			y1_steep = y2_steep
+			y1_shallow = y2_shallow
+
+			x2 = x3
+			y2_steep = y3_steep
+			y2_shallow = y3_shallow
+
+			x3 = x2 - 10
+			y3_steep_est = y2_steep + ( ( y2_steep - y1_steep ) * ( x3 - x2 ) / ( x2 - x1 ) ) 
+			y3_shallow_est = y2_shallow + ( ( y2_shallow - y1_shallow ) * ( x3 - x2 ) / ( x2 - x1 ) ) 
+
+			(y3_steep,y3_shallow) = self.locate_envelope(x3,steep=y3_steep_est,shallow=y3_shallow_est)
+
+			#print (x1,y1_steep,y1_shallow)
+			#print (x2,y2_steep,y2_shallow)
+			print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
+
+			if y3_steep == None:
+				break
+
+			size = y3_shallow - y3_steep
+			self.steep_envelope[x3] = y3_steep
+			self.shallow_envelope[x3] = y3_shallow
+			self.envelope_size[x3] = size
 
 		#Calculate maximum dv and angle
+		#Do not use secant approximation as it usually remains constant
 		masses = list(self.steep_envelope)
 		masses.sort(reverse=True)
-		start_point = None
-		for mass in masses:
-			self.max_dv_line[mass] = self.locate_max_dv(mass,start_point)
-			self.max_dv[mass] = self.data_recorder.read(mass,self.max_dv_line[mass])[1]
-			if start_point == None:
-				start_point = self.max_dv_line[mass]
-			else:		#Cheap secant approximation, goes astray on every scale change
-				start_point = 2 * self.max_dv_line[mass] - start_point
+
+		mass = masses[0]
+		start_point = self.locate_max_dv(mass)
+		self.max_dv_line[mass] = start_point
+		self.max_dv[mass] = self.data_recorder.read(mass,start_point)[1]
+
+
+		for mass in masses[1:]:
+
+			angle = self.locate_max_dv(mass,start_point=start_point)
+
+			self.max_dv_line[mass] = angle
+			self.max_dv[mass] = self.data_recorder.read(mass,angle)[1]
 
 		#Reassign reference point to maximum delta v angle
 		self.envelope_reference_point = self.max_dv_line
 
 		#Using the new reference points, calculate the launch corridor
-		steep_point = self.envelope_reference_point[masses[0]]
-		shallow_point = self.envelope_reference_point[masses[0]]
 
-		for mass in masses:
-			(self.steep_corridor[mass],self.shallow_corridor[mass]) = self.locate_corridor(mass,steep=steep_point,shallow=shallow_point)
+		x2 = masses[0]
+		y2_steep = self.steep_envelope[x2]
+		y2_shallow = self.shallow_envelope[x2]
 
-			if steep_point == None:
-				steep_point = self.steep_corridor[mass]
-			else:	#Cheap secant approximation, goes astray on every scale change
-				steep_point = 2 * self.steep_corridor[mass] - steep_point
-			if shallow_point == None:	
-				shallow_point = self.shallow_corridor[mass]
-			else:		#Cheap secant approximation, goes astray on every scale change
-				shallow_point = 2 * self.shallow_corridor[mass] - shallow_point
+		(y2_steep, y2_shallow) = self.locate_corridor(x2)
+		self.steep_corridor[x2] = y2_steep
+		self.shallow_corridor[x2] = y2_shallow
+
+		x3 = masses[1]
+		(y3_steep, y3_shallow) = self.locate_corridor(x3,steep=y2_steep,shallow=y2_shallow)
+		self.steep_corridor[x3] = y3_steep
+		self.shallow_corridor[x3] = y3_shallow
+
+		for mass in masses[2:]:
+
+			x1 = x2
+			y1_steep = y2_steep
+			y1_shallow = y2_shallow
+
+			x2 = x3
+			y2_steep = y3_steep
+			y2_shallow = y3_shallow
+
+			x3 = mass
+			y3_steep_est = y2_steep + ( ( y2_steep - y1_steep ) * ( x3 - x2 ) / ( x2 - x1 ) ) 
+			y3_shallow_est = y2_shallow + ( ( y2_shallow - y1_shallow ) * ( x3 - x2 ) / ( x2 - x1 ) ) 
+
+			(y3_steep,y3_shallow) = self.locate_corridor(mass,steep=y3_steep_est,shallow=y3_shallow_est)
+			self.steep_corridor[mass] = y3_steep
+			self.shallow_corridor[mass] = y3_shallow
+
 
 		self.grapher.add_dictionary(self.max_dv_line,"Optimal angle")
 		self.grapher.add_dictionary(self.shallow_corridor,"Shallow launch corridor")
@@ -1081,10 +1181,12 @@ class grapher:
 
 connection = krpc.connect()
 mp=mission_planner(connection,'../../../GOG Games/Kerbal Space Program/game/saves/rocket tests')
-mp.load_template('../templates/R3-800-S1-H01N1X.sfs')
-flight_recorder = flight_data_recorder(mp,50,"R3-800-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
+#mp.load_template('../templates/R3-800-S1-H01N1X.sfs')
+#flight_recorder = flight_data_recorder(mp,50,"R3-800-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
 #mp.load_template('../templates/R3-400-S1-H01N1X.sfs')
 #flight_recorder = flight_data_recorder(mp,50,"R3-400-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
+mp.load_template('../templates/R3-1200-S1-H01N1X.sfs')
+flight_recorder = flight_data_recorder(mp,50,"R3-1200-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
 envelope = flight_envelope(flight_recorder)
 
 envelope.plot_flight_envelope()
