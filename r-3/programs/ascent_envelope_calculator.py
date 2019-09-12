@@ -1052,10 +1052,10 @@ class flight_envelope:
 
 		for mass in masses[1:]:
 
-			angle = self.locate_max_dv(mass,start_point=start_point)
+			start_point = self.locate_max_dv(mass,start_point=start_point)
 
-			self.max_dv_line[mass] = angle
-			self.max_dv[mass] = self.data_recorder.read(mass,angle)[1]
+			self.max_dv_line[mass] = start_point
+			self.max_dv[mass] = self.data_recorder.read(mass,start_point)[1]
 
 		#Reassign reference point to maximum delta v angle
 		self.envelope_reference_point = self.max_dv_line
