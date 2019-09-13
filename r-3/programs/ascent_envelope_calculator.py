@@ -1185,8 +1185,8 @@ mp=mission_planner(connection,'../../../GOG Games/Kerbal Space Program/game/save
 #flight_recorder = flight_data_recorder(mp,50,"R3-800-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
 #mp.load_template('../templates/R3-400-S1-H01N1X.sfs')
 #flight_recorder = flight_data_recorder(mp,50,"R3-400-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
-mp.load_template('../templates/R3-1200-S1-H01N1X.sfs')
-flight_recorder = flight_data_recorder(mp,50,"R3-1200-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
+mp.load_template('../templates/R3-1200B-S1-H01N1X.sfs')
+flight_recorder = flight_data_recorder(mp,50,"R3-1200B-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
 envelope = flight_envelope(flight_recorder)
 
 envelope.plot_flight_envelope()
