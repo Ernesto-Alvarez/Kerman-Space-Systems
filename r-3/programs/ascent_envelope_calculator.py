@@ -186,9 +186,7 @@ class vessel_monitor:
 			'ap_status' : self.conn.add_stream(getattr, self.conn.mech_jeb.ascent_autopilot, 'status')
 		}
 
-		#Set a telemetry data rate of 1/second
 		for i in self.telemetry_functions:
-#			self.telemetry_functions[i].rate = 1
 			self.telemetry_functions[i].start()
 
 		#Calculate vessel constants
@@ -205,9 +203,9 @@ class vessel_monitor:
 		self.mon_thread.daemon = True
 		self.mon_thread.start()
 
-#		self.mon_thread = threading.Thread(target=self.autoprint)
-#		self.mon_thread.daemon = True
-#		self.mon_thread.start()
+		self.mon_thread = threading.Thread(target=self.autoprint)
+		self.mon_thread.daemon = True
+		self.mon_thread.start()
 
 
 
@@ -600,14 +598,14 @@ class flight_envelope:
 		angle = start_point
 
 		while angle >= self.analysis_steep_limit and angle <= self.analysis_shallow_limit:
-			print "LS Try: ", angle
+			#print "LS Try: ", angle
 			if self.dv_rises_to_steep(mass,angle):
 				angle -= 1
 			else:
 				if self.dv_rises_to_shallow(mass,angle):
 					angle += 1
 				else:
-					print "LS Final result: ", angle
+					#print "LS Final result: ", angle
 					return angle
 
 		#Goes to maximum at the limit of the envelope!
@@ -626,7 +624,7 @@ class flight_envelope:
 
 		angle = ( steep_limit + shallow_limit ) / 2
 
-		print "BS Try: ", steep_limit,angle,shallow_limit
+		#print "BS Try: ", steep_limit,angle,shallow_limit
 
 		if shallow_limit - steep_limit < 4:		#With 3 or less, it's cheaper to do the linear search
 			return self.locate_max_dv_ls(mass,angle)
@@ -666,7 +664,7 @@ class flight_envelope:
 			shallow_limit = test_points[0][1]
 			angle = ( steep_limit + shallow_limit ) / 2
 
-			print steep_limit,angle,shallow_limit
+			#print steep_limit,angle,shallow_limit
 
 			if self.orbits(mass,angle):
 				#We've got a point, hurray!
@@ -712,7 +710,7 @@ class flight_envelope:
 
 		angle = ( steep_limit + shallow_limit ) / 2
 
-		print "Shallow BS Try: ",mass, steep_limit,angle,shallow_limit
+		#print "Shallow BS Try: ",mass, steep_limit,angle,shallow_limit
 
 		if shallow_limit - steep_limit < 4:		#With 3 or less, it's cheaper to do the linear search
 			return self.fine_search_shallow_envelope(mass,steep_limit,shallow_limit,angle,test_criterion)		
@@ -740,7 +738,7 @@ class flight_envelope:
 
 		angle = ( steep_limit + shallow_limit ) / 2
 
-		print "Steep BS Try: ",mass, steep_limit,angle,shallow_limit
+		#print "Steep BS Try: ",mass, steep_limit,angle,shallow_limit
 
 
 		if shallow_limit - steep_limit < 4:		#With 3 or less, it's cheaper to do the linear search
@@ -864,7 +862,7 @@ class flight_envelope:
 
 		#While we're in the envelope, move outwards (we might already be outside and then this is skipped)
 		while angle >= steep_limit and test_criterion(mass,angle):
-			print "Steep fine O: ", mass, angle
+			#print "Steep fine O: ", mass, angle
 			angle -= 1
 
 		#If we go out of bounds, the fine search fails, unless we're at the very limit
@@ -876,7 +874,7 @@ class flight_envelope:
 
 		#Then, while we're outside of the envelope, search inwards
 		while angle <= shallow_limit and not test_criterion(mass,angle):
-			print "Steep fine I: ", mass, angle
+			#print "Steep fine I: ", mass, angle
 			angle += 1
 
 		#If we go out of bounds, the fine search end in a similar way as the out-of-bounds above
@@ -951,7 +949,7 @@ class flight_envelope:
 
 			#print (x1,y1_steep,y1_shallow)
 			#print (x2,y2_steep,y2_shallow)
-			print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
+			#print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
 
 			if y3_steep == None:
 				break
@@ -991,7 +989,7 @@ class flight_envelope:
 
 			#print (x1,y1_steep,y1_shallow)
 			#print (x2,y2_steep,y2_shallow)
-			print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
+			#print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
 
 			if y3_steep == None:
 				break
@@ -1029,7 +1027,7 @@ class flight_envelope:
 
 			#print (x1,y1_steep,y1_shallow)
 			#print (x2,y2_steep,y2_shallow)
-			print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
+			#print (x3,y3_steep,y3_shallow,y3_steep_est,y3_shallow_est)
 
 			if y3_steep == None:
 				break
@@ -1191,6 +1189,9 @@ envelope = flight_envelope(flight_recorder)
 
 envelope.plot_flight_envelope()
 
+print "Max Payload: ", max(list(envelope.max_dv_line)), " Kg."
+
+
 #print "Steep", envelope.steep_envelope
 #print "Shallow", envelope.shallow_envelope
 #print "Size", envelope.envelope_size
@@ -1200,7 +1201,3 @@ envelope.plot_flight_envelope()
 #print "DV 95 shallow", envelope.shallow_corridor
 
 time.sleep(1)
-
-
-#R3-400 max payload = 670 EQ, 470 polar
-#R3-800 max payload = ?? eq, ?? polzr
