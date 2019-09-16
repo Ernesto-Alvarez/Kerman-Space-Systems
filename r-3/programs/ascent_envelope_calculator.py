@@ -187,6 +187,7 @@ class vessel_monitor:
 		}
 
 		for i in self.telemetry_functions:
+			self.telemetry_functions[i].rate = 1
 			self.telemetry_functions[i].start()
 
 		#Calculate vessel constants
@@ -353,7 +354,7 @@ class vessel_monitor:
 		display_data['delta_v'] = 'DV'
 
 
-		while self.thread_run:
+		while self.thread_run == True:
 			print "-----------------------------------------------------"
 			for i in display_data:
 				try:
@@ -365,6 +366,9 @@ class vessel_monitor:
 	def report(self):
 		#return self.read_telemetry('met') + ';' + self.read_telemetry('delta_v') + ';' + self.read_telemetry('vessel_state') + ';' + self.read_telemetry('periapsis') + ';' + self.read_telemetry('apoapsis') 
 		return (self.read_telemetry('met'),self.read_telemetry('delta_v'),self.read_telemetry('vessel_state'),self.read_telemetry('periapsis'),self.read_telemetry('apoapsis'))
+
+	def stop_threads(self):
+		self.thread_run = False
 
 	def __del__(self):
 		self.thread_run = False
@@ -416,6 +420,7 @@ class mission_planner:
 		ap.launch()
 		monitor.wait_breakpoint()
 		self.launch_complete.set()
+		monitor.stop_threads()		#Have to manually shut down threads because the destructor doesn't, or isn't called as monitor goes out of scope
 		#return self.ship_type + ';' + str(self.payload_mass) + ';' + str(inclination) + ';' + str(turn_speed) + ';' + str(turn_angle) + ';' + monitor.report()
 		return monitor.report()
 
@@ -674,9 +679,12 @@ class flight_envelope:
 			test_points = test_points[1:]	
 
 			vessel_state = self.data_recorder.read(mass,angle)[2]	
-			apoapsis = self.data_recorder.read(mass,angle)[3]
+			apoapsis = self.data_recorder.read(mass,angle)[4]
+			periapsis = self.data_recorder.read(mass,angle)[3]
+			print vessel_state,periapsis,apoapsis
 
-			if vessel_state & 6 != 0:		#Steep indicators
+			if vessel_state & 6 != 0 or ( apoapsis > 70000 and periapsis < 70000 and vessel_state & 64):		#Steep indicators
+				print "Steep result"
 				if shallow_limit - angle > 3:
 					test_points.append((angle,shallow_limit))
 				for i in test_points:
@@ -684,6 +692,7 @@ class flight_envelope:
 						test_points.remove[i]
 
 			if vessel_state & 56 != 0 or ( vessel_state & 64 and apoapsis < 70000):		#shallow indicators
+				print "Shallow result"
 				if angle - steep_limit > 3:
 	 				test_points.append((steep_limit,angle))
 				for i in test_points:
@@ -692,7 +701,7 @@ class flight_envelope:
 
 			#Trap if we reach an unusual condition, we'll have to fix it in this case
 			#print vessel_state, apoapsis
-			assert(vessel_state & 56 != 0 or ( vessel_state & 64 and apoapsis < 70000) or vessel_state & 6 != 0)
+			assert(vessel_state & 56 != 0 or ( vessel_state & 64 and apoapsis < 70000) or vessel_state & 6 != 0 or ( apoapsis > 70000 and periapsis < 70000 and vessel_state & 64) )
 		return None
 
 	def shallow_envelope_bs(self,mass,steep_limit=None,shallow_limit=None,start_point=None,test_criterion=None):
@@ -1179,17 +1188,13 @@ class grapher:
 
 connection = krpc.connect()
 mp=mission_planner(connection,'../../../GOG Games/Kerbal Space Program/game/saves/rocket tests')
-#mp.load_template('../templates/R3-800-S1-H01N1X.sfs')
-#flight_recorder = flight_data_recorder(mp,50,"R3-800-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
-#mp.load_template('../templates/R3-400-S1-H01N1X.sfs')
-#flight_recorder = flight_data_recorder(mp,50,"R3-400-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
-mp.load_template('../templates/R3-1200B-S1-H01N1X.sfs')
-flight_recorder = flight_data_recorder(mp,50,"R3-1200B-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
-envelope = flight_envelope(flight_recorder)
 
+mp.load_template('../templates/R3-1200L-S1-H01N1X.sfs')
+flight_recorder = flight_data_recorder(mp,50,"R3-1200L-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
+envelope = flight_envelope(flight_recorder)
 envelope.plot_flight_envelope()
 
-print "Max Payload: ", max(list(envelope.max_dv_line)), " Kg."
+print "R3-1200L-S1-H01N1X Max Payload (0 deg): ", max(list(envelope.max_dv_line)), " Kg."
 
 
 #print "Steep", envelope.steep_envelope
