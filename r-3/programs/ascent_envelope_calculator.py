@@ -550,11 +550,12 @@ class flight_data_recorder:
 			self.log_fd.close()
 
 class flight_envelope:
-	def __init__(self, data_recorder):
+	def __init__(self, data_recorder,graph_data=True):
 		self.data_recorder = data_recorder
 		self.default_fine_bracket_size = 10
-		self.analysis_shallow_limit = 60
+		self.analysis_shallow_limit = 75
 		self.analysis_steep_limit = 1
+		self.graph_data = graph_data
 		self.max_dv = {}
 		self.steep_envelope = {}
 		self.shallow_envelope = {}
@@ -1103,15 +1104,16 @@ class flight_envelope:
 			self.shallow_corridor[mass] = y3_shallow
 
 
-		self.grapher.add_dictionary(self.max_dv_line,"Optimal angle")
-		self.grapher.add_dictionary(self.shallow_corridor,"Shallow launch corridor")
-		self.grapher.add_dictionary(self.steep_corridor,"Steep launch corridor")
-		self.grapher.add_dictionary(self.shallow_envelope,"Shallow limit")
-		self.grapher.add_dictionary(self.steep_envelope,"Steep limit")
+		if self.graph_data:
+			self.grapher.add_dictionary(self.max_dv_line,"Optimal angle")
+			self.grapher.add_dictionary(self.shallow_corridor,"Shallow launch corridor")
+			self.grapher.add_dictionary(self.steep_corridor,"Steep launch corridor")
+			self.grapher.add_dictionary(self.shallow_envelope,"Shallow limit")
+			self.grapher.add_dictionary(self.steep_envelope,"Steep limit")
 
-		self.grapher.add_deltav(self.max_dv)
+			self.grapher.add_deltav(self.max_dv)
 
-		self.grapher.graph_envelopes()
+			self.grapher.graph_envelopes()
 
 
 from scipy.interpolate import interp1d
@@ -1189,14 +1191,14 @@ class grapher:
 
 
 connection = krpc.connect()
-mp=mission_planner(connection,'../../../GOG Games/Kerbal Space Program/game/saves/rocket tests',display_telemetry=False)
+mp=mission_planner(connection,'../../../GOG Games/Kerbal Space Program/game/saves/rocket tests',display_telemetry=True)
 
-mp.load_template('../templates/R3-1200L-S1-H01N1X.sfs')
-flight_recorder = flight_data_recorder(mp,50,"R3-1200L-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
-envelope = flight_envelope(flight_recorder)
-envelope.plot_flight_envelope()
-
-print "R3-1200L-S1-H01N1X Max Payload (0 deg): ", max(list(envelope.max_dv_line)), " Kg."
+for rocket in ["R3-400-S1-H01N1X","R3-800-S1-H01N1X","R3-1200-S1-H01N1X","R3-1200B-S1-H01N1X","R3-1200L-S1-H01N1X","R3-400-S2-H01N1X","R3-800-S2-H01N1X","R3-1200-S2-H01N1X","R3-1200B-S2-H01N1X","R3-1200L-S2-H01N1X","R3-400-S3-H01N1X","R3-800-S3-H01N1X","R3-1200-S3-H01N1X","R3-1200B-S3-H01N1X","R3-1200L-S3-H01N1X"]:
+	for inclination in [0,-90]:
+		mp.load_template('../templates/' + rocket + '.sfs')
+		flight_recorder = flight_data_recorder(mp,50,rocket,inclination,log_file="../test-data/r3-test-data.fd")
+		envelope = flight_envelope(flight_recorder)
+		envelope.plot_flight_envelope()
 
 
 #print "Steep", envelope.steep_envelope
