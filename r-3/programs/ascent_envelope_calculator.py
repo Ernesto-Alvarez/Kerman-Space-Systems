@@ -148,7 +148,7 @@ class mj_launch_autopilot:
 		self.end()
 
 class vessel_monitor:
-	def __init__(self,conn,vessel):
+	def __init__(self,conn,vessel,display_telemetry=False):
 		self.conn = conn
 		self.vessel = vessel
 
@@ -204,9 +204,10 @@ class vessel_monitor:
 		self.mon_thread.daemon = True
 		self.mon_thread.start()
 
-		self.mon_thread = threading.Thread(target=self.autoprint)
-		self.mon_thread.daemon = True
-		self.mon_thread.start()
+		if display_telemetry:
+			self.mon_thread = threading.Thread(target=self.autoprint)
+			self.mon_thread.daemon = True
+			self.mon_thread.start()
 
 
 
@@ -378,12 +379,13 @@ class vessel_monitor:
 
 
 class mission_planner:
-	def __init__(self,connection,save_dir):
+	def __init__(self,connection,save_dir,display_telemetry=False):
 		self.connection = connection
 		self.ship_type = None
 		self.payload_mass = None
 		self.save_dir = os.path.normpath(save_dir)
 		self.launch_complete = threading.Event()
+		self.display_telemetry = display_telemetry
 
 	def wait(self):
 		self.launch_complete.wait()
@@ -414,7 +416,7 @@ class mission_planner:
 		connection.space_center.load('current')
 		time.sleep(10)
 		vessel = connection.space_center.active_vessel
-		monitor = vessel_monitor(connection,vessel)
+		monitor = vessel_monitor(connection,vessel,display_telemetry=self.display_telemetry)
 		ap = mj_launch_autopilot(connection,vessel,turn_speed,turn_angle,inclination)
 		time.sleep(1)
 		ap.launch()
@@ -681,10 +683,10 @@ class flight_envelope:
 			vessel_state = self.data_recorder.read(mass,angle)[2]	
 			apoapsis = self.data_recorder.read(mass,angle)[4]
 			periapsis = self.data_recorder.read(mass,angle)[3]
-			print vessel_state,periapsis,apoapsis
+			#print vessel_state,periapsis,apoapsis
 
 			if vessel_state & 6 != 0 or ( apoapsis > 70000 and periapsis < 70000 and vessel_state & 64):		#Steep indicators
-				print "Steep result"
+				#print "Steep result"
 				if shallow_limit - angle > 3:
 					test_points.append((angle,shallow_limit))
 				for i in test_points:
@@ -692,7 +694,7 @@ class flight_envelope:
 						test_points.remove[i]
 
 			if vessel_state & 56 != 0 or ( vessel_state & 64 and apoapsis < 70000):		#shallow indicators
-				print "Shallow result"
+				#print "Shallow result"
 				if angle - steep_limit > 3:
 	 				test_points.append((steep_limit,angle))
 				for i in test_points:
@@ -1187,7 +1189,7 @@ class grapher:
 
 
 connection = krpc.connect()
-mp=mission_planner(connection,'../../../GOG Games/Kerbal Space Program/game/saves/rocket tests')
+mp=mission_planner(connection,'../../../GOG Games/Kerbal Space Program/game/saves/rocket tests',display_telemetry=False)
 
 mp.load_template('../templates/R3-1200L-S1-H01N1X.sfs')
 flight_recorder = flight_data_recorder(mp,50,"R3-1200L-S1-H01N1X",0,log_file="../test-data/r3-test-data.fd")
