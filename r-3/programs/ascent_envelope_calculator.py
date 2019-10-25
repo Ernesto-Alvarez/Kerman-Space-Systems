@@ -580,7 +580,7 @@ class flight_envelope:
 		return self.data_recorder.read(mass,angle)[1] <= self.data_recorder.read(mass,angle-1)[1] and self.orbits(mass,angle-1)
 
 	def dv_rises_to_shallow(self,mass,angle):
-		return self.data_recorder.read(mass,angle)[1] <= self.data_recorder.read(mass,angle+1)[1] and self.orbits(mass,angle+1)
+		return self.data_recorder.read(mass,angle)[1] < self.data_recorder.read(mass,angle+1)[1] and self.orbits(mass,angle+1)
 
 #delta v calculation functions, these are different from others, because max dv is a line and the direction of rise needs to be checked
 
