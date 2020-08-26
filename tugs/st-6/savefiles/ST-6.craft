@@ -2,7 +2,7 @@ ship = ST-6
 version = 1.10.0
 description = Space station tug. RCS only, double ended and short range. Selectable 4 wheel drive.
 type = VAB
-size = 1.59745061,1.79708099,1.59745061
+size = 1.59745038,1.79708481,1.59745061
 steamPublishedFileId = 0
 persistentId = 2294159579
 rot = 0,0,0,0
@@ -16,7 +16,7 @@ PART
 {
 	part = probeCoreOcto.v2_4289427420
 	partName = Part
-	persistentId = 2666810130
+	persistentId = 1841290302
 	pos = 0,15,0
 	attPos = 0,0,0
 	attPos0 = 0,15,0
@@ -40,10 +40,6 @@ PART
 	modSize = 0,0,0
 	link = sasModule_4289463118
 	link = sasModule_4289462638
-	link = RTShortAntenna1_4289431542
-	link = RTShortAntenna1_4289426674
-	link = RTShortAntenna1_4289426616
-	link = RTShortAntenna1_4289426558
 	link = linearRcs_4289444414
 	link = linearRcs_4289419248
 	link = linearRcs_4289419162
@@ -60,6 +56,8 @@ PART
 	link = linearRcs_4289393304
 	link = linearRcs_4289393218
 	link = linearRcs_4289393132
+	link = RTShortAntenna1_4289426616
+	link = RTShortAntenna1_4294510378
 	attN = bottom,sasModule_4289462638_0|-0.187081799|0_0|-1|0_0|-0.187081799|0_0|-1|0
 	attN = top,sasModule_4289463118_0|0.187081799|0_0|1|0_0|0.187081799|0_0|1|0
 	EVENTS
@@ -510,7 +508,7 @@ PART
 {
 	part = sasModule_4289463118
 	partName = Part
-	persistentId = 3891760589
+	persistentId = 1093919010
 	pos = 0,15.2781925,0
 	attPos = 0,0,0
 	attPos0 = 0,0.27819252,0
@@ -701,7 +699,7 @@ PART
 {
 	part = sasModule_4289462878
 	partName = Part
-	persistentId = 2510814575
+	persistentId = 1782738398
 	pos = 0,15.4604149,0
 	attPos = 0,0,0
 	attPos0 = 0,0.182222366,0
@@ -892,7 +890,7 @@ PART
 {
 	part = batteryBankMini_4289460848
 	partName = Part
-	persistentId = 1213554099
+	persistentId = 923719026
 	pos = 0,15.6515265,0
 	attPos = 0,0,0
 	attPos0 = 0,0.191111565,0
@@ -1094,7 +1092,7 @@ PART
 {
 	part = dockingPort3_4289435668
 	partName = Part
-	persistentId = 912899468
+	persistentId = 390805759
 	pos = 0,15.7515268,0
 	attPos = 0,0,0
 	attPos0 = 0,0.100000381,0
@@ -1260,7 +1258,7 @@ PART
 {
 	part = sasModule_4289462638
 	partName = Part
-	persistentId = 2449257244
+	persistentId = 3748348918
 	pos = 0,14.7218075,0
 	attPos = 0,0,0
 	attPos0 = 0,-0.27819252,0
@@ -1451,7 +1449,7 @@ PART
 {
 	part = sasModule_4289462398
 	partName = Part
-	persistentId = 2973800492
+	persistentId = 1511641183
 	pos = 0,14.5395851,0
 	attPos = 0,0,0
 	attPos0 = 0,-0.182222366,0
@@ -1642,7 +1640,7 @@ PART
 {
 	part = batteryBankMini_4289460606
 	partName = Part
-	persistentId = 3584752553
+	persistentId = 368047393
 	pos = 0,14.3484735,0
 	attPos = 0,0,0
 	attPos0 = 0,-0.191111565,0
@@ -1844,7 +1842,7 @@ PART
 {
 	part = dockingPort3_4289434428
 	partName = Part
-	persistentId = 266456233
+	persistentId = 270003445
 	pos = 0,14.2484732,0
 	attPos = 0,0,0
 	attPos0 = 0,-0.100000381,0
@@ -2008,777 +2006,9 @@ PART
 }
 PART
 {
-	part = RTShortAntenna1_4289431542
-	partName = Part
-	persistentId = 1455569294
-	pos = -0.258589566,15.0099831,0.258589476
-	attPos = 0,-0.00388622284,0
-	attPos0 = -0.258589566,0.0138692856,0.258589476
-	rot = 3.08593044E-08,0.3826828,7.45011093E-08,0.923879862
-	attRot = 0,0,0,1
-	attRot0 = 3.08593044E-08,0.3826828,7.45011093E-08,0.923879862
-	mir = 1,1,1
-	symMethod = Radial
-	autostrutMode = Off
-	rigidAttachment = False
-	istg = -1
-	resPri = 0
-	dstg = 0
-	sidx = -1
-	sqor = -1
-	sepI = -1
-	attm = 1
-	sameVesselCollision = False
-	modCost = 0
-	modMass = 0
-	modSize = 0,0,0
-	sym = RTShortAntenna1_4289426674
-	sym = RTShortAntenna1_4289426616
-	sym = RTShortAntenna1_4289426558
-	srfN = srfAttach,probeCoreOcto.v2_4289427420,collider.collider,0.0262499992|0|0,0.125|0|0,0.0262499992|0|0
-	EVENTS
-	{
-	}
-	ACTIONS
-	{
-		ToggleSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-		SetSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-		RemoveSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-	}
-	PARTDATA
-	{
-	}
-	MODULE
-	{
-		name = ModuleReliabilityInfo
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = InspectionModule
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = FMRS_PM
-		isEnabled = True
-		stagingEnabled = True
-		MM_DYNAMIC = true
-		parent_vessel = 0
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = KOSNameTag
-		isEnabled = True
-		nameTag = 
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleRTAntenna
-		isEnabled = True
-		IsRTAntenna = True
-		IsRTActive = True
-		IsRTPowered = True
-		IsRTBroken = False
-		IsNonRetractable = False
-		RTDishCosAngle = 1
-		RTOmniRange = 250000
-		RTDishRange = -0.5
-		RTDeactivatePowerThreshold = 20
-		RTActivatePowerThreshold = 80
-		stagingEnabled = True
-		RTAntennaTarget = 00000000-0000-0000-0000-000000000000
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-			ActionToggle
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-			ActionOpen
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-			ActionClose
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleSPUPassive
-		isEnabled = True
-		IsRTPowered = False
-		IsRTSignalProcessor = True
-		IsRTCommandStation = False
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleRTDataTransmitter
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-}
-PART
-{
-	part = RTShortAntenna1_4289426674
-	partName = Part
-	persistentId = 674248022
-	pos = 0.258589447,15.0099831,0.258589566
-	attPos = 0,-0.00388622284,0
-	attPos0 = 0.258589447,0.0138692856,0.258589566
-	rot = 7.45010595E-08,0.923879325,3.08594146E-08,0.382684112
-	attRot = 0,0,0,1
-	attRot0 = 7.45010595E-08,0.923879325,3.08594146E-08,0.382684112
-	mir = 1,1,1
-	symMethod = Radial
-	autostrutMode = Off
-	rigidAttachment = False
-	istg = -1
-	resPri = 0
-	dstg = 0
-	sidx = -1
-	sqor = -1
-	sepI = -1
-	attm = 1
-	sameVesselCollision = False
-	modCost = 0
-	modMass = 0
-	modSize = 0,0,0
-	sym = RTShortAntenna1_4289426616
-	sym = RTShortAntenna1_4289426558
-	sym = RTShortAntenna1_4289431542
-	srfN = srfAttach,probeCoreOcto.v2_4289427420,collider.collider,0.0262499992|0|0,0.125|0|0,0.0262499992|0|0
-	EVENTS
-	{
-	}
-	ACTIONS
-	{
-		ToggleSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-		SetSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-		RemoveSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-	}
-	PARTDATA
-	{
-	}
-	MODULE
-	{
-		name = ModuleReliabilityInfo
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = InspectionModule
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = FMRS_PM
-		isEnabled = True
-		stagingEnabled = True
-		MM_DYNAMIC = true
-		parent_vessel = 0
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = KOSNameTag
-		isEnabled = True
-		nameTag = 
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleRTAntenna
-		isEnabled = True
-		IsRTAntenna = True
-		IsRTActive = True
-		IsRTPowered = True
-		IsRTBroken = False
-		IsNonRetractable = False
-		RTDishCosAngle = 1
-		RTOmniRange = 250000
-		RTDishRange = -0.5
-		RTDeactivatePowerThreshold = 20
-		RTActivatePowerThreshold = 80
-		stagingEnabled = True
-		RTAntennaTarget = 00000000-0000-0000-0000-000000000000
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-			ActionToggle
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-			ActionOpen
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-			ActionClose
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleSPUPassive
-		isEnabled = True
-		IsRTPowered = False
-		IsRTSignalProcessor = True
-		IsRTCommandStation = False
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleRTDataTransmitter
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-}
-PART
-{
-	part = RTShortAntenna1_4289426616
-	partName = Part
-	persistentId = 3501389861
-	pos = 0.258589536,15.0099831,-0.258589506
-	attPos = 0,-0.00388622284,0
-	attPos0 = 0.258589536,0.0138692856,-0.258589506
-	rot = 7.45011093E-08,0.923879862,-3.0859308E-08,-0.38268283
-	attRot = 0,0,0,1
-	attRot0 = 7.45011093E-08,0.923879862,-3.0859308E-08,-0.38268283
-	mir = 1,1,1
-	symMethod = Radial
-	autostrutMode = Off
-	rigidAttachment = False
-	istg = -1
-	resPri = 0
-	dstg = 0
-	sidx = -1
-	sqor = -1
-	sepI = -1
-	attm = 1
-	sameVesselCollision = False
-	modCost = 0
-	modMass = 0
-	modSize = 0,0,0
-	sym = RTShortAntenna1_4289426558
-	sym = RTShortAntenna1_4289431542
-	sym = RTShortAntenna1_4289426674
-	srfN = srfAttach,probeCoreOcto.v2_4289427420,collider.collider,0.0262499992|0|0,0.125|0|0,0.0262499992|0|0
-	EVENTS
-	{
-	}
-	ACTIONS
-	{
-		ToggleSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-		SetSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-		RemoveSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-	}
-	PARTDATA
-	{
-	}
-	MODULE
-	{
-		name = ModuleReliabilityInfo
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = InspectionModule
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = FMRS_PM
-		isEnabled = True
-		stagingEnabled = True
-		MM_DYNAMIC = true
-		parent_vessel = 0
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = KOSNameTag
-		isEnabled = True
-		nameTag = 
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleRTAntenna
-		isEnabled = True
-		IsRTAntenna = True
-		IsRTActive = True
-		IsRTPowered = True
-		IsRTBroken = False
-		IsNonRetractable = False
-		RTDishCosAngle = 1
-		RTOmniRange = 250000
-		RTDishRange = -0.5
-		RTDeactivatePowerThreshold = 20
-		RTActivatePowerThreshold = 80
-		stagingEnabled = True
-		RTAntennaTarget = 00000000-0000-0000-0000-000000000000
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-			ActionToggle
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-			ActionOpen
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-			ActionClose
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleSPUPassive
-		isEnabled = True
-		IsRTPowered = False
-		IsRTSignalProcessor = True
-		IsRTCommandStation = False
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleRTDataTransmitter
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-}
-PART
-{
-	part = RTShortAntenna1_4289426558
-	partName = Part
-	persistentId = 1497910254
-	pos = -0.258589476,15.0099831,-0.258589536
-	attPos = 0,-0.00388622284,0
-	attPos0 = -0.258589476,0.0138692856,-0.258589536
-	rot = 3.08594146E-08,0.382684112,-7.45010595E-08,-0.923879325
-	attRot = 0,0,0,1
-	attRot0 = 3.08594146E-08,0.382684112,-7.45010595E-08,-0.923879325
-	mir = 1,1,1
-	symMethod = Radial
-	autostrutMode = Off
-	rigidAttachment = False
-	istg = -1
-	resPri = 0
-	dstg = 0
-	sidx = -1
-	sqor = -1
-	sepI = -1
-	attm = 1
-	sameVesselCollision = False
-	modCost = 0
-	modMass = 0
-	modSize = 0,0,0
-	sym = RTShortAntenna1_4289431542
-	sym = RTShortAntenna1_4289426674
-	sym = RTShortAntenna1_4289426616
-	srfN = srfAttach,probeCoreOcto.v2_4289427420,collider.collider,0.0262499992|0|0,0.125|0|0,0.0262499992|0|0
-	EVENTS
-	{
-	}
-	ACTIONS
-	{
-		ToggleSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-		SetSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-		RemoveSameVesselInteraction
-		{
-			actionGroup = None
-			wasActiveBeforePartWasAdjusted = False
-		}
-	}
-	PARTDATA
-	{
-	}
-	MODULE
-	{
-		name = ModuleReliabilityInfo
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = InspectionModule
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = FMRS_PM
-		isEnabled = True
-		stagingEnabled = True
-		MM_DYNAMIC = true
-		parent_vessel = 0
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = KOSNameTag
-		isEnabled = True
-		nameTag = 
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleRTAntenna
-		isEnabled = True
-		IsRTAntenna = True
-		IsRTActive = True
-		IsRTPowered = True
-		IsRTBroken = False
-		IsNonRetractable = False
-		RTDishCosAngle = 1
-		RTOmniRange = 250000
-		RTDishRange = -0.5
-		RTDeactivatePowerThreshold = 20
-		RTActivatePowerThreshold = 80
-		stagingEnabled = True
-		RTAntennaTarget = 00000000-0000-0000-0000-000000000000
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-			ActionToggle
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-			ActionOpen
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-			ActionClose
-			{
-				actionGroup = None
-				wasActiveBeforePartWasAdjusted = False
-			}
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleSPUPassive
-		isEnabled = True
-		IsRTPowered = False
-		IsRTSignalProcessor = True
-		IsRTCommandStation = False
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleRTDataTransmitter
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-}
-PART
-{
 	part = linearRcs_4289444414
 	partName = Part
-	persistentId = 1148062080
+	persistentId = 729688638
 	pos = -0.539664268,14.9995136,-8.10823195E-08
 	attPos = -0.200000018,0,-1.01327885E-07
 	attPos0 = -0.339664251,-0.000486373901,2.02455688E-08
@@ -2978,7 +2208,7 @@ PART
 {
 	part = linearRcs_4289419248
 	partName = Part
-	persistentId = 115252456
+	persistentId = 539692461
 	pos = -1.13248809E-07,14.9995136,0.539664209
 	attPos = -1.13248809E-07,0,0.199999988
 	attPos0 = 5.69626904E-16,-0.000486373901,0.339664221
@@ -3178,7 +2408,7 @@ PART
 {
 	part = linearRcs_4289419162
 	partName = Part
-	persistentId = 407694644
+	persistentId = 2379832019
 	pos = 0.539664268,14.9995136,3.3903369E-08
 	attPos = 0.200000018,0,8.38433323E-08
 	attPos0 = 0.339664251,-0.000486373901,-4.99399597E-08
@@ -3378,7 +2608,7 @@ PART
 {
 	part = linearRcs_4289419076
 	partName = Part
-	persistentId = 857850136
+	persistentId = 1872533034
 	pos = 4.8915819E-08,14.9995136,-0.539664209
 	attPos = 8.9406953E-08,0,-0.199999988
 	attPos0 = -4.0491134E-08,-0.000486373901,-0.339664221
@@ -3578,7 +2808,7 @@ PART
 {
 	part = radialRCSTank_4289456704
 	partName = Part
-	persistentId = 3645486767
+	persistentId = 287509424
 	pos = -0.397644252,14.9994879,-0.397644103
 	attPos = 5.96046448E-08,0.00390434265,5.96046448E-08
 	attPos0 = -0.397644311,-0.00441646576,-0.397644162
@@ -3746,7 +2976,7 @@ PART
 {
 	part = radialRCSTank_4289414832
 	partName = Part
-	persistentId = 3876516469
+	persistentId = 3025175207
 	pos = -0.397644162,14.9994879,0.397644252
 	attPos = 0,0.00390434265,0
 	attPos0 = -0.397644162,-0.00441646576,0.397644252
@@ -3914,7 +3144,7 @@ PART
 {
 	part = radialRCSTank_4289414796
 	partName = Part
-	persistentId = 1153332928
+	persistentId = 3554795789
 	pos = 0.397644192,14.9994879,0.397644162
 	attPos = -1.49011612E-07,0.00390434265,2.98023224E-08
 	attPos0 = 0.397644341,-0.00441646576,0.397644132
@@ -4082,7 +3312,7 @@ PART
 {
 	part = radialRCSTank_4289414760
 	partName = Part
-	persistentId = 3485643652
+	persistentId = 1578063956
 	pos = 0.397644132,14.9994879,-0.397644281
 	attPos = 2.98023224E-08,0.00390434265,2.98023224E-08
 	attPos0 = 0.397644103,-0.00441646576,-0.397644311
@@ -4250,7 +3480,7 @@ PART
 {
 	part = linearRcs_4289440086
 	partName = Part
-	persistentId = 3347177158
+	persistentId = 20489663
 	pos = -0.519050598,15.1920013,9.88955939E-09
 	attPos = -0.199999988,0,-9.12734066E-09
 	attPos0 = -0.31905061,0.192001343,1.90169001E-08
@@ -4450,7 +3680,7 @@ PART
 {
 	part = linearRcs_4289406870
 	partName = Part
-	persistentId = 1116114309
+	persistentId = 424057618
 	pos = -2.10482671E-08,15.1920013,0.519050539
 	attPos = -2.10482671E-08,0,0.199999958
 	attPos0 = 6.42861267E-16,0.192001343,0.31905058
@@ -4650,7 +3880,7 @@ PART
 {
 	part = linearRcs_4289406784
 	partName = Part
-	persistentId = 1423155100
+	persistentId = 3395735504
 	pos = 0.519050598,15.1920013,-5.52664048E-08
 	attPos = 0.199999988,0,-8.35721536E-09
 	attPos0 = 0.31905061,0.192001343,-4.69091894E-08
@@ -4850,7 +4080,7 @@ PART
 {
 	part = linearRcs_4289406698
 	partName = Part
-	persistentId = 2496579088
+	persistentId = 1992077499
 	pos = -4.08273841E-08,15.1920013,-0.519050539
 	attPos = -2.79358758E-09,0,-0.199999958
 	attPos0 = -3.80337966E-08,0.192001343,-0.31905058
@@ -5050,7 +4280,7 @@ PART
 {
 	part = linearRcs_4289443618
 	partName = Part
-	persistentId = 610815666
+	persistentId = 1782584667
 	pos = -0.516482294,14.8079987,3.71184967E-08
 	attPos = -0.199999988,0,1.82546795E-08
 	attPos0 = -0.316482306,-0.192001343,1.88638172E-08
@@ -5250,7 +4480,7 @@ PART
 {
 	part = linearRcs_4289393304
 	partName = Part
-	persistentId = 184444027
+	persistentId = 4178647255
 	pos = 6.33375086E-09,14.8079987,0.516482234
 	attPos = 6.33375041E-09,0,0.199999958
 	attPos0 = 6.51985718E-16,-0.192001343,0.316482276
@@ -5450,7 +4680,7 @@ PART
 {
 	part = linearRcs_4289393218
 	partName = Part
-	persistentId = 3709982940
+	persistentId = 3360191209
 	pos = 0.516482294,14.8079987,-8.22708159E-08
 	attPos = 0.199999988,0,-3.57392373E-08
 	attPos0 = 0.316482306,-0.192001343,-4.65315786E-08
@@ -5650,7 +4880,7 @@ PART
 {
 	part = linearRcs_4289393132
 	partName = Part
-	persistentId = 2704947251
+	persistentId = 3360175521
 	pos = -6.79032368E-08,14.8079987,-0.516482234
 	attPos = -3.0175606E-08,0,-0.199999958
 	attPos0 = -3.77276308E-08,-0.192001343,-0.316482276
@@ -5834,6 +5064,386 @@ PART
 		name = KOSNameTag
 		isEnabled = True
 		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+}
+PART
+{
+	part = RTShortAntenna1_4289426616
+	partName = Part
+	persistentId = 3564068957
+	pos = 0.375299931,14.9395504,-5.85638773E-08
+	attPos = 0.0604372919,-0.0119829178,-6.5619524E-08
+	attPos0 = 0.314862639,-0.0484666824,7.05564496E-09
+	rot = -3.45355863E-21,1.65458317E-07,2.90069618E-14,-1
+	attRot = 0,-0.999999881,0,0
+	attRot0 = 5.98942781E-21,-2.52881108E-07,-2.90069618E-14,1
+	mir = 1,1,1
+	symMethod = Radial
+	autostrutMode = Off
+	rigidAttachment = False
+	istg = -1
+	resPri = 0
+	dstg = 0
+	sidx = -1
+	sqor = -1
+	sepI = -1
+	attm = 1
+	sameVesselCollision = False
+	modCost = 0
+	modMass = 0
+	modSize = 0,0,0
+	sym = RTShortAntenna1_4294510378
+	srfN = srfAttach,probeCoreOcto.v2_4289427420,collider.collider,0.0262499992|0|0,0.125|0|0,0.0262499992|0|0
+	EVENTS
+	{
+	}
+	ACTIONS
+	{
+		ToggleSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		SetSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		RemoveSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+	}
+	PARTDATA
+	{
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleRTAntenna
+		isEnabled = True
+		IsRTAntenna = True
+		IsRTActive = True
+		IsRTPowered = True
+		IsRTBroken = False
+		IsNonRetractable = False
+		RTDishCosAngle = 1
+		RTOmniRange = 250000
+		RTDishRange = -0.5
+		RTDeactivatePowerThreshold = 20
+		RTActivatePowerThreshold = 80
+		stagingEnabled = True
+		RTAntennaTarget = 00000000-0000-0000-0000-000000000000
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+			ActionToggle
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+			ActionOpen
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+			ActionClose
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSPUPassive
+		isEnabled = True
+		IsRTPowered = False
+		IsRTSignalProcessor = True
+		IsRTCommandStation = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleRTDataTransmitter
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+}
+PART
+{
+	part = RTShortAntenna1_4294510378
+	partName = Part
+	persistentId = 3803761430
+	pos = -0.375299931,14.9395504,2.57541171E-08
+	attPos = -0.0604372919,-0.0119829178,5.28359578E-09
+	attPos0 = -0.314862639,-0.0484666824,2.04705213E-08
+	rot = -2.90069618E-14,1,-4.72149322E-21,2.09169713E-07
+	attRot = 0,-0.999999881,0,0
+	attRot0 = -2.90069618E-14,1,-4.72149322E-21,2.09169713E-07
+	mir = 1,1,1
+	symMethod = Radial
+	autostrutMode = Off
+	rigidAttachment = False
+	istg = -1
+	resPri = 0
+	dstg = 0
+	sidx = -1
+	sqor = -1
+	sepI = -1
+	attm = 1
+	sameVesselCollision = False
+	modCost = 0
+	modMass = 0
+	modSize = 0,0,0
+	sym = RTShortAntenna1_4289426616
+	srfN = srfAttach,probeCoreOcto.v2_4289427420,collider.collider,0.0262499992|0|0,0.125|0|0,0.0262499992|0|0
+	EVENTS
+	{
+	}
+	ACTIONS
+	{
+		ToggleSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		SetSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		RemoveSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+	}
+	PARTDATA
+	{
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleRTAntenna
+		isEnabled = True
+		IsRTAntenna = True
+		IsRTActive = True
+		IsRTPowered = True
+		IsRTBroken = False
+		IsNonRetractable = False
+		RTDishCosAngle = 1
+		RTOmniRange = 250000
+		RTDishRange = -0.5
+		RTDeactivatePowerThreshold = 20
+		RTActivatePowerThreshold = 80
+		stagingEnabled = True
+		RTAntennaTarget = 00000000-0000-0000-0000-000000000000
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+			ActionToggle
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+			ActionOpen
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+			ActionClose
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSPUPassive
+		isEnabled = True
+		IsRTPowered = False
+		IsRTSignalProcessor = True
+		IsRTCommandStation = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleRTDataTransmitter
+		isEnabled = True
 		stagingEnabled = True
 		EVENTS
 		{

@@ -17,6 +17,4 @@ M1312: SpaceBus 1B goo probe with extended comms array(9 x C16). Main data retur
 M1313: M1312 with KAS JS-1 connector. Allows alternate data return via docking.
 M1314: M1311 variant, based on SpaceBus 2A, RemoteTech compatible.
 
-M1321: High endurance materials bay probe. Main mode of data return is transmission. Custom spacecraft bus.
-
-M133x: SpaceBus 2 version of models M130x. RemoteTech compatible.
+M132x: SpaceBus 2 version of models M130x. RemoteTech compatible.
