@@ -1,0 +1,3 @@
+@LazyGlobal Off.
+
+run ssm.

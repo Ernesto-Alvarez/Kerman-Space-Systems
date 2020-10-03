@@ -69,7 +69,7 @@ print "Loading indoor lighting controls".
 //Register function
 registerFunction(indoorLightsOff@,"IndoorLighting","indoorLightsOff","Turn off cabin lights").
 registerFunction(indoorLightsOn@,"IndoorLighting","indoorLightsOn","Turn on cabin lights").
-registerFunction(indoorLightsAuto@,"IndoorLighting","indoorLightsAuto","Turn on cabin lights on crewed parts").
+registerFunction(indoorLightsAuto@,"IndoorLighting","indoorLightsAuto","Cabin light to auto mode").
 LOCAL check IS registerFunction(indoorLightsCheck@,"IndoorLighting","indoorLightsCheck","Run automatic indoor light check").
 
 //Register cron

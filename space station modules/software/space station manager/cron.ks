@@ -137,7 +137,7 @@ LOCAL FUNCTION setCronTrigger
 
 
 //Register functions
-registerFunction(checkCrontabs@,"Cron","checkCrontabs","Manually check crontab and run pending ones").
+registerFunction(checkCrontabs@,"Cron","checkCrontabs","Manually check crontab and run pending jobs").
 registerFunction(addCrontabsInterface@,"Cron","addCrontabsInterface","Add cron entry").
 registerFunction(listCrontabsInterface@,"Cron","listCrontabsInterface","List cron entries").
 registerFunction(deleteCrontabsInterface@,"Cron","deleteCrontabsInterface","Delete cron entry").

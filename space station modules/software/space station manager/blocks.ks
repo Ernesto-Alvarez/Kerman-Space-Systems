@@ -4,6 +4,7 @@
 //Given a part, obtain the parts of a block (a set of parts limited by clampotrons)
 //and the block root part (the part closest to the root within the block).
 //Also provides identification services using tags with part numbers.
+//Block part enumeration is also responsibility of this module
 
 LOCAL partNumbers IS lexicon().
 SET partNumbers["KSS-0001"] TO "C4 Module".
@@ -54,14 +55,39 @@ GLOBAL FUNCTION blockRootPart		//Given a part, locate the block's root part, usu
 }
 
 
-GLOBAL FUNCTION blockPartList				//Given a part, obtain a list of parts comprising the block that holds it
+GLOBAL FUNCTION blockPartList				//Given a part, obtain a list of parts comprising the block that holds it, optionally filtering by type
 {
 	PARAMETER input.
+	PARAMETER filter IS list().
 
 	LOCAL rootPart IS blockRootPart(input).
-	return rootToBlockPartList(rootPart).
+	LOCAL parts IS rootToBlockPartList(rootPart).
+	IF filter:LENGTH = 0
+		return parts.
+	LOCAL retvalue IS list().
+	FOR i in parts
+		IF filter:CONTAINS(i:NAME)
+			retvalue:ADD(i).
+	return retvalue.
 }
 
+GLOBAL FUNCTION blockTaggedParts			//Given a part, obtain a list of parts whose tag is one of the indicated in the filter
+{
+	PARAMETER input.
+	PARAMETER tags.
+
+//	print tags.
+//	print input:TAG.
+
+	LOCAL rootPart IS blockRootPart(input).
+	LOCAL parts IS rootToBlockPartList(rootPart).
+
+	LOCAL retvalue IS list().
+	FOR i in parts
+		IF tags:CONTAINS(i:TAG)
+			retvalue:ADD(i).
+	return retvalue.
+}
 
 GLOBAL FUNCTION highlightBlock
 {

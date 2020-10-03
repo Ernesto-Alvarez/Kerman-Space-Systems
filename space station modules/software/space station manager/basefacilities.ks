@@ -92,7 +92,12 @@ GLOBAL FUNCTION getBlockParts
 {
 	PARAMETER blockNumber.
 
-	return blockPartList(blockRegistry[blockPart]).
+	return blockPartList(blockRegistry[blockNumber]).
+}
+
+GLOBAL FUNCTION getNumberofBlocks
+{
+	return blockRegistry:LENGTH.
 }
 
 GLOBAL FUNCTION getBlockNameFromRoot
@@ -118,6 +123,11 @@ GLOBAL FUNCTION showBlock
 	WAIT 1.
 	highLightBlock(blockRegistry[module],False).
 	
+}
+
+GLOBAL FUNCTION blockRoots
+{
+	return blockRegistry.
 }
 
 print "Loading base facility services".

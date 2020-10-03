@@ -12,6 +12,7 @@ LOCAL crewManifest IS list().
 LOCAL crewNames IS list().
 LOCAL crewLocation IS list().
 LOCAL crewLocationBlock IS list().
+LOCAL updating IS False.
 
 GLOBAL FUNCTION crewedPart
 {
@@ -25,6 +26,7 @@ GLOBAL FUNCTION crewedPart
 GLOBAL FUNCTION enumerateCrew
 {
 //	print "Locating and registering crew members".
+	SET updating to True.
 	SET crewManifest TO list().
 	SET crewNames TO list().
 	SET crewLocation TO list().
@@ -38,6 +40,7 @@ GLOBAL FUNCTION enumerateCrew
 		LOCAL blockRoot IS blockRootPart(i:part).
 		crewLocationBlock:ADD(getBlockNameFromRoot(blockRoot)).
 	}
+	SET updating to FALSE.
 //	print "Crew enumeration complete".
 }
 
@@ -56,6 +59,11 @@ LOCAL FUNCTION locateCrew
 
 GLOBAL FUNCTION locateCrewInteractive
 {
+	IF updating = True.
+	{
+		print "Manifest if being updated, try again later".
+		return.
+	}
 	LOCAL sysMessage IS list("Select crewmember to locate").
 	LOCAL crewId IS pager(sysMessage,crewNames).
 	IF crewId >= 0
