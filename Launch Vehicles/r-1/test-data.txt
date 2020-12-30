@@ -1,0 +1,75 @@
+Payload specification
+Test mass: Mk1 capsule w/Stayputnik mounted axially and 2 radial reflectron DP-10. 880 Kg mass.
+Extended test mass: Mk1 capsule with Mk0 tank, then Stayputnik mounted axially and and 2 radial reflectron DP-10. 1285 Kg mass.
+
+Flight regimes
+Normal:
+	Gravity turn at 50m/s to 5 degrees
+	Separation at 70 KM altitude
+	Full thrust until propellant exhaustion
+	No other control inputs after gravity turn
+
+Vertical:
+	Normal flight regime, except
+	No gravity turn
+
+Retrograde:
+	Normal flight regime, except
+	Gravity turn is retrograde, towards mountains west of KSC, GT angle 2.5 degrees
+
+Shallow:
+	Normal flight regime, except
+	Gravity turn angle: 20 degrees
+	MECO at 98% heat
+
+Configurations
+R1-B, conf 1
+	Thrust limiter: 100
+	Decoupler strength: 100
+	Drogue chutes (R1-B only): 0.17, 2500, Spread 7, Mode Safe
+	Main chutes (R1-B only): 0.4, 500, Spread 7, Mode Safe
+	Payload: Test mass
+	Payload wheels: active, 100%
+	Payload MJ2: disabled
+	Payload resources: empty except for EC
+
+R1-B, conf 2
+	Identical to conf 1, except
+	Main chute: 0.4, 100, Spread 7, Mode Safe, unless main chute altitude overriden
+
+R1-A, conf 1
+	Thrust limiter: 100
+	Decoupler strength: 100
+	Payload: Test mass
+	Payload wheels: active, 100%
+	Payload MJ2: disabled
+	Payload resources: empty except for EC
+
+R1-A, conf 2
+	Thrust limiter: 80
+	Decoupler strength: 100
+	Payload: Test mass
+	Payload wheels: active, 100%
+	Payload MJ2: disabled
+	Payload resources: empty except for EC
+
+R1-A, conf 3
+	Thrust limiter: 100
+	Decoupler strength: 100
+	Payload: Extended test mass
+	Payload wheels: active, 100%
+	Payload MJ2: disabled
+
+
+
+Test flights
+
+Flight		Type		Objective		Parameters		Result
+TF-1		R1-B, conf 1	General handling test	Normal			Boost Max G: 9, Boost Max V: 1360 ,Boost Max Ht: 98% (fins), MECO time: 0:31, AP: 136765, AP Time: 3:38, AP V: 60, Self Stable Reentry: OK, Reentry Max V: 1279, Reentry Max G: 8, Reentry Max Ht: 84 (fins), Drogue deployment: 2947 ASL / 2300, Chute Deployment: 2300 / 500, Gliding speed: 27, Landing speed: 5 .
+TF-2		R1-B, conf 1	Chute G limit test	Vertical		Boost Max G: 9, Boost Max V: 1356 ,Boost Max Ht: 98% (fins), MECO time: 0:31, AP: 137063, AP Time: 3:36, AP V: 92, Self Stable Reentry: OK, Reentry Max V: 1281, Reentry Max G: 8, Reentry Max Ht: 84 (fins), Drogue deployment: 2695 ASL / 2269, Chute Deployment: 2269 / 899 ASL (472 AGL) , Gliding speed: 27, Landing speed: 5.
+TF-3		R1-B, conf 2	HALO test		Normal			Boost Max G: 9, Boost Max V: 1358 ,Boost Max Ht: 98% (fins), MECO time: 0:31 ,AP: 136173, AP Time: 3:38, AP V: 76, Self Stable Reentry: OK, Reentry Max V: 1276, Reentry Max G: 8, Reentry Max Ht: 83 (fins), Drogue deployment:  3062 ASL / 2257, Chute Deployment: 2257 / 100 (30 at landing speed) , Gliding speed: 26, Landing speed: 5.
+TF-4		R1-B, conf 1	Drogue failure test	Normal			Boost Max G: 9, Boost Max V: 1360 ,Boost Max Ht: 98% (fins), MECO time: 0:32, AP: 136576, AP Time: 3:38, AP V: 58, Self Stable Reentry: OK, Reentry Max V: 1278, Reentry Max G: 8, Reentry Max Ht: 83 (fins), Drogue deployment: 2662 ASL / 2127, Chute Deployment: 1793 / 497 (404 at landing speed) , Gliding speed: 44, Landing speed: 5.
+TF-5		R1-B, conf 1	Chute failure test	Normal			Boost Max G: 9, Boost Max V: 1360 ,Boost Max Ht: 97% (fins), MECO time: 0:32, AP: 136665, AP Time: 3:38, AP V: 45, Self Stable Reentry: OK, Reentry Max V: 1278 , Reentry Max G: 8, Reentry Max Ht: 83 (fins), Drogue deployment: 3123 / 2568, Chute Deployment: 2568 / 500 (430 at landing speed), Gliding speed: 28, Landing speed: 7.
+TF-6		R1-A, conf 1	General handling test	Normal			Boost Max G: 9,75, Boost Max V: 1552 ,Boost Max Ht: 110% (fins), MECO time: 0:31, Result: fin destruction by aero forces and heat.
+TF-6A		R1-A, conf 2	Derate test		Normal			Boost Max G: 8, Boost Max V: 1491 ,Boost Max Ht: 97% (fins), MECO time: 0:41, AP: 177930, AP Time: 3:08, AP V: 109 
+TF-6B		R1-A, conf 3	Derate test		Normal			Boost Max G: 9, Boost Max V: 1353 ,Boost Max Ht: 97% (fins), MECO time: 0:31, AP: 134218, AP Time: 2:17, AP V: 102
