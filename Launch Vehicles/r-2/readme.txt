@@ -23,11 +23,20 @@ Six OX-STAT panels are housed in the lower avionics bay, providing power generat
 
 Communications
 
-
+Communications are provided by two Communotron 16-S radios, mounted on the body of the spacecraft.
 
 Control
 
+Control is provided by an OKTO computer in the upper avionics bay in the R2-A model.
+
 Fuel system
 
+The fuel system supplies fuel to the main engine and is connected to a clampotron jr system used to refuel other crafts. The fuel system has four tanks, designated A, B, C and D, from top to bottom. Tanks A, B and C are FL-T400 type. Tank D is a FL-T200 tank. Tanks A and B are also designated as mission tanks. Tank D is also called the return tank.
+
+Tanks drain from bottom to top during, to ensure the CoM is above the CoP. If launched according to specifications, the mission tanks should be full, while tanks C and D should be empty, their propellant expended during the launch. The tanker may be refuelled to capacity in orbit, without adverse effects.
+
+Fuel can be stored in any of the tanks during main engine maneuvers. However, LFOX should be balanced as indicated by the fuel schedule below when using the RCS, to minimise unwanted attitude changes when translating. Residual torque can be nullified with the help of the reaction wheel and SAS.
+
+When returning to Kerbin, fuel should be stowed in the return tank (tank D) to ensure proper reentry attitude. Reentry is not guaranteed if remaning fuel exceeds the return tank capacity. Expected mode of failure for overweight reentry is failure to deploy the parachute in time due to excessive speed at the lower layers of the atmosphere.
 
 
