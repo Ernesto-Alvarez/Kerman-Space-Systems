@@ -8,12 +8,24 @@ Uses
 	Space station refuel
 	Temporary fueling station
 
-Maneuver system
+Variants
+
+R-2A
+Stock version with RCS. OKTO computer.
+
+R-2B
+RCS version with HECS computer and KR-2042 scripting core. Requires kOS.
+
+R-2C
+Stock version. Basic version made with stock parts. No RCS.
+
+
+Maneuvering systems
 The R-2 has 3 maneuvering systems. The main orbital maneuvering system is the upper stage main engine. This engine serves a dual purpose as OMS and launch engine. Propellants for the engine are taken from the mission tanks.
 
 A small inline reaction wheel is used for attitude control. The wheel resides on the top of the lower avionics bay, and is as close to the centre of mass as possible. A secondary wheel is housed in the flight computer in the upper avionics bay. This wheel should only be used in emergencies, as it is not capable of properly controlling a fully loaded tanker.
 
-A set of RCS jets is located at the spacecraft's centre of mass. The CoM is set up so that it is at the same point when the mission tanks are either full or empty. Proper fuel management can ensure adequate performance of the RCS, allowing precision translation with minimal unwanted rotation. The RCS should be used for precise maneuvering only (e.g. for docking) as RCS fuel supplies are limited. The system is fed by a round MP tank inside the lower avionics bay.
+A set of RCS jets is located at the spacecraft's centre of mass. The CoM is set up so that it is at the same point when the mission tanks are either full or empty. Proper fuel management can ensure adequate performance of the RCS, allowing precision translation with minimal unwanted rotation. The RCS should be used for precise maneuvering only (e.g. for docking) as RCS fuel supplies are limited. The system is fed by a round MP tank inside the lower avionics bay. This feature is only available on versions with RCS. The R2-B tanker management program can balance tanks to ensure the CoM is correct for RCS operation.
 
 Power system
 
@@ -27,7 +39,9 @@ Communications are provided by two Communotron 16-S radios, mounted on the body 
 
 Control
 
-Control is provided by an OKTO computer in the upper avionics bay in the R2-A model.
+Control is provided by an OKTO computer in the upper avionics bay in the A model. The B model replaces the OKTO with a HECS. The C model uses an OKTO in the lower avionics bay.
+
+The B model has a KR-2042 scripting core running tanker software. The main use for this computer is balancing fuel tanks to ensure proper CoM positioning.
 
 Fuel system
 
@@ -39,4 +53,5 @@ Fuel can be stored in any of the tanks during main engine maneuvers. However, LF
 
 When returning to Kerbin, fuel should be stowed in the return tank (tank D) to ensure proper reentry attitude. Reentry is not guaranteed if remaning fuel exceeds the return tank capacity. Expected mode of failure for overweight reentry is failure to deploy the parachute in time due to excessive speed at the lower layers of the atmosphere.
 
-
+Launching
+To launch a tanker from Kerbin, fly vertically until speed is 50 m/s. Then execute gravity turn until velocity vector points to 20 degrees from vertical. Continue on prograde course until apoapsis reaches 100km (or intended altitude). Circularise with upper stage.
