@@ -73,6 +73,11 @@ GLOBAL FUNCTION balanceTanks
 	balanceResource(listTanks(),"Oxidizer").
 }
 
+GLOBAL FUNCTION getDockingAdaptor
+{
+	return tankerSystems["Clampotron"].
+}
+
 //Module init
 enumerateSystems().	//We should call enumerateWithCache instead, if we saved the system state.
 

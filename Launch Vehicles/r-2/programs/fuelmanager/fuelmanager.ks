@@ -1,7 +1,7 @@
 @LazyGlobal off.
 
 LOCAL softwareName IS "Fuel Tanker Manager".
-LOCAL softwareVersion IS "0.8.0".
+LOCAL softwareVersion IS "1.0.0".
 
 LOCAL tickSeconds IS 0.5.
 
@@ -13,6 +13,7 @@ RUNONCEPATH("functionregistry").
 RUNONCEPATH("inthandler").
 RUNONCEPATH("interface").
 RUNONCEPATH("tankersystems").
+RUNONCEPATH("fueling").
 
 print "Module loading complete".
 

@@ -9,7 +9,7 @@ RUNONCEPATH("pager").
 
 GLOBAL FUNCTION attention
 {
-	LOCAL terminalMessage IS list("WARNING: autonomous functions are disabled when in attention mode!","Examine function list with PGUP and PGDN","Manual selection of function with ENTER","Cancel execution with BACKSPACE","Select from list with numbers").
+	LOCAL terminalMessage IS list("WARNING: autonomous functions are disabled when in attention mode!").
 
 	LOCAL programs IS functionList().
 

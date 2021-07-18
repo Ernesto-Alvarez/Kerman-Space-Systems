@@ -12,7 +12,7 @@ LOCAL FUNCTION fillRatio
 }
 
 
-LOCAL FUNCTION measureTankResource
+GLOBAL FUNCTION measureTankResource
 {
 	PARAMETER tankList.
 	PARAMETER resource.
@@ -43,7 +43,7 @@ LOCAL FUNCTION measureTankResource
 }
 
 
-LOCAL FUNCTION syncTransfer
+GLOBAL FUNCTION syncTransfer
 {
 	PARAMETER from.
 	PARAMETER to.
