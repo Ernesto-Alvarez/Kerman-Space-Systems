@@ -1,4 +1,4 @@
-LOCAL programName IS "fuelmanager".
+LOCAL programName IS "r2fm".
 LOCAL entryPoint IS "fuelmanager.ks".
 
 print "Checking if firmware is present".
