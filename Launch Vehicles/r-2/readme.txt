@@ -17,7 +17,7 @@ R-2B
 RCS version with HECS computer and KR-2042 scripting core. Requires kOS.
 
 R-2C
-Stock version. Basic version made with stock parts. No RCS.
+Basic version made with stock parts. No RCS. Low tech.
 
 
 Maneuvering systems
@@ -39,7 +39,7 @@ Communications are provided by two Communotron 16-S radios, mounted on the body 
 
 Control
 
-Control is provided by an OKTO computer in the upper avionics bay in the A model. The B model replaces the OKTO with a HECS. The C model uses an OKTO in the lower avionics bay.
+Control is provided by an OKTO computer in the upper avionics bay in the A model. The B model replaces the OKTO with a HECS. The C model uses an OKTO in the lower avionics bay (in place of the RCS MP tank).
 
 The B model has a KR-2042 scripting core running tanker software. The main use for this computer is balancing fuel tanks to ensure proper CoM positioning.
 
@@ -49,9 +49,17 @@ The fuel system supplies fuel to the main engine and is connected to a clampotro
 
 Tanks drain from bottom to top during, to ensure the CoM is above the CoP. If launched according to specifications, the mission tanks should be full, while tanks C and D should be empty, their propellant expended during the launch. The tanker may be refuelled to capacity in orbit, without adverse effects.
 
-Fuel can be stored in any of the tanks during main engine maneuvers. However, LFOX should be balanced as indicated by the fuel schedule below when using the RCS, to minimise unwanted attitude changes when translating. Residual torque can be nullified with the help of the reaction wheel and SAS.
+Fuel can be stored in any of the tanks during main engine maneuvers. However, LFOX should be balanced when using the RCS, to minimise unwanted attitude changes when translating. Residual torque can be nullified with the help of the reaction wheel and SAS.
 
 When returning to Kerbin, fuel should be stowed in the return tank (tank D) to ensure proper reentry attitude. Reentry is not guaranteed if remaning fuel exceeds the return tank capacity. Expected mode of failure for overweight reentry is failure to deploy the parachute in time due to excessive speed at the lower layers of the atmosphere.
 
 Launching
-To launch a tanker from Kerbin, fly vertically until speed is 50 m/s. Then execute gravity turn until velocity vector points to 20 degrees from vertical. Continue on prograde course until apoapsis reaches 100km (or intended altitude). Circularise with upper stage.
+To launch a tanker from Kerbin, fly vertically until speed is 50 m/s. Then execute gravity turn until velocity vector points to 15 degrees from vertical. Continue on prograde course until apoapsis reaches 100km (or intended altitude). Circularise with upper stage.
+When launching to 100km equatorial orbit, the following chain of events is expected.
+
+	* Booster depletion at
+	* Lower stage cutoff at
+	* Angle at 10km altitude
+	* Apoapsis at LSCO
+	* Time to apoapsis at LSCO
+	* 
