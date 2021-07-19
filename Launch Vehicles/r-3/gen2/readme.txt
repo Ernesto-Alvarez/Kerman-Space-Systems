@@ -12,3 +12,6 @@ MR types are used for manned capsules. Design is similar but capsule computer is
 Capsule		Rocket		S/M dV
 AOC-0		R3-800-MR	200
 AOC-1		R3-800-MR	200
+AOC-2		R3-1200L-MR	150
+AOC-3		R3-1200L-MR	600		Execute gravity turn to 40 degrees.
+AOC-4
