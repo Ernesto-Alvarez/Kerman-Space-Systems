@@ -31,7 +31,9 @@ Repositioning is done by towing using the underside clampotron junior interface.
 
 Communications are provided by 4 Communotron 16-S radios mounted on the hull.
 
-Depot contains high visibility lighting.
+Handgrips run over the full station length. They are designed for station inspection and for assisting in spaceship repair.
+
+Depot contains high visibility lighting consisting of 8 navigation lights mk1, 4 domelights mk1 in the upper hull (FL-T200 tank next to computer end) and a cherry light on top of the computer. Upper navigation lights illuminate the MP tanks, making the station visible at night, lower navigation lights illuminate docking bays and EVA handgrips, making ships visible. The dome light, when used with all other lights cause the cherry light to light up the upper LFOX tank (don't ask, we don't know either how this can work).
 
 Variants
 
@@ -53,3 +55,24 @@ All stations can work with Dangit mod, supplies can be stored in service bay. Re
 * NavBall Docking indicator is recommended for docking
 
 Launching can be done on an R-4A rocket (D1 fairing) for cores without KAS hoses and winch. Full model requires the R-4B rocket (D2 fairing).
+
+Test flights
+
+TF-1 (in progress)
+
+Launch vehicle: R4-B
+Environment: sandbox
+Objective: general validation, launch test, lighting test, towing test, fuel operation test, software development
+
+Launch test: Successful, the station is now well below the 9 tons specified for the launch vehicle. Launched with over 400 m/s dV. Carrier rocket being tested as space tug. 
+
+Lighting test: Discovered interaction between navigation lights and cherry light. Slight inward inclination of navigation lights being considered.
+
+Towing test: Carrier rocket serverd as a tug. Successful boost without any unwanted rotation. Awaiting rendezvous with R-2 tanker for further tests.
+
+Fueling test: N/A
+
+Software: N/A
+
+Docking test: N/A
+
