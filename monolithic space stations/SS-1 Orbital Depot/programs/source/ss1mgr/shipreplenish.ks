@@ -67,6 +67,12 @@ GLOBAL FUNCTION manualResourceTransferIF
 
 	LOCAL resource IS choice(myTanks:KEYS,"Select resource to transfer").
 
+	IF NOT theirTanks:KEYS:CONTAINS(resource)
+	{
+		print "Resource not available on target".
+		return.
+	}
+
 	print "Input amount to transfer to target (negative values take from target to station).".
 	LOCAL amount IS readScalar(0).
 
