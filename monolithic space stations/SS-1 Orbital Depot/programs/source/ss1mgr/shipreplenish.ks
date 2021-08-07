@@ -126,9 +126,6 @@ GLOBAL FUNCTION autoReplenishAbsolute
 	PARAMETER resource.
 	PARAMETER quantity.
 
-
-
-
 	LOCAL LFquantity IS quantity * 0.45.
 	LOCAL OXquantity IS quantity * 0.55.
 

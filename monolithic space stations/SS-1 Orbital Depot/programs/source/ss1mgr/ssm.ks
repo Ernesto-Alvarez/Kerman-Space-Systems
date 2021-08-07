@@ -1,7 +1,7 @@
 @LazyGlobal off.
 
 LOCAL softwareName IS "Orbital Depot (SS-1) Manager".
-LOCAL softwareVersion IS "0.4.0".
+LOCAL softwareVersion IS "0.6.0".
 
 LOCAL tickSeconds IS 0.5.
 
@@ -14,6 +14,7 @@ RUNONCEPATH("inthandler").
 RUNONCEPATH("interface").
 RUNONCEPATH("dockingports").
 RUNONCEPATH("shipreplenish").
+RUNONCEPATH("tugs").
 
 print "Module loading complete".
 

@@ -18,10 +18,11 @@ GLOBAL FUNCTION registerFunction
 	PARAMETER module.
 	PARAMETER name.
 	PARAMETER brief IS "Undescribed function".
+	PARAMETER registry IS functionRegistry.
 
 	LOCAL newNumber IS MLlength(functionRegistry).
 	
-	MLadd(functionRegistry,lexicon("module",module,"pointer",pointer,"name",name,"description",brief)).
+	MLadd(registry,lexicon("module",module,"pointer",pointer,"name",name,"description",brief)).
 
 	return newNumber.
 }
@@ -29,6 +30,7 @@ GLOBAL FUNCTION registerFunction
 GLOBAL FUNCTION callFunction
 {
 	PARAMETER number.
+	PARAMETER registry IS functionRegistry.
 	
 	IF not number:ISTYPE("Scalar")
 	{
@@ -41,12 +43,12 @@ GLOBAL FUNCTION callFunction
 	}
 
 
-	IF number >= MLlength(functionRegistry)
+	IF number >= MLlength(registry)
 	{
 		return False.
 	}
 
-	LOCAL fp IS MLreadCell(functionRegistry,number,"pointer").
+	LOCAL fp IS MLreadCell(registry,number,"pointer").
 
 	fp:CALL.
 	return True.
