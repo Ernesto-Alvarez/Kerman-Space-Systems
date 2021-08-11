@@ -31,31 +31,30 @@ SET partNumbers["KSS-0021"] TO "AOC-4 Capsule".
 SET partNumbers["KSS-0022"] TO "Clampotron Adaptor: jr to std".
 SET partNumbers["KSS-0023"] TO "Space Station Habitat".
 SET partNumbers["KSS-0024"] TO "Orbital Depot".
+SET partNumbers["KSS-0025"] TO "R-2 LFOX Tanker".
 
-GLOBAL FUNCTION blockRootPart		//Given a part, locate the block's root part, usually a clampotron
+GLOBAL FUNCTION blockRootPart
+//Given a part, locate the block's root part, usually a clampotron
 {
 	PARAMETER input.
 
-	//A clampotron is the module root, as long as it's connected to next module's clampotron or opens to space
-	//(A clampotron whose parent is another part IS NOT the module root, it just hangs from another module)
-	//Note: the conditional below had to be changed because one clampotron's name was "dockingPort (Container Staging Station C-100)".
-	//Looks like the root part is named differently
+	//A clampotron is the module root, as long as it's connected to next module's clampotron or is the root part
+	//A clampotron whose parent is another part IS NOT the module root, it just hangs from another part
 
-	IF (input:NAME:STARTSWITH("dockingPort") AND (not input:HASPARENT OR input:PARENT:NAME:STARTSWITH("dockingPort") ) )
-	{
+	//The ship's root part
+	IF NOT input:HASPARENT		
 		return input.
-	} 
+
+	//A clampotron connected to another clampotron (a block root)
+	//Note, this does not work with claws properly (goes up to next module)
+	IF input:ISTYPE("DockingPort") AND input:PARENT:ISTYPE("DockingPort")
+		return input.
 	
-	IF input:HASPARENT = False		//The ship's root part
-	{
-		return input.
-	}
-
 	return blockRootPart(input:PARENT).
 }
 
-
-GLOBAL FUNCTION blockPartList				//Given a part, obtain a list of parts comprising the block that holds it, optionally filtering by type
+GLOBAL FUNCTION blockPartList
+//Given a part, obtain a list of parts comprising the block that holds it, optionally filtering by type
 {
 	PARAMETER input.
 	PARAMETER filter IS list().
@@ -67,24 +66,6 @@ GLOBAL FUNCTION blockPartList				//Given a part, obtain a list of parts comprisi
 	LOCAL retvalue IS list().
 	FOR i in parts
 		IF filter:CONTAINS(i:NAME)
-			retvalue:ADD(i).
-	return retvalue.
-}
-
-GLOBAL FUNCTION blockTaggedParts			//Given a part, obtain a list of parts whose tag is one of the indicated in the filter
-{
-	PARAMETER input.
-	PARAMETER tags.
-
-//	print tags.
-//	print input:TAG.
-
-	LOCAL rootPart IS blockRootPart(input).
-	LOCAL parts IS rootToBlockPartList(rootPart).
-
-	LOCAL retvalue IS list().
-	FOR i in parts
-		IF tags:CONTAINS(i:TAG)
 			retvalue:ADD(i).
 	return retvalue.
 }
@@ -114,55 +95,62 @@ GLOBAL FUNCTION identifyBlock
 			return partNumbers[i:TAG].
 	}
 	return "Unknown".
-	
 }
 
-
-LOCAL FUNCTION rootToBlockPartList		//Given a block root, start the DFS search to enumerate all parts of a space station block
+LOCAL FUNCTION rootToBlockPartList
+//Given a block root, start the DFS search to enumerate all parts of a space station block
 {
 	PARAMETER input.
-
 	LOCAL result IS list(input).
 
 	FOR i IN input:CHILDREN			//We need to scan, even if we're already at a clampotron
 	{
-		IF not input:NAME:STARTSWITH("dockingPort") OR not i:NAME:STARTSWITH("dockingPort")
+		IF NOT input:ISTYPE("DockingPort") OR NOT i:ISTYPE("DockingPort")
 		//Special case, if we have a clampotron as vessel root, we should not explore on the connected side
 		{
 			LOCAL subtree IS rootToBlockPartListNext(i).
 			FOR j IN subtree
-			{
 				result:ADD(j).
-			}
 		}
 	}
 	return result.
 
 }
 
-
-LOCAL FUNCTION rootToBlockPartListNext		//Given a part, do a depth first search on the part tree stopping at block limits
+LOCAL FUNCTION rootToBlockPartListNext
+//Given a part, do a depth first search on the part tree stopping at block limits
 {
 	PARAMETER input.
 
 	LOCAL result IS list(input).
 
-	IF input:NAME:STARTSWITH("dockingPort")
-	{
+	IF input:ISTYPE("DockingPort")
 		return result.
-	} 
 
 	FOR i IN input:CHILDREN
 	{
 		LOCAL subtree IS rootToBlockPartListNext(i).
 		FOR j IN subtree
-		{
 			result:ADD(j).
-		}
 	}
 	return result.
 }
 
+GLOBAL FUNCTION blockTaggedParts
+//Given a part, obtain a list of parts whose tag is one of the indicated in the filter
+{
+	PARAMETER input.
+	PARAMETER tags.
+
+	LOCAL rootPart IS blockRootPart(input).
+	LOCAL parts IS rootToBlockPartList(rootPart).
+
+	LOCAL retvalue IS list().
+	FOR i in parts
+		IF tags:CONTAINS(i:TAG)
+			retvalue:ADD(i).
+	return retvalue.
+}
 
 GLOBAL FUNCTION adjacencyList
 {

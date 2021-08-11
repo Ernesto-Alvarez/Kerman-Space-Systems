@@ -7,8 +7,6 @@ GLOBAL FUNCTION readLine
 	LOCAL inputString IS "".
 	LOCAL inputChar IS "".
 
-
-
 	UNTIL False
 	{
 		print "INPUT: " + inputString:PADRIGHT(TERMINAL:Width - 1 - 7) AT (0,TERMINAL:Height).
