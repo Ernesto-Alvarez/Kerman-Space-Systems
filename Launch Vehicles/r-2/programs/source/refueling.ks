@@ -122,7 +122,7 @@ GLOBAL FUNCTION manualResourceTransferIF
 enumerateVisitor().
 
 //Enumeration trigger
-ON getDockingAdaptor:HASPARTNER
+ON getDockingAdaptor():HASPARTNER
 {
 	enumerateVisitor().
 }

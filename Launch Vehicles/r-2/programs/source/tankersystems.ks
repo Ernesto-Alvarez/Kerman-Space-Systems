@@ -49,7 +49,8 @@ LOCAL FUNCTION closeTankValves
 
 GLOBAL FUNCTION tankerResourceReport
 {
-	return resourceReport(tankerSystems["allParts"]).
+	resourceReport(tankerSystems["allParts"]).
+	return True.
 }
 
 GLOBAL FUNCTION myTanks
@@ -60,7 +61,7 @@ GLOBAL FUNCTION myTanks
 LOCAL FUNCTION dockingReport
 {
 	IF tankerSystems["Clampotron"]:HASPARTNER
-		LOCAL dockingStatus IS "Docked to " + identifyBlock.
+		LOCAL dockingStatus IS "Docked to " + identifyBlock(tankerSystems["Clampotron"]:PARTNER).
 	ELSE
 		LOCAL dockingStatus IS "Undocked".
 	
@@ -86,6 +87,7 @@ registerFunction(systemsMenu,balanceTanks@,"Balance fuel tanks").
 registerFunction(systemsMenu,openTankValves@,"Open LFOX tank valves").
 registerFunction(systemsMenu,closeTankValves@,"Close LFOX tank valves").
 registerFunction(systemsMenu,tankerResourceReport@,"Tanker resource status").
+registerFunction(systemsMenu,dockingReport@,"Docking port status").
 registerFunction(mainMenu,callSystemsMenu@,"Tanker systems").
 
 

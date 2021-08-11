@@ -1,7 +1,7 @@
 @LazyGlobal off.
 
 LOCAL softwareName IS "Fuel Tanker Manager".
-LOCAL softwareVersion IS "1.1.0".
+LOCAL softwareVersion IS "1.1.1".
 
 LOCAL tickSeconds IS 0.5.
 
