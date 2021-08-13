@@ -1,6 +1,9 @@
 @LazyGlobal off.
 
-//R-2 Tanker Resource transfer program
+//Resource management, transfer, reporting and measurement code
+//Measures tank capacity and storage, and does complex resource transfers
+
+//Measuring
 
 LOCAL FUNCTION fillRatio
 {
@@ -14,7 +17,6 @@ LOCAL FUNCTION fillRatio
 		return 0.
 
 	return amount / capacity.
-
 }
 
 
@@ -30,9 +32,7 @@ GLOBAL FUNCTION measureTankResource
 	LOCAL quantity IS 0.
 
 	FOR tank IN tankList
-	{
 		FOR j in tank:RESOURCES
-		{
 			if j:NAME = resource
 			{
 				IF parameter = "CAPACITY"
@@ -42,12 +42,10 @@ GLOBAL FUNCTION measureTankResource
 				IF parameter = "SPACE"
 					SET quantity TO quantity + ( j:CAPACITY - j:AMOUNT ).
 			}
-		}
-	}
 	return quantity.
-
 }
 
+//Transfer
 
 GLOBAL FUNCTION syncTransfer
 {
@@ -99,13 +97,37 @@ GLOBAL FUNCTION syncTransfer
 		}		
 		return.
 	}
-
-	print "This should never happen".
-	return.
-
+	//This should be unreachable
 }
 
+GLOBAL FUNCTION loadAbsolute
+//Load a certain amount of resource in a target, using a reservoir to provide or absorb resources
+{
+	PARAMETER reservoir.
+	PARAMETER target.
+	PARAMETER resource.
+	PARAMETER amount.
 
+	LOCAL tankCapacity IS measureTankResource(target,resource,"CAPACITY").
+	LOCAL tankLoad IS measureTankResource(target,resource,"AMOUNT").
+	LOCAL loadDifference IS amount - tankLoad.
+
+	syncTransfer(reservoir,target,loadDifference,resource).
+}
+
+GLOBAL FUNCTION loadRatio
+//Load a certain resource to a ratio (0 to 1) of tank capacity, using a reservoir to provide or absorb resources
+{
+	PARAMETER reservoir.
+	PARAMETER target.
+	PARAMETER resource.
+	PARAMETER ratio.
+
+	LOCAL tankCapacity IS measureTankResource(target,resource,"CAPACITY").
+	LOCAL targetLoad IS ratio * tankCapacity.
+
+	loadAbsolute(reservoir,target,resource,targetLoad).
+}
 
 GLOBAL FUNCTION balanceResource
 {
@@ -120,12 +142,7 @@ GLOBAL FUNCTION balanceResource
 		tankList:REMOVE(0).
 
 		//Balance that tank, using the rest as reservoir
-		LOCAL tankCapacity IS measureTankResource(tankList,resource,"CAPACITY").
-		LOCAL tankLoad IS measureTankResource(tankList,resource,"AMOUNT").
-		LOCAL targetLoad IS tankCapacity * tankFillRatio.
-		LOCAL loadDifference IS targetLoad - tankLoad.
-
-		syncTransfer(currentTank,tankList,loadDifference,resource).
+		loadRatio(tankList,currentTank,resource,tankFillRatio).
 
 		//Balance the rest of the tanks
 		//Note: must carry fill ratio from the top call, computation would give a different result w/o the already
@@ -133,8 +150,53 @@ GLOBAL FUNCTION balanceResource
 
 		balanceResource(tankList,resource,tankFillRatio).
 	}
-	
+}
 
+//Reporting
+
+GLOBAL FUNCTION resourceReport
+//Supply report generator, set for a 60x40 screen
+{
+	PARAMETER parts.
+
+	LOCAL resourcesPresent IS list().
+	
+	FOR part IN parts
+		FOR resource IN part:RESOURCES
+			IF NOT resourcesPresent:CONTAINS(resource:NAME)
+				resourcesPresent:ADD(resource:NAME).
+
+	print "Resource                 Qty       Capacity  Free     % full".
+	FOR resource IN resourcesPresent
+	{
+		LOCAL quantity IS measureTankResource(parts,resource,"AMOUNT").
+		LOCAL capacity IS measureTankResource(parts,resource,"CAPACITY").
+		LOCAL freeSpace IS measureTankResource(parts,resource,"SPACE").
+
+		LOCAL percent IS 0.
+		IF capacity > 0
+			SET percent TO 100 * (quantity / capacity).
+
+		print resource:PADRIGHT(20) + round(quantity,1):TOSTRING:PADLEFT(10) + round(capacity,1):TOSTRING:PADLEFT(10) + round(freeSpace,1):TOSTRING:PADLEFT(10) + round(percent,1):TOSTRING:PADLEFT(10).
+	}
+}
+
+//Management
+
+GLOBAL FUNCTION enableResourceFlow
+{
+	PARAMETER parts.
+	PARAMETER resources.
+	PARAMETER enabled.
+
+	IF resources:ISTYPE("String")
+		SET resources TO list(resources).
+
+	FOR tank IN parts
+		FOR tankResource IN tank:RESOURCES
+			FOR resource IN resources
+				IF tankResource:NAME = resource OR resource = "*"
+					SET tankResource:ENABLED to enabled.
 }
 
 //Module Init

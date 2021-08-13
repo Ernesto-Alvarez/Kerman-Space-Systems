@@ -7,6 +7,8 @@
 RUNONCEPATH("readline").
 RUNONCEPATH("multilist").
 
+GLOBAL ERRNO_ABORTED IS -1.
+
 LOCAL FUNCTION select
 {
 	PARAMETER max.
@@ -16,7 +18,7 @@ LOCAL FUNCTION select
 	if ( selection < 0 OR selection >= max )
 	{
 		print "Nonsense number entered, aborting".
-		return -1.
+		return ERRNO_ABORTED.
 	}
 	return selection.
 }
@@ -43,7 +45,7 @@ GLOBAL FUNCTION pager
 	//Print current page number
 	FROM { LOCAL i IS start. } UNTIL i = max OR i = start+page  STEP { SET i to i+1. } DO
 	{
-		print i:TOSTRING:PADLEFT(3) + " " + input[i]:PADRIGHT(25).
+		print i:TOSTRING:PADLEFT(3) + " " + input[i]:PADRIGHT(36).
 	}
 
 	print " ".
@@ -74,64 +76,18 @@ GLOBAL FUNCTION pager
 			return pager(systemMessage,input,start).
 	}
 	IF readKey = TERMINAL:Input:RETURN
-	{
 		return select(input:LENGTH).
-	}
+
+
 	IF readKey = TERMINAL:Input:BACKSPACE
-	{
-		return -1.
-	}
+		return ERRNO_ABORTED.
 
-	IF readKey = "0" and start+0 < max
-	{
-		return start+0.
-	}
 
-	IF readKey = "1" and start+1 < max
-	{
-		return start+1.
-	}
+	LOCAL terminalInputs IS lexicon("0",0,"1",1,"2",2,"3",3,"4",4,"5",5,"6",6,"7",7,"8",8,"9",9,"0",0).
 
-	IF readKey = "2" and start+2 < max
-	{
-		return start+2.
-	}
-
-	IF readKey = "3" and start+3 < max
-	{
-		return start+3.
-	}
-
-	IF readKey = "4" and start+4 < max
-	{
-		return start+4.
-	}
-
-	IF readKey = "5" and start+5 < max
-	{
-		return start+5.
-	}
-
-	IF readKey = "6" and start+6 < max
-	{
-		return start+6.
-	}
-
-	IF readKey = "7" and start+7 < max
-	{
-		return start+7.
-	}
-
-	IF readKey = "8" and start+8 < max
-	{
-		return start+8.
-	}
-
-	IF readKey = "9" and start+9 < max
-	{
-		return start+9.
-	}
-
+	IF terminalInputs:KEYS:CONTAINS(readkey) AND start+terminalInputs[readkey] < max
+		return start+terminalInputs[readkey].
+	
 	return pager(systemMessage,input,start).
 
 }
@@ -170,16 +126,15 @@ GLOBAL FUNCTION choice		//Take a list of items, return a chosen item by user
 {
 	PARAMETER choiceList.
 	PARAMETER systemMessage IS "Choose an item to continue".
+	PARAMETER abortValue IS False.
 
-	LOCAL selector IS -1.
+	LOCAL selector IS False.
 
-	//Bug: cannot escape choice with backspace.
-	UNTIL selector >= 0
-		SET selector TO pager(systemMessage,choiceList).
+	SET selector TO pager(systemMessage,choiceList).
+	IF selector = ERRNO_ABORTED
+		return abortValue.
 
 	return choiceList[selector].
 }
-
-
 
 print "Pager loaded".
