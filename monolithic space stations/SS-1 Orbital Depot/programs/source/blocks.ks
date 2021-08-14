@@ -6,6 +6,7 @@
 //Also provides identification services using tags with part numbers.
 //Block part enumeration is also responsibility of this module
 
+//This should be great for optimizing away
 LOCAL partNumbers IS lexicon().
 SET partNumbers["KSS-0001"] TO "C4 Module".
 SET partNumbers["KSS-0002"] TO "Mini Habitat".
@@ -134,22 +135,6 @@ LOCAL FUNCTION rootToBlockPartListNext
 			result:ADD(j).
 	}
 	return result.
-}
-
-GLOBAL FUNCTION blockTaggedParts
-//Given a part, obtain a list of parts whose tag is one of the indicated in the filter
-{
-	PARAMETER input.
-	PARAMETER tags.
-
-	LOCAL rootPart IS blockRootPart(input).
-	LOCAL parts IS rootToBlockPartList(rootPart).
-
-	LOCAL retvalue IS list().
-	FOR i in parts
-		IF tags:CONTAINS(i:TAG)
-			retvalue:ADD(i).
-	return retvalue.
 }
 
 GLOBAL FUNCTION adjacencyList

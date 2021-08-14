@@ -8,7 +8,7 @@ GLOBAL FUNCTION attention
 	LOCAL retval IS callMenu(mainMenu).
 
 	IF retval = False
-		print "Execution incomplete".
+		print "Aborted".
 	ELSE
 		print "Execution complete".
 	return.

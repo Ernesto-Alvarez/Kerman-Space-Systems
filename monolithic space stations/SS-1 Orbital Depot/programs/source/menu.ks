@@ -21,7 +21,7 @@ GLOBAL FUNCTION registerFunction
 {
 	PARAMETER menu.
 	PARAMETER pointer.
-	PARAMETER brief IS "Undescribed function".
+	PARAMETER brief.
 
 	LOCAL newNumber IS MLlength(menu["Functions"]).
 	
@@ -36,21 +36,8 @@ GLOBAL FUNCTION callFunction
 	PARAMETER number.
 
 	
-	IF not number:ISTYPE("Scalar")
-	{
+	IF (NOT number:ISTYPE("Scalar")) OR number < 0 OR number >= MLlength(menu["Functions"])
 		return False.
-	}
-
-	IF number < 0
-	{
-		return False.
-	}
-
-
-	IF number >= MLlength(menu["Functions"])
-	{
-		return False.
-	}
 
 	LOCAL fp IS MLreadCell(menu["Functions"],number,"pointer").
 

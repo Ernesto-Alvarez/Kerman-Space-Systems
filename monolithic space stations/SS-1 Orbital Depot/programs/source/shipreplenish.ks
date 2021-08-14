@@ -8,13 +8,6 @@ RUNONCEPATH("resources").
 
 LOCAL visitorSystems IS lexicon("A",list(),"B",list(),"T",list()).
 
-GLOBAL FUNCTION getVisitorParts
-{
-	PARAMETER portName.
-
-	return visitorSystems[portName].
-}
-
 LOCAL FUNCTION enumerateVisitor
 {
 	PARAMETER portName.

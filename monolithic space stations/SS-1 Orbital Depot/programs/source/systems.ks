@@ -50,7 +50,6 @@ LOCAL FUNCTION dockingReport
 		ELSE
 			LOCAL dockingStatus IS "Undocked".
 	
-
 		print "Port " + port + " Status: " + dockingStatus.
 	}
 	return True.
@@ -84,14 +83,14 @@ LOCAL FUNCTION secureTanks
 
 GLOBAL FUNCTION selectPort
 {
-	LOCAL visitorRoster is multilist(list("Port","Type","Part")).
+	PARAMETER getParts IS False.
+	LOCAL visitorRoster is multilist(list("Port","Type")).
 	FOR i IN stationSystems["clampotrons"]:KEYS
 		IF stationSystems["clampotrons"][i]:HASPARTNER
 			{
 			LOCAL data is lexicon().
 			SET data["Port"] TO i.
-			SET data["Type"] TO identifyBlock(stationSystems["clampotrons"][i]:PARTNER).
-			SET data["Part"] TO stationSystems["clampotrons"][i]:PARTNER.			
+			SET data["Type"] TO identifyBlock(stationSystems["clampotrons"][i]:PARTNER).	
 			MLadd(visitorRoster,data).
 			}
 
@@ -99,7 +98,10 @@ GLOBAL FUNCTION selectPort
 	IF selection = ERRNO_ABORTED
 		return False.
 
-	return MLreadCell(visitorRoster,selection,"Port").
+	IF getParts
+		return blockPartList(stationSystems["clampotrons"][MLreadCell(visitorRoster,selection,"Port")]:PARTNER).
+	ELSE
+		return MLreadCell(visitorRoster,selection,"Port").
 }
 
 GLOBAL FUNCTION myTanks
@@ -129,7 +131,7 @@ registerFunction(systemsMenu,enumerateSystems@,"Re-enumerate space station syste
 registerFunction(systemsMenu,balanceTanks@,"Balance fuel tanks").
 registerFunction(systemsMenu,dockingReport@,"Docking port status").
 registerFunction(systemsMenu,highlightVisitor@,"Highlight visitor").
-registerFunction(systemsMenu,secureTanks@,"Secure tanks (remove tanks from flow)").
+registerFunction(systemsMenu,secureTanks@,"Secure tanks").
 registerFunction(systemsMenu,stationResourceReport@,"Depot resource status").
 
 registerFunction(mainMenu,callSystemsMenu@,"Station systems").

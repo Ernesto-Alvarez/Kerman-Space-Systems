@@ -8,34 +8,6 @@ RUNONCEPATH("shipreplenish").
 
 LOCAL currentVisitor IS list().
 
-//I don't really need these one liners, but I'm keeping them as reference and will eliminate as soon as the module is complete
-LOCAL FUNCTION rechargeBatteries
-{
-	loadRatio(myTanks(),currentVisitor,"ElectricCharge",1).
-}
-
-LOCAL FUNCTION fillMP
-{
-	loadRatio(myTanks(),currentVisitor,"MonoPropellant",1).
-}
-
-LOCAL FUNCTION drainMP
-{
-	loadRatio(myTanks(),currentVisitor,"MonoPropellant",0).
-}
-
-LOCAL FUNCTION fillLFOX
-{
-	loadRatio(myTanks(),currentVisitor,"LiquidFuel",1).
-	loadRatio(myTanks(),currentVisitor,"Oxidizer",1).
-}
-
-LOCAL FUNCTION drainLFOX
-{
-	loadRatio(myTanks(),currentVisitor,"LiquidFuel",0).
-	loadRatio(myTanks(),currentVisitor,"Oxidizer",0).
-}
-
 LOCAL FUNCTION radioLevel
 {
 	//Activate N antennas
@@ -132,8 +104,9 @@ LOCAL FUNCTION activateCPU
 
 LOCAL FUNCTION shutDown
 {
-	drainLFOX().
-	drainMP().
+	loadRatio(myTanks(),currentVisitor,"LiquidFuel",0).
+	loadRatio(myTanks(),currentVisitor,"Oxidizer",0).
+	loadRatio(myTanks(),currentVisitor,"MonoPropellant",0).
 	enableGyros(False).
 	enableEngine(False).
 	actuateTankValves("Monopropellant",False).
@@ -148,9 +121,10 @@ LOCAL FUNCTION shutDown
 
 LOCAL FUNCTION readinessMode
 {
-	rechargeBatteries().
-	fillLFOX().
-	fillMP().
+	loadRatio(myTanks(),currentVisitor,"ElectricCharge",1).
+	loadRatio(myTanks(),currentVisitor,"LiquidFuel",1).
+	loadRatio(myTanks(),currentVisitor,"Oxidizer",1).
+	loadRatio(myTanks(),currentVisitor,"MonoPropellant",1).
 	enableGyros(False).
 	enableEngine(False).
 	actuateTankValves("Monopropellant",False).
@@ -164,15 +138,16 @@ LOCAL FUNCTION readinessMode
 
 LOCAL FUNCTION flightMode
 {
-	rechargeBatteries().
-	fillLFOX().
-	fillMP().
+	loadRatio(myTanks(),currentVisitor,"ElectricCharge",1).
+	loadRatio(myTanks(),currentVisitor,"LiquidFuel",1).
+	loadRatio(myTanks(),currentVisitor,"Oxidizer",1).
+	loadRatio(myTanks(),currentVisitor,"MonoPropellant",1).
 	enableGyros(True).
 	enableEngine(True).
 	actuateTankValves("Monopropellant",True).
 	actuateTankValves("LiquidFuel",True).
 	actuateTankValves("Oxidizer",True).
-	radioLevel(100).
+	radioLevel().		//Default of full activation
 	enablePanels(True).
 	activateCPU(True).
 	return True.
@@ -180,10 +155,9 @@ LOCAL FUNCTION flightMode
 
 LOCAL FUNCTION callVisitorMenu
 {
-	LOCAL port IS selectPort().
-	IF port = False
+	SET currentVisitor TO selectPort(True).
+	IF currentVisitor:ISTYPE("Bool")
 		return False.
-	SET currentVisitor TO getVisitorParts(port).
 	return callMenu(visitorMenu).
 }
 

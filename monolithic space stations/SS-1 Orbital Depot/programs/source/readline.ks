@@ -14,22 +14,16 @@ GLOBAL FUNCTION readLine
 
 		//Return pressed, end function and return line
 		IF inputChar = TERMINAL:Input:RETURN
-		{
 			return inputString.
-		}
 	
 		//Backspace, we need to erase one character, if the line has something.
 		IF inputChar = TERMINAL:Input:BACKSPACE
 		{
 			IF inputString:LENGTH > 0
-			{
 				SET inputString TO inputString:REMOVE(inputString:LENGTH - 1,1).
-			}
 		}
 		ELSE		//Regular character, append to the line
-		{
 			SET inputString TO inputString + inputChar.
-		}
 	}
 }
 
