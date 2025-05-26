@@ -1,1 +1,0 @@
-R-4 9 ton reusable launcher rocket.
