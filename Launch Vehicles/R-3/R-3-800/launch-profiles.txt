@@ -1,0 +1,60 @@
+R-3 800
+
+**Orbital flight specifications
+
+KSC Launch
+
+Inclination			EQUATORIAL
+Orbit				100x100 Km
+Max Payload			1300 Kg
+POM course			090 (east)
+POM start			30 m/s
+POM end				25 degrees from vertical
+LS dV at engine start		1150 m/s
+US dV at launch			470 m/s
+US dV at engine start		1650 m/s
+Apoapsis MECO			100.2Km
+Reserve dV (pre-release)	> 30 m/s
+Reserve dV (post-release)	> 63.5 m/s
+
+Orbit				100x100 Km
+Inclination			45 degrees
+Max Payload			1150 Kg
+POM course			140 or 050
+POM start			30 m/s
+POM end				25 degrees from vertical
+LS dV at engine start		1184 m/s
+US dV at launch			498 m/s
+US dV at engine start		1750 m/s
+Apoapsis MECO			100.3 Km
+Reserve dV (pre-release)	> 70 m/s
+Reserve dV (post-release)	> 135 m/s
+
+
+Orbit				100x100 Km
+Inclination			POLAR
+Max Payload			1000 Kg
+POM course			180 (south) or 000 (north)
+POM start			30 m/s
+POM end				25 degrees from vertical
+LS dV at engine start		1197 m/s
+US dV at launch			513 m/s
+US dV at engine start		1835 m/s
+Apoapsis MECO			100.5 Km
+Reserve dV (pre-release)	> 65 m/s
+Reserve dV (post-release)	> 120 m/s
+
+
+**Ascent data
+Ascend vertically until POM start speed (normally 30 m/s)
+Initiate pitch over maneuver at max deflection until velocity vector reaches indicated degrees from vertical (normally 25 degrees)
+Hold prograde
+	First stage can hold by itself because of the fins
+	Second stage needs active correction. 
+		Use manual correction with SAS running on block 1 or HECS prograde on block 2.
+		If using RemoteTech, set flight computer to prograde.
+Eject fairing at 70 Km altitude
+Burn until apoapsis = 100 Km
+Circularise at apoapsis
+Eject payload and execute retrograde burn to recover booster
+

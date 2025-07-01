@@ -1,0 +1,135 @@
+AOC-0 Suborbital exploration procedures
+
+**** SYSTEM LIST (CAPSULE)****
+
+Pod
+	Wheel
+	Lights
+	Battery
+	Part storage bin
+	Food storage
+	Water tank
+	O2 tank
+	CO2 tank
+	Waste tank
+	Wastewater tank
+Computer
+	Battery
+Parachute (L)
+Parachute (R)
+Radio (L)
+Radio (R)
+Thermometer
+Barometer
+Heat shield
+	Shield
+	Ejector
+
+**** SYSTEM LIST (BOOSTER)****
+
+Engine
+Fins
+LFOX tanks
+Parachutes
+Decoupler
+
+**** MINIMUM EQUIPMENT LIST ****
+
+Pod
+	Wheel
+	Battery
+	Food storage
+	Water tank
+	O2 tank
+
+Parachute (L)
+Parachute (R)
+Heat shield
+	Ejector
+
+Engine
+Fins
+LFOX tanks
+Parachutes x1
+Decoupler
+
+****NORMAL PROCEDURES****
+
+Pre flight
+
+Computer hibernate		OFF
+Radios				ON
+Computer EC			FULL
+Pod EC				FULL
+O2 tank				FULL
+LFOX Tanks			FULL
+Decoupler			STAGEABLE
+Pod Parachutes			CHECK PARAMS (0.6/1200/10)
+Rocket Parachutes		CHECK PARAMS (0.6/1000/10)
+Throttle			MAX
+
+Launch
+Set KER to surface + land
+	Landing pointer shows estimated landing position
+	Perform pre-flight checklist
+
+Rotate and tilt rocket to guide landing indicator to desired landing point
+	Rocket will veer towards hatch side
+	Hatch-side forces increase until shortly before MECO
+	Tilt rocket after MECO for final adjustments
+	Landing point can be placed within a 25Km circle around KSC
+
+At 70 KM
+	Stage
+
+Capsule lands automatically upon reentering atmosphere.
+
+
+****EMERGENCY PROCEDURES****
+
+
+**** Pod battery failure
+
+Engine Thrust			CUT
+Staging				ACTIVATE
+Return to kerbin
+End checklist
+
+**** Pod resource tank leak
+
+Engine Thrust			CUT
+Staging				ACTIVATE
+Return to kerbin
+End checklist
+
+
+**** Pod parachute failure (single)
+
+Engine Thrust			CUT
+Staging				ACTIVATE
+Return to kerbin
+End checklist
+
+**** Booster engine failure
+
+Engine Thrust			CUT
+Staging				ACTIVATE
+Return to kerbin
+End checklist
+
+**** Booster LFOX tank failure (boost phase)
+
+Engine Thrust			CUT
+Staging				ACTIVATE
+Return to kerbin
+End checklist
+
+**** Booster decoupler failure
+
+Staging				ACTIVATE
+Verify parachute state		DEPLOYED
+Pod heat shield			JETTISON
+End checklist
+
+
+
