@@ -1,26 +1,83 @@
 R-3 1200L
 
-Equatorial profile
-Launch from:	KSC
-Payload mass:	3050 Kg
-Orbit:		100 x 100 Km
-Return dV:	3.46 * dV with max payload (Estimated 60m/s)
+**Orbital flight specifications
 
-Ascent data
-Ascend vertically until v = 15 m/s (if necessary, start turn earlier rather than past the 15m/s mark)
-	NOTE: gravity turn can start immediately after takeoff, but course may be unstable
-Initiate gravity turn at max deflection until velocity vector reaches 45 degrees from vertical
+KSC Launch
+
+Inclination			EQUATORIAL
+Orbit				100x100 Km
+Max Payload			3050 Kg
+POM tip direction		090
+POM course			090 (east)
+POM start			Immediate
+POM end				45 degrees from vertical
+Stage 4 dV at launch		928 m/s
+Stage 3 dV at launch		776 m/s
+US dV at launch			310 m/s
+US dV at engine start		1204 m/s
+Apoapsis MECO			100.1 Km
+Reserve dV (pre-release)	> 20 m/s
+Reserve dV (post-release)	> 70 m/s
+
+Inclination			45 degrees
+Orbit				100x100 Km
+Max Payload			2850 Kg	
+POM tip direction		50 or 140
+POM course at end		50 or 140
+POM start			Immediate
+POM end				45 degrees from vertical
+Stage 4 dV at launch		938 m/s
+Stage 3 dV at launch		791 m/s
+US dV at launch			321 m/s
+US dV at engine start		1249 m/s
+Apoapsis MECO			100.2 Km
+Reserve dV (pre-release)	> 40 m/s
+Reserve dV (post-release)	> 131 m/s
+
+Inclination			POLAR
+Orbit				100x100 Km
+Max Payload			2640 Kg	
+POM tip direction		185 or 355
+POM course at end		185 or 355
+POM start			Immediate
+POM end				45 degrees from vertical
+Stage 4 dV at launch		949 m/s	
+Stage 3 dV at launch		807 m/s	
+US dV at launch			334 m/s	
+US dV at engine start		1299 m/s
+Apoapsis MECO			100.2 Km
+Reserve dV (pre-release)	> 20 m/s
+Reserve dV (post-release)	> 62 m/s
+
+
+**Ascent data
+
+Install rocket on platform facing the POM tip direction
+Enable SAS
+Set thorttle to full and activate engines
+Initiate pitch over maneuver at max deflection until velocity vector reaches 45 degrees from vertical
+As soon as launch course is discerned, correct course with sideways nudges to match POM course at end
+	Execute this maneuver as soon as possible to avoid inefficiencies
+Once correct course is established, disable SAS
+	This should happen before end of POM maneuver
+	About 20 degrees from vertical
 Eject boosters
-	Boosters should eject at about the same time the turn is complete
+	Boosters should eject at about the same time the POM turn is complete
 	Booster ejection should take priority before holding prograde (fins can take care of that for now)
 Hold prograde
 	First stage can hold by itself because of the fins
 	Second stage needs active correction. 
 		Use manual correction with SAS on block 1 or HECS prograde on block 2.
-		If using RemoteTech, set flight computer to prograde.
+		If using RemoteTech, set flight computer to surface prograde.
+			Switch to orbital prograde at about 38 Km
+		Is using block 2, correct inclination by switching between surface and orbital mode in SAS
+			This is more expensive than POM nudge correction
+			Use this only for very fine adjustments
 Eject fairing at 70 Km altitude
+	Evaluate reserve dV at this point
+	Ensure at least 30 m/s dV is available after payload ejection to return from orbit
+		Use reserve dV ratio and post-burn dV to calculate estimated after-release dV
 Burn until apoapsis = 100 Km
 Circularise at apoapsis
 Eject payload and execute retrograde burn to recover booster
-NOTE: return from a 100x100 Km orbit requires 30 m/s dV. Remaining dV after orbital insertion burn (before payload release) should be at least 9 m/s. Reduce insertion burn if needed to ensure proper return dV.
 

@@ -1,50 +1,62 @@
 R-3 1200
 
+**Orbital flight specifications
+
+KSC Launch
+
 Inclination			EQUATORIAL
 Orbit				100x100 Km
-Max Payload			1800 Kg
+Max Payload			1850 Kg
 POM course			090 (east)
 POM start			50 m/s
 POM end				15 degrees from vertical
-LS dV at engine start		1451 m/s
-US dV at launch			399 m/s
-US dV at engine start		1505 m/s
-Apoapsis MECO			100.7 Km
+LS dV at engine start		1455 m/s
+US dV at launch			402 m/s
+US dV at engine start		1516 m/s
+Apoapsis MECO			100.3 Km
 Reserve dV (pre-release)	> 25 m/s
-Reserve dV (post-release)	> 58 m/s
+Reserve dV (post-release)	> 62 m/s
 
-
+Inclination			45 degrees
+Orbit				100x100 Km
+Max Payload			1700 Kg
+Recommended roll 		5 degrees to east
+POM course			140 or 050
+POM start			50 m/s
+POM end				15 degrees from vertical
+LS dV at engine start		1476 m/s
+US dV at launch			417 m/s	
+US dV at engine start		1576 m/s
+Apoapsis MECO			100.7 Km
+Reserve dV (pre-release)	> 40 m/s
+Reserve dV (post-release)	> 90 m/s
 
 Inclination			POLAR
 Orbit				100x100 Km
-Max Payload			1400 Kg
-Recommended roll 		175 or 005 (5 degrees towards east)
+Max Payload			1500 Kg
+Recommended roll 		175 or 005 (5 degrees towards east)				
 POM course			185 or 355
 POM start			50 m/s
-POM end				10 degrees from vertical
-LS dV at engine start		1509 m/s
-US dV at launch			441 m/s
-US dV at engine start		1675 m/s
-Apoapsis MECO			100.3 Km
-Reserve dV (pre-release)	> 65 m/s
-Reserve dV (post-release)	> 135 m/s
-
-
-
-
-
-
+POM end				12.5 degrees from vertical
+LS dV at engine start		1505 m/s
+US dV at launch			438 m/s
+US dV at engine start		1668 m/s
+Apoapsis MECO			100.6 Km
+Reserve dV (pre-release)	> 40 m/s
+Reserve dV (post-release)	> 90 m/s
 
 **Ascent data
 Activate SAS
 Ascend vertically until v = 50 m/s
 Roll to indicated roll program course (do not roll if not indicated)
 Initiate pitch over maneuver at max deflection until velocity vector reaches indicated value with SAS active
+While pitching, nudge rocket sideways to reach POM course
 Once POM is complete, hold prograde
-	Switch to SAS prograde ASAP
+	For block 2, switch to SAS prograde ASAP
 	For block 1, disable SAS and let fins hold attitude
 		Enable SAS after LS MECO and hold prograde manually with SAS assistance
 	If using RemoteTech, set flight computer to prorade surface and switch to orbital at 38 Km altitude
+	For block 2 at high altitude, fine tune orbital inclination by switching between orbital and surface SAS modes
 Eject fairing at 70 Km altitude
 Burn until apoapsis = 100 Km
 Circularise at apoapsis
