@@ -1,0 +1,40 @@
+The TSC network
+
+**Description**
+
+The TSC ("Telemetry and Spacecraft Control") network is a RemoteTech relay network used for controlling spacecraft in low Kerbin orbit. The network uses a set of kerbostationary satellites transmitting downwards towards Kerbin using directional antennas. This concept can (and has been) applied to stock Kerbnet for science transmission, but this document describes RemoteTech applications only.
+
+**Network basics**
+
+The network consists of at least 3 satellites. The satellites should be spaced evenly in orbit. When 3 satellites are used, they should be placed 120 degrees apart. Two of the satellites should be placed 60 degrees to the east and west of the KSC. The third satellite should be placed 180 degrees (on the antipode) of the KSC. The reason for placing the satellites in that way is that it meets the system constraints and it has two satellites in view of the KSC, providing redundancy in case of satellite failure.
+
+The three satellite design works perfectly in conjunction with HG-5 antennas. The antennas' 90 degree cone covers all the space up to 1800 KM altitude with the other satellites in view and in range of each other when the antenna is pointed to Kerbin. The theoretical minimum is a satellite with a single HG-5 radio.
+
+The satellite's performance can be improved by adding a second antenna (not necessarily an HG-5) pointed toward the active vessel. This can extend the range of the network outwards past 1800 Km and ensure a good connection with the active vessel.
+
+Additional antennas can be used to connect to other networks. The number is dependent on the desired application. The antennas can be pointed to the other members of the TSC network or other kerbostationary satellites to allow relaying to other kerbostationary networks.
+
+The satellites can have omnidirectional antennas for control during deployment and for communications (where a satellite dish is pointed towards a TSC satellite from outside of its own dish coverage).
+
+**Satellite parameters**
+
+TSC East
+AP/PE altitude			2863.333 Km
+Orbital period			5h59m9.4s
+Inclination			0
+Longitude			14º34'31" W
+
+TSC West
+AP/PE altitude			2863.333 Km
+Orbital period			5h59m9.4s
+Inclination			0
+Longitude			134º34'31" W
+
+TSC Antipodal
+AP/PE altitude			2863.333 Km
+Orbital period			5h59m9.4s
+Inclination			0
+Longitude			106º34'31" E
+
+Night time			1200 sec
+

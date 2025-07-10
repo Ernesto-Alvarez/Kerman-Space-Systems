@@ -1,0 +1,168 @@
+The SpaceBus-1 satellite bus
+
+***Description***
+
+SpaceBus-1 is a modular satellite bus architecture that can be used to create satellite and probes in a consistent and reliable way.
+The system consists of a computer unit, one or more power units and a propulsion unit.
+
+***Parts***
+
+**Computer unit**
+The SpaceBus-1 computer unit is based on the OKTO computer, with dual Communotron-16 radios for control. The rationale for using the OKTO computer instead of more advanced models is that (while SAS is desirable) more advanced capabilities are not necessary. Satellites need stabilisation, but all other operations can be done manually (as there usually is enough time to do them) or the RemoteTech flight computer can do them. These extended capabilities are not worth the extra cost and energy use. Moreover, an eight-sided computer is a better radial support for additional systems than a six-sided one.
+
+The computer unit has 6 free sides that can be used for mission payloads.
+
+*Specifications*
+
+
+Power requirements			
+	Computer				0.02	EC/sec
+	Wheel					0.03	EC/sec
+	Radio 1 (C16)				0.13	EC/sec
+	Radio 2 (C16)				0.13	EC/sec
+
+	Total	(OKTO hibernating)		0.26	EC/sec
+		(radios+OKTO)			0.28	EC/sec
+		(maneuvering)			0.31	EC/sec
+
+Mass						110	Kg
+Onboard power storage				10	EC
+Free radial hardpoints				6
+
+Hardpoint definitions
+	1					OKTO branded panel
+	2					Opposite to HP 1
+	3					Left of HP1
+	4					Opposite to HP3
+	5					Right of HP1
+	6					Opposite to HP5
+
+
+**Power unit**
+The SpaceBus-1 power unit consists of a ring of solar panels with batteries for EC storage. All power units have a 400 EC capacity provided by two Z-200 battery banks. Type 1 is the basic unit and consists of a ring of 6 panels in a hexagonal configuration. Other variants include a 3 panel unit (type 2) and a 4 panel unit (type 3). Types 2 and 3 have the panels more recessed and have a smaller diameter as a consequence. A single power unit is capable of powering the computer unit, provided average power is generated.
+
+*Specifications*
+
+EC storage					200	EC
+
+Power generation (max)				0.72	EC/sec		Type 1
+						0.36	EC/sec		Type 2
+						0.50	EC/sec		Type 3
+
+Power generation (min)				0.63	EC/sec		Type 1
+(assumes ring in ecliptic plane)		0.32	EC/sec		Type 2
+						0.36	EC/sec		Type 3
+
+Power generation (avg)				0.68	EC/sec		Type 1
+(assumes ring in ecliptic plane)		0.34	EC/sec		Type 2
+						0.45	EC/sec		Type 3
+
+*Power generation curves*
+
+Type 1
+Zero angle is with one panel fully towards sun (and two panels with 0.5 exposure).
+
+(full power		Angle	Power	Exposure
+assumed to be		0	0.72	2
+0.364 EC/sec)		15	0.70	1.94
+			30	0.63	1.74
+			45	0.70	1.94
+			60	0.72	2
+			75	0.70	1.94
+			90	0.63	1.74
+			105	0.70	1.94
+			120	0.72	2
+			135	0.70	1.94
+			150	0.63	1.74
+			165	0.70	1.94
+			180	0.72	2
+			195	0.70	1.94
+			210	0.63	1.74
+			225	0.70	1.94
+			240	0.72	2
+			255	0.70	1.94
+			270	0.63	1.74
+			285	0.70	1.94
+			300	0.72	2
+			315	0.70	1.94
+			330	0.63	1.74
+			345	0.70	1.94
+
+Type 2
+Zero angle is with one panel fully towards sun (and nothing else producing power).
+
+(full power		Angle	Power	Exposure
+assumed to be		0	0.36	1
+0.364 EC/sec)		15	0.35	0.97
+			30	0.32	0.87
+			45	0.35	0.97
+			60	0.36	1	
+			75	0.35	0.97	
+			90	0.32	0.87
+			105	0.35	0.97
+			120	0.36	1
+			135	0.35	0.97	
+			150	0.32	0.87
+			165	0.35	0.97
+			180	0.36	1	
+			195	0.35	0.97	
+			210	0.32	0.87
+			225	0.35	0.97
+			240	0.36	1
+			255	0.35	0.97	
+			270	0.32	0.87
+			285	0.35	0.97
+			300	0.36	1	
+			315	0.35	0.97	
+			330	0.32	0.87
+			345	0.35	0.97
+
+Type 3
+Zero angle is with one panel fully towards sun (and nothing else producing power).
+
+(full power		Angle	Power	Exposure
+assumed to be		0	0.36	1
+0.364 EC/sec)		15	0.45	1.23
+			30	0.50	1.37
+			45	0.51	1.42
+			60	0.50	1.37	
+			75	0.45	1.23	
+			90	0.36	1
+			105	0.45	1.23
+			120	0.50	1.37
+			135	0.51	1.42
+			150	0.50	1.37	
+			165	0.45	1.23	
+			180	0.36	1
+			195	0.45	1.23
+			210	0.50	1.37
+			225	0.51	1.42
+			240	0.50	1.37	
+			255	0.45	1.23	
+			270	0.36	1
+			285	0.45	1.23
+			300	0.50	1.37
+			315	0.51	1.42
+			330	0.50	1.37	
+			345	0.45	1.23	
+
+*Implementation notes*
+When using multiple power units, offset the units to smooth out power fluctuations.
+
+**Propulsion unit**
+
+The SpaceBus-1 propulsion unit consists of a small (2KN) rocket with either 1 or two OSCAR-B tanks. The surface of the tanks can be used to mount mission payloads, and can hold between 6 to 8 (type 1) or 6 to 16 (type 2) items. There is no formal definition of hardpoints in the propulsion unit.
+
+*Specifications*
+
+Cost					180	Funds			Type 1
+					250	Funds			Type 2
+Mass (dry)				45	Kg			Type 1
+					70	Kg			Type 2
+Mass (wet)				245	Kg			Type 1
+					470	Kg			Type 2
+Thrust					2	KN
+Propellants				200	Kg			Type 1
+					400	Kg			Type 2
+Specific impulse			315	sec	
+Thruster type				LV-1 "Ant" Liquid Fuel Engine

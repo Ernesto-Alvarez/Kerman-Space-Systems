@@ -1,0 +1,103 @@
+K-1 kicker assembly
+
+**Part list**
+
+1x	48-7S "Spark" Liquid Fuel Engine
+2x	Oscar-B Fuel Tank
+4x	OX-STAT Photovoltaic Panels
+1x	Probodobodyne OKTO
+1x	Z-200 Reachargeable Battery Bank
+2x	Communotron 16-S
+1x	TD-06 Decoupler
+1x	Mk16 Parachute
+1x	Cubic Octagonal Strut
+
+**Assembly**
+
+Start with engine
+Mount OSCAR-B axially on top of engine
+Mount second OSCAR-B axially on top of first OSCAR-B
+Mount OKTO computer axially on top of stack
+Mount cubic strut radially on top of OKTO
+	Select anywhere except on axial point
+	Move strut on top of axial point using part offset with snap
+	Push strut down into computer so that half of it projects over it
+	Verify alignment using RCS Build Aid engine mode
+Mount parachute axially on top of strut
+	Note that we now have 2 axial mount points, one on top of strut and another on top of OKTO
+	Use the strut mount point
+Install battery axially on OKTO mount point
+Install decoupler axially on top of battery
+Use move tool to push parachute assembly down into the stack
+	Disable snap for precise movement
+	Tip should project over battery, but should not project itself over decoupler top end
+Install panels radially over OSCAR-B tanks
+	4x symmetry with snap
+	Over top tank, but as low as possible
+	Long side of panels vertically (following direction of thrust)
+Install radios radially on battery
+	2x symmetry with snap
+	Antennas in traverse direction to thrust
+	Use battery lightning marks as guides, covering them
+
+**Configuration**
+
+Set parachute
+	Min pressure				0.6
+	Altitude				1000
+	Spread angle				0
+
+OKTO
+	Command
+		Hibernate in warp		Auto
+Radios
+	Remove from symmetry					(RemoteTech only)
+
+Radio assignment is arbitrary. They are asigned separately to allow for different configurations. Radio 1 is to be permanently listen, radio 2 is shut down to conserve power if necessary.
+
+Radio 1
+	Enabled
+	Deactivate at				0	%	(RemoteTech only)
+	Activate at				1	%	(RemoteTech only)
+
+Radio 2
+	Enabled
+	Deactivate at				20	%	(RemoteTech only)
+	Activate at				40	%	(RemoteTech only)
+
+
+
+Staging
+	Stage 2
+		Engine
+	Stage 1
+		Decoupler
+	Stage 0
+		Parachute
+
+**Final checks**
+Ensure that RCS BA indicates engine thrust and no torque on rocket
+	Vac thrust				20 	KN
+	Torque					0	NM
+Ensure parachute pull is above CoM and DCom
+	Should be by a large margin, by design
+
+**Servicing instructions
+TD-06 decoupler
+						Enable staging
+Battery
+						Full
+
+Radios
+	Active
+	Verify power configuration				(RemoteTech only)
+
+Computer
+	Battery					Full
+	Hibernation				Check config
+
+OSCAR-B tanks					Full
+
+Parachute					Check parameters
+
+

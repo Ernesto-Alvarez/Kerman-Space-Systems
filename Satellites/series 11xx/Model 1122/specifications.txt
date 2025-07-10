@@ -1,0 +1,92 @@
+Model 1122 relay satellite
+
+***Description***
+
+The model 1122 satellite is an HG-5 based relay satellite that takes advantage of the wide angle of the HG-5 antenna to cover a large footprint on planetary surfaces. The presence of a second antenna allows the satellite to relay to off-world targets, to act as a close range (Mun to Kerbin) relay or as part of a larger communications network.
+
+***Variants***
+
+The satellite variants can be identified by the following suffixes
+
+Model 1122[Y]
+
+Where Y defines the attchment point and can be
+
+	Suffix			Type				Notes
+	(no suffix)		No attachment point
+	K			KAS JS-1 socket			KAS only
+	C			Clamp-o-Tron jr
+
+***Uses***
+
+TSC satellite
+Mun-Kerbin relay
+
+***Costs and tech***
+Costs
+	Base model				6440	Funds
+	Model K					7190	Funds
+	Model C					7240	Funds
+
+Tech requirements
+	Electrics
+	Basic science
+	Engineering 101
+	Propulsion systems
+	Miniaturization							Model C only
+	Advanced construction						Model K only
+
+***Specifications***
+
+Electrical storage				2210	EC
+Electrical storage margin			17.9	%		kerbostationary orbit
+						295	EC		kerbostationary orbit
+Max orbital alt (circular)			4000	Km		limited by battery storage
+Min orbital alt (circular)			750	Km		limited by battery charger
+Power consumption (max)				1.41	EC/sec
+Power consumption (max systems)			1.38	EC/sec
+Power consumption (non maneuvering)		1.36	EC/sec
+Power generation (max)				1.75	EC/sec
+Power generation (min)				1.35	EC/sec		assumes panel ring oriented to ecliptic
+Power generation (avg)				1.59	EC/sec		assumes panel ring oriented to ecliptic
+Thrust						2	kN
+dV budget (vacuum)				1048	m/s		1122C
+						1070	m/s		1122K
+						1086	m/s		1122				
+Mass (wet)					695	Kg		1122C
+						683	Kg		1122K
+						675	Kg		1122
+Mass (dry)					495	Kg		1122C
+						483	Kg		1122K
+						475	Kg		1122
+Omni Antenna range				1875	Km		assumes root model, 0.5 range multiplier and 0.5 multiple antenna bonus
+
+***Power budget***
+			Computer		0.02
+Systems			C16 1			0.13
+			C16 2			0.13
+			HG5 1			0.55
+			HG5 2			0.55
+
+**Subtotal**					1.38
+
+Attitude control	OKTO wheel		0.03
+
+**Total**					1.41
+
+***Electrical generator performance***
+
+			angle	Total	SBPU	SBPL	CUST	
+Electrical generation 	0	1.71	0.72	0.63	0.36
+(position 0 is at HG-5)	15	1.75	0.70	0.70	0.35
+			30	1.66	0.63	0.72	0.31
+			45	1.66	0.70	0.70	0.26
+			60	1.53	0.72	0.63	0.18
+			75	1.49	0.70	0.70	0.09
+			90	1.35	0.63	0.72	0.00
+			105	1.49	0.70	0.70	0.09
+			120	1.53	0.72	0.63	0.18
+			135	1.66	0.70	0.70	0.26
+			150	1.66	0.63	0.72	0.31
+			175	1.75	0.70	0.70	0.35
+			180	1.71	0.72	0.63	0.36
