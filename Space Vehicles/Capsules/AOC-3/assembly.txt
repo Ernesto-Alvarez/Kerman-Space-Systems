@@ -1,4 +1,16 @@
+AOC-3 assembly instructions
 
+***Variants***
+
+AOC-3 TKL
+
+Where:
+
+	T = TACLS version 
+	K = includes kOS core
+	L = includes navigation lights
+
+	(missing suffix indicates capability is not present)
 
 ***Payload bay assembly***
 
@@ -18,6 +30,7 @@ NOTE: several elements will protrude from the top of the bay. That´s normal.
 1x	Communotron 16-S
 1x	Mystery Goo (TM) Containment Unit
 1x	Z-100 Rechargeable Battery Pack
+2x	SP-L 1x6 Photovoltaic Panels
 
 **Assembly procedure**
 
@@ -69,6 +82,12 @@ Install goo can radially on experiment unit
 	Exactly opposite the HG-5 antenna
 	Push downwards until bottom of can touches bottom of bay
 
+Install solar panels
+	2x symmetry with snap
+	On sides of the outside of payload bay
+	Panel hinge to the front, doors open to the rear
+	Centred on the payload bay
+
 Calibrate bay mass distribution
 	Temporarily install a rocket engine at the bottom of the bay (RT-5 Flea is perfect)
 	Set RCS Build Aid in engine mode
@@ -93,6 +112,9 @@ Verify calibration
 3x	Communotron 16
 1x	Mk12-R Radial Mount Drogue Chute
 2x	Mk12-R Radial Mount Parachute
+1x	KR-2042 b Scriptable Control System	(K models only)
+2x	Navigation Light Mk1
+3x	Domelight Mk1
 
 **Assembly procedure**
 
@@ -101,7 +123,11 @@ Start with Mk1 pod
 
 Install HECS axially on top of pod
 
+For K models only
+	Install KR-2042 on top of Mk1 pod
+
 Install Clamp-o-tron axially on top of HECS
+	On top of KR-2042 in K models
 
 Install fins radially on HECS
 	These are going to be converted into finlets
@@ -145,6 +171,19 @@ Adjust parachute parameters
 	Main parachutes		0.6/1000/10
 	Drogue parachute	0.03/5000/10
 
+Install Domelights
+	3x symmetry
+	Aft of the finlets
+	Bottom part lined up with bottom of hatch
+
+Install navigation lights
+	2x symmetry
+	In the corrigated bands on the sides of the capsule
+	Thicker part of teardrop facing front
+	Aft (thinner) part of lamps touching 5th notch in the band counting from behind
+	Set port light to red
+	Set stbd light to green
+
 *** Final assembly ***
 
 **Part list**
@@ -152,8 +191,7 @@ Adjust parachute parameters
 1x	AOC-3 crew section
 1x	AOC-3 payload bay
 1x	Heat Shield (1.25m)
-2x	RV-105 RCS Thruster Block
-8x	Place Anywhere 7 Linear RCS Port
+15x	Place Anywhere 7 Linear RCS Port
 
 **Assembly procedure**
 
@@ -171,13 +209,7 @@ Test HG-5 deployment
 	Antenna and antenna support is stowed in recessed bay with protecting doors when stowed
 		That's my story and I'm sticking to it!
 
-Install heat shield axially at the bottom of the service bay
-	Beware: connection points may show from hexacans and battery from inside bay
-	Make sure you connect shield to the bay
-	Test by highlighting battery and seeing that the heat shield DOES NOT light up
-	Connection into hexacans leave a grossly skewed shield
-		But you can test by highlighting the cans anyway
-	Set ablator to 50
+
 
 Test longitudinal balance
 	Install an RT-5 at bottom of capsule (on heat shield)
@@ -224,12 +256,28 @@ Install down fore thruster (Linear 7)
 	Move inside so that nozzle is flush with capsule
 	Using actuation toggles, disable everything except up/down movement
 
-Install fore/back thruster (RV-105, orthogonal 2-horn)
-	2x symmetry with snap
-	On sides of service bay
-	Exactly between top and bottom of payload bay
-	Pointing forwards and backwards
+Install back thruster (Linear 7)
+	3x symmetry with snap
+	On top of HECS
+	In line with parachutes
+	Nozzles projecting through clamp-o-tron sides facing forward
 	Using actuation toggles, disable everything except fore/back movement	
+
+Install fore thruster (Linear 7)
+	4x symmetry with snap
+	At bottom of thruster bay on the outside
+	At 45 degrees from hatch
+	Nozzles should project from heat shield when installed
+	Using actuation toggles, disable everything except fore/back movement	
+	NOTE: Fore thrusters WILL NOT fire with payload bay closed
+
+Install heat shield axially at the bottom of the service bay
+	Beware: connection points may show from hexacans and battery from inside bay
+	Make sure you connect shield to the bay
+	Test by highlighting battery and seeing that the heat shield DOES NOT light up
+	Connection into hexacans leave a grossly skewed shield
+		But you can test by highlighting the cans anyway
+	Set ablator to 50
 
 Calibrate thrusters
 	Select desired propellant level
@@ -243,15 +291,12 @@ Calibrate thrusters
 		Non zero torque indicates a longitudinal imbalance
 	Set left translation
 		Derate RCS thrusters on sides to eliminate torque
-		For full tanks, fore thrusters should be derated to 86%
 	Set right translation
 		Torque should already be zero or near zero because of left translation calibration
 	Set up translation
 		Derate RCS thrusters on at bottom to eliminate torque
-		For full tanks, aft thruster should be derated to 40.5%
 	Set down translation
 		Derate dorsal RCS thrusters to eliminate torque
-		For full tanks, fore thruster should be derated to 32%		
 
 Isolate life support supplies in Mk1 pod
 	Water, Oxygen, Food
