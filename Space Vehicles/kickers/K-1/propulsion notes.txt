@@ -1,0 +1,30 @@
+K-1 kicker propulsion notes
+
+
+dV = Isp * 9.8 * ln ( m0 / mf )			Tsiolkovsky's rocket equation
+
+Isp = 320
+m0 = 851
+mf = 451
+
+dV = 320 * 9.8 * ln ( (m0 + P) / (mf + P) )	Rocket equation for a kicker transporting a payload of mass P
+
+dV / 320 * 9.8 = ln ( (m0 + P) / (mf + P) )
+
+e^(dV / 3136) =  (m0 + P) / (mf + P)
+
+P = ( m0 - mf * e^(dV / 3136) ) / ( e^(dV / 3136) - 1 )		Inverse rocket equation, how much payload can we transport to a specific dV
+
+P = ( 851 - 451 * e^(dV / 3136) ) / ( e^(dV / 3136) - 1 )	Inverse equation for a K-1 kicker
+
+
+dV = 320 * 9.8 * ln ( mf + F / mf )		Rocket equation for a dry mass + F fuel mass
+
+dV = 3136 * ln ( 451 + F / 451 )
+
+e^(dV / 3136) = ( 451 + F ) / 451
+
+e^(dV / 3136) = 1 + (F / 451)
+
+( e^(dV / 3136) - 1 ) * 451 = F			Inverse rocket equation, how much fuel mass to get to a certain dV, dry
+

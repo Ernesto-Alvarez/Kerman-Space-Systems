@@ -1,20 +1,96 @@
-dV to
+K-1 kicker specifications
 
-KSTO	651.1
-Mun	841
-Minmus	930
+Thrust						20	KN
+Mass (dry)					451	Kg
+Mass (wet)					851	Kg
 
-Model A
+dV budget
+	Empty					1993	m/s
+	500 Kg payload				1102	m/s
+	1000 Kg payload				764	m/s
+	1500 Kg payload				585	m/s
 
-Kg to
-SOI	610
-Minmus	610
-Mun	730
-KSTO	1150
+Payload to (one way)								(all injections are assumed to depart from 100x100 Km orbit)
+	Kerbol orbit				707	Kg
+	Trans Minmus Injection			720	Kg
+	Trans Munar Injection			830	Kg
+	Kerbostationary transfer orbit		1279	Kg
+	Kerbostationary orbit			525	Kg
 
-Model B
-SOI	670
-Minmus	670
-Mun	1025
-KSTO	1188
+dV to (one way)									(all injections are assumed to depart from 100x100 Km orbit)
+	Kerbol orbit				930	m/s
+	Trans Minmus Injection			921	m/s
+	Trans Munar Injection			852	m/s
+	Kerbostationary transfer orbit		652	m/s
+	Kerbostationary orbit			1077	m/s
 
+Return dV (empty, aerobraking on Kerbin)	Total	Inj-Abt	AP-ABK		(Burn retrograde after injection to enter high orbit then burn retrograde at apoapsis to PE=55Km)
+	Kerbol orbit				12	10	2	m/s
+	Trans Minmus Injection			12	10	2	m/s
+	Trans Munar Injection			25	20	5	m/s
+	Kerbostationary transfer orbit		17		17	m/s
+	Kerbostationary orbit			447		447	m/s
+
+Return fuel mass
+	Kerbol orbit				1.73	Kg
+	Trans Minmus Injection			1.73	Kg
+	Trans Munar Injection			3.61	Kg
+	Kerbostationary transfer orbit		2.46	Kg
+	Kerbostationary orbit			68.27	Kg
+
+Payload to (with aerobraking RTK)						(all injections are assumed to depart from 100x100 Km orbit)
+	Kerbol orbit				705	Kg
+	Trans Minmus Injection			718	Kg
+	Trans Munar Injection			826	Kg
+	Kerbostationary transfer orbit		1276	Kg
+	Kerbostationary orbit			456	Kg
+
+Kerbin aerobraking altitude			55	Km
+Kerbin aerobraking altitude tolerance		+-2	Km
+
+EC storage					210	EC
+EC generation (max)				0.50	EC/sec
+EC generation (min)				0.36	EC/sec			assumes panel ring oriented to ecliptic
+EC generation (avg)				0.45	EC/sec			assumes panel ring oriented to ecliptic
+Power consumption (max)				0.09	EC/sec
+Power consumption (max systems)			0.06	EC/sec
+Power consumption (non maneuvering)		0.04	EC/sec
+
+Power requirements			
+	Computer				0.02	EC/sec
+	Wheel					0.03	EC/sec
+	Radio 1 (C16S)				0.02	EC/sec
+	Radio 2 (C16S)				0.02	EC/sec
+
+	Total	(OKTO hibernating)		0.04	EC/sec
+		(radios+OKTO)			0.06	EC/sec
+		(maneuvering)			0.09	EC/sec
+
+Power generation curves
+(full power		Angle	Power	Exposure
+assumed to be		0	0.36	1
+0.364 EC/sec)		15	0.45	1.23
+			30	0.50	1.37
+			45	0.51	1.42
+			60	0.50	1.37	
+			75	0.45	1.23	
+			90	0.36	1
+			105	0.45	1.23
+			120	0.50	1.37
+			135	0.51	1.42
+			150	0.50	1.37	
+			165	0.45	1.23	
+			180	0.36	1
+			195	0.45	1.23
+			210	0.50	1.37
+			225	0.51	1.42
+			240	0.50	1.37	
+			255	0.45	1.23	
+			270	0.36	1
+			285	0.45	1.23
+			300	0.50	1.37
+			315	0.51	1.42
+			330	0.50	1.37	
+			345	0.45	1.23
+
+Max omni range					1125	Km			assumes root model, 0.5 antenna range and 0.5 multiple antenna bonus
