@@ -1,0 +1,173 @@
+AOC-2 Flight Operations Manual
+
+***Introduction***
+
+***Scope***
+
+***Document organisation***
+
+***Mission description***
+
+The AOC-2 is a 3 person shuttle. The shuttle has been designed with simplicity and redundancy in mind. It has been designed for moving up to 2 passengers (plus one pilot) between space stations and to/from Kerbin. A launch vehicle is needed for ascent from Kerbin. The shuttle is designed to use the R-3 1200L rocket with a B2 faring as a launcher (but any rocket that can carry the mass and volume of the payload should be acceptable).
+
+***Electrical system***
+
+The electrical system is based on three solar panels. The arrays feed batteries dispersed around the capsule, which in turn supply EC to the systems needing power. The electrical system has redundancy designed from the start, and can tolerate a single failure in batteries or generators with acceptable impact.
+
+								+------	Lights
+								|
+Port solar panel -------+--/---	HECS battery ------/------------+------	Comms
+		    	|					|
+Stdb solar panel -------+------	Mk1 battery --------------------+------	Computers
+			|					|
+Ventral solar panel ----+--------Z-200 -------------------------+------	Attitude
+				
+		Generation Bus				Distribution Bus
+
+The three solar arrays are identical (type OX-STAT) and cover 360 degrees around the ship. The panels have nulls at the front and aft of the shuttle. Facing directly towards or away from the sun can lead to battery discharge. Proper sun-seeking attitude is with the sun at 90 degrees of the shuttle, in any direction. A single panel at full exposure can power all of the shuttle's systems. Generation levels are almost constant irrespective of ship roll. 
+
+There are 3 batteries present in the AOC-2:
+	HECS battery
+	Mk1 battery
+	Z-200
+
+All batteries are connected to the generation and distribution buses and provide EC at all times, with the exception of the HECS battery. The HECS battery is a small (10 EC) store that is to be kept isolated from the buses except in emergency situations. The battery is there to provide a final EC reserve used for recovery operations in case of accidental power depletion. This emergency battery can be used to attain sun-seeking attitude or for other recovery operations. As a last resource, it can be used to power the life support when waiting for recovery.
+
+The isolated battery is not counted towards electrical reserves. Note that in most cases, the panels provide the majority of power. Batteries are a small reserve to be used when the sun is temporarily eclipsed. When orbiting, power management is crucial to avoid battery depletion. To recharge isolated batteries, use resource transfer and transfer EC into them.
+
+**Power budget**
+
+Generation
+	Maximum						0.36	EC/sec		One panel at full exposure
+
+Consumption
+	(max)						0.49	EC/sec
+	(non-maneuvering)				0.24	EC/sec
+
+	Life support					0.09	EC/sec		Crew of 3
+
+	Comms						0.04	EC/sec
+		Communotron 16-S			0.02	EC/sec
+		Communotron 16-S			0.02	EC/sec
+
+	Computers					0.02	EC/sec
+		HECS					0.02	EC/sec
+
+	Lights						0.09	EC/sec
+		Omni lights (x5)			0.05	EC/sec
+		Nav lights (x4)				0.04	EC/sec
+		Cockpit lights				0	EC/sec
+
+	Attitude					0.25	EC/sec
+		HECS wheel				0.05	EC/sec
+		Mk1 wheel				0.20	EC/sec
+	
+***Life support***
+
+The life support is supplied by three hexacans stored radially. The life support can keep a crew of 3 alive for 21 days. The three cans provide a redundant system that can tolerate one failure without putting the occupants at risk. The capsule has a small reserve of supplies that is kept isolated. This emergency reserve can be used as a last resort.
+
+In normal operation, the hexcans are to remain active while the capsule supply storage remains isolated. Nominal values do not take the emergency supplies into account. In case of depletion, the emergency supplies can give a pilot 3 days worth of food, water and oxygen to allow him to divert to a nearby facility or can supply a crew of 3 for about 1 day.
+
+Supplies (assumes pilot and 2 passengers)
+	Main storage						124	hours
+		Left Hexacan					
+			Oxygen					41	hours
+			Water					41	hours
+			Food					41	hours
+		Right Hexacan
+			Oxygen					41	hours
+			Water					41	hours
+			Food					41	hours
+		Ventral Hexacan
+			Oxygen					41	hours
+			Water					41	hours
+			Food					41	hours
+	
+	Emergency reserve
+		Mk1
+			Oxygen					6	hours
+			Water					6	hours
+			Food					6	hours
+
+***Docking***
+
+The capsule is equipped with a Clamp-o-tron jr. port and an RCS capable of thrusting the ship in any direction. This allows the spacecraft to dock with any ship or station capable of accepting the clamp-o-tron jr interface. See attitude control section for details on propulsion.
+
+***Attitude control***		
+
+**Reaction wheels**
+
+The capsule is equipped with the internal Mk1 capsule wheels and the HECS wheel. The dominant wheel is the one in the capsule and is the main mode of rotation. While two wheels are provided, failure of the capsule wheel may hinder attitude control. 
+
+In case of failure or emergency, the shuttle can only roll using the RCS blocks. Do not launch without the two wheels operational.
+
+**RCS blocks**
+
+The AOC-2 is equipped with a simple RCS comprised of two blocks. The 5 horned blocks can move the ship in any direction. The RCS blocks are calibrated not to produce unwanted torque with two passengers and full load. The reaction wheels should be engaged in any other situation. The wheels are capable of compensating for any rolling action caused by the RCS.
+
+Thrust
+	Fore							2	KN
+	Aft							2	KN
+	Left							2	KN
+	Right							2	KN
+	Up							1	KN
+	Down							1	KN
+
+
+***Communications***
+
+The capsule is provided with two Communotron 16-S. This is a short range communications system that is intended to connect to local traffic control satellites. No provision for longer range comms is present. This ensures a modest power use that does not require a big solar array for power.
+
+Antenna ranges		(assumes root model, 0.5 antenna multiplier and 0.5 multiple antenna bonus)
+								Range			Power usage
+Short range							1125	Km		0.04	EC/sec
+
+***Computers***
+
+The capsule can be operated both manned or unmanned. The computer system allows remote control of the capsule or programmed operation.
+
+The main mode of remote operation of the shuttle is remote control via the HECS computer. It is possible to program the RemoteTech computer to execute certain operations, but there is no computer capable of running complex local code.
+
+***Lights***
+
+The AOC-2 contains 5 omni lights and 4 navigation lights. The omni and cabin lights are turned on using the lights action group or can be turned on and off manually. The navigation lights are turned on and off using the gear action group. Each navigation light consumes 0.05 EC/sec and each omni light 0.01 EC/sec.
+
+***Re-entry***
+
+AOC-2 capsules are designed to be able to passively re-enter Kerbin's atmosphere without any control inputs or power. There are three parts that form the re-entry system: the RCS, the heat shield and the finlets.
+
+The RCS can be used to lower the craft's orbit so that it intersects the atmosphere. In most cases, 10 units of monopropellant are necessary for re-entry. The capsule's monopropellant reserves may be isolated to provide such a reserve, but they are usually connected to avoid having a CoM too far away from the heat shield.
+
+The heat shield covers the whole aft section and is provided with 60 units of ablator. This allows the capsule to re-enter in a single atmospheric transit without needing to skip on the upper atmosphere to dissipate excess speed. The shield is rated for a single re-entry from Minmus.
+
+The finlets are three small fins (derived from the basic fin used in launchers) that make passive re-entry posible. These finlets interact with the atmosphere and move the centre of pressure away from the equipment bay and closer to the capsule tip. Without them, the capsule may tumble and acquire a front-first or sideways attitude, requiring constant corrections to maintain the back-first attitude needed for re-entry.
+
+The interaction between the finlets and the heat shield makes passive re-entry safe to execute. The finlets are installed in a way that they are able to interact with the atmosphere (and orient the capsule as a consequence) without getting impacted by the shockwave caused by the compression of the atmosphere when it contacts the heat shield. The heat shield serves both to protect the ship and to divert the shockwave and plasma away from the finlets.
+
+While is is possible (and has been tested) for the capsule to do a fully passive re-entry, we recommend stating the process in a retrograde attitude, if possible. The finlets are not able to sustain the full impact of the shockwave for more than a few seconds at altitudes below 40 Km, and the risk of damage should be reduced to as minimally as possible. During the tests, the capsule tends to stabilize in a retrograde attitude in the upper atmosphere before reaching 40 Km, at some risk to the finlets. In the case of excessive exposure, a roll can be induced to minimise the time each finlet spends in the shockwave zone. Rolling is highly recommended when returning from higher orbits and, when following this procedure, the capsule has been successfully tested for a re-entry from 75000 Km apoapsis.
+
+NOTE: Destruction of a single finlet induces a rolling motion that will protect other capsule components. This can provide passive safety when returning from higher orbits.
+NOTE: Intentional destruction of a finlet is not an approved procedure. Induce the roll with the reaction wheels. Capsules suffering this kind of damage will need to have the finlets reinstalled and calibrated.
+
+The presence of the finlets create the requirement for the ship to be launched within a cargo fairing. The ship is not designed to be launched naker on top of a booster and minding the centre of mass and centre of pressure is critical if such a launch is to be attempted.
+
+Recommended re-entry corridor PE is 36 Km +- 2 Km.
+
+***Landing***
+
+Capsule landing is achieved by means of parachutes. The shuttle contains 2 full parachutes. No drogue chute is required and none is provided.
+
+The main parachutes allow a landing speed of 6 m/s at sea level. Only one parachute is needed for a safe landing (at about 8.5 m/s). Damage to the heat shield, finlets or other components may occur if landing using one parachute. The main parachutes open partially at an altitude of 3000 m (0.6 pressure) and fully at 1250 metres. They need to be adjusted if the predicted course will cause the landing to happen on mountaineous terrain.
+
+WARNING: Avoid mountains. Main parachutes can be opened prematurely to shorten the re-entry glide.
+
+The capsule is designed to land on top of its heat shield. This provides a small amount of protection in case of a rough landing and causes the capsule to stand upright, preventing movement. 
+
+***Orbital change booster***
+
+As of now, there are no purposely built boosters for the AOC-2 series. The capsule can use the upper stage of an R-3 for orbital change and can reach up to minmus, if refueled first.
+TODO: Refuelling will be possible by docking into a soon to be released SLT-1 tanker.
+TODO: A Monopropellant Maneuvering unit (MPMU) is in the early design stages.
+
+
+

@@ -12,6 +12,57 @@ Where:
 
 	(missing suffix indicates capability is not present)
 
+***Mod requirements***
+
+Model T
+	RemoteTech
+		Not strictly necessary, but RT alters capsule battery storage. Stock AOC-3 have to be rebuilt from assembly instructions or modified.
+	TAC Life support
+	RCS Build Aid
+		Required for calibration only.
+Model TK
+	All model T mods
+	kOS
+Model TKL
+	All model TK mods
+	Infernal robotics
+		IR provides the navigation lights
+	Surface lights
+
+***Science requirements***
+	Start
+		Capsule
+		Finlets
+		Goo
+		EVA inventory
+	Engineering 101
+		Omni comms
+		Thermometer
+	Survivability
+		Barometer
+		Parachutes
+		Heat shield
+		Life support
+	Aviation
+		Navigation lights (L models)
+	Basic science
+		Experiment storage unit
+		Z-100
+		HG-5
+	Electrics
+		Z-200
+		Omni lights (L models)
+	Miniaturization
+		Clamp-o-tron jr.
+	Advanced flight control
+		Monoprop tanks
+		RCS
+	Precision engineering
+		Computers
+	Advanced electrics
+		Solar panels
+
+
 ***Payload bay assembly***
 
 NOTE: assemblying the payload bay is a technically challenging task. If possible, use pre-assembled bays. If you properly assemble an AOC-3 bay, SAVE YOUR CRAFT!
@@ -114,7 +165,7 @@ Verify calibration
 2x	Mk12-R Radial Mount Parachute
 1x	KR-2042 b Scriptable Control System	(K models only)
 2x	Navigation Light Mk1
-3x	Domelight Mk1
+6x	Surface Mounted Omni Light
 
 **Assembly procedure**
 
@@ -171,10 +222,15 @@ Adjust parachute parameters
 	Main parachutes		0.6/1000/10
 	Drogue parachute	0.03/5000/10
 
-Install Domelights
+Install Onmi lights
+	Two installations of 3 lamps each
 	3x symmetry
-	Aft of the finlets
-	Bottom part lined up with bottom of hatch
+	Ventral, at the bottom of the flag
+		Companion lights will be installed next to hatch
+	Dorsal, straight centre in HECS
+		In part not covered by parachutes
+		Lights fall exactly between finlets
+
 
 Install navigation lights
 	2x symmetry
@@ -191,7 +247,8 @@ Install navigation lights
 1x	AOC-3 crew section
 1x	AOC-3 payload bay
 1x	Heat Shield (1.25m)
-15x	Place Anywhere 7 Linear RCS Port
+8x	Place Anywhere 7 Linear RCS Port
+4x	RV-105 RCS Thruster Block
 
 **Assembly procedure**
 
@@ -209,7 +266,13 @@ Test HG-5 deployment
 	Antenna and antenna support is stowed in recessed bay with protecting doors when stowed
 		That's my story and I'm sticking to it!
 
-
+Install heat shield axially at the bottom of the service bay
+	Beware: connection points may show from hexacans and battery from inside bay
+	Make sure you connect shield to the bay
+	Test by highlighting battery and seeing that the heat shield DOES NOT light up
+	Connection into hexacans leave a grossly skewed shield
+		But you can test by highlighting the cans anyway
+	Set ablator to 50
 
 Test longitudinal balance
 	Install an RT-5 at bottom of capsule (on heat shield)
@@ -256,28 +319,22 @@ Install down fore thruster (Linear 7)
 	Move inside so that nozzle is flush with capsule
 	Using actuation toggles, disable everything except up/down movement
 
-Install back thruster (Linear 7)
-	3x symmetry with snap
-	On top of HECS
-	In line with parachutes
-	Nozzles projecting through clamp-o-tron sides facing forward
-	Using actuation toggles, disable everything except fore/back movement	
-
-Install fore thruster (Linear 7)
-	4x symmetry with snap
-	At bottom of thruster bay on the outside
-	At 45 degrees from hatch
-	Nozzles should project from heat shield when installed
-	Using actuation toggles, disable everything except fore/back movement	
-	NOTE: Fore thrusters WILL NOT fire with payload bay closed
-
-Install heat shield axially at the bottom of the service bay
-	Beware: connection points may show from hexacans and battery from inside bay
-	Make sure you connect shield to the bay
-	Test by highlighting battery and seeing that the heat shield DOES NOT light up
-	Connection into hexacans leave a grossly skewed shield
-		But you can test by highlighting the cans anyway
-	Set ablator to 50
+Install fore/back thruster (RV-105)
+	Two installations
+	2x symmetry with snap each
+	Behind hatch
+	At 15 degrees left and right of the centre
+		Should surround the linear 7 upwards pointing aft nozzle
+		Install one on either side
+		Another set should be installed surrounding the linear 7 nozzle that points downwards on opposite side
+	Use Orthogonal 2 horn configuration (fore and aft)
+	Using snap, rotate 15 degrees so that it points fore/aft
+	Without snap, move RCS blocks as far aft as possible
+	Without snap, push into hull so that no wedge between RCS and hull is seen
+	Using actuator toggles, disable all but fore/aft
+	Location is not critical because the thrusters point forward/aft
+		Any imbalance is compensated by the other member of the symmetry
+		That does not mean that you can do a sloppy job, position them properly anyway
 
 Calibrate thrusters
 	Select desired propellant level
@@ -301,3 +358,18 @@ Calibrate thrusters
 Isolate life support supplies in Mk1 pod
 	Water, Oxygen, Food
 	This is going to be the emergency reserve
+
+Enable navigation light blinkers
+
+Set action groups
+	Abort (used as emergency arrestor)
+		Solar panels -> deploy
+		Communotron-16 -> activate
+
+	Landing gear (used as orbital operations toggle)
+		Solar panels -> toggle
+		Service bay -> toggle
+		
+	Lights
+		Omni lamps -> toggle
+		Nav lamps -> toggle

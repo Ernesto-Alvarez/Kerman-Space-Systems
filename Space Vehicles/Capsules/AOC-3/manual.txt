@@ -1,0 +1,227 @@
+AOC-3 Flight Operations Manual
+
+***Introduction***
+
+***Scope***
+
+***Document organisation***
+
+***Mission description***
+
+The AOC-3 capsule is a single pilot exploration and science vessel with several weeks endurance. Paired with a propulsion system, it can explore the whole Kerbin sphere of influence, including Mun and Minmus. The vessel is equipped with scientific instruments and is capable of storing experiment results in its storage can. The AOC-3 is designed to return a kerbal safely from the orbit of Minmus.
+
+***Electrical system***
+
+The electrical system is based on two solar panel arrays. The arrays feed batteries dispersed around the capsule, which in turn supply EC to the systems needing power. The electrical system has redundancy designed from the start, and can tolerate a single failure in batteries or generators with acceptable impact.
+
+			+--/----KR-2042b-----------/------------+------	Lights
+			|					|
+Port solar panel -------+--/---	HECS battery ------/------------+------	Comms
+		    	|					|
+Stdb solar panel -------+------	Mk1 battery --------------------+------	Computers
+			|					|
+			+------	Equipment bay --+------	Z-100 --+------	Life Support
+						|		|
+						+------	Z-200 --+------	Attitude
+								|
+								+------	Sensors
+				
+		Generation Bus				Distribution Bus
+
+KR-2042b battery present in K models only
+
+The two solar arrays are identical (type SP-L) and have the same coverage. The panels are able to rotate around the pitch axis to follow the sun. They have a null round that axis (exactly to the left and right of the capsule). To ensure at least some EC generation, induce a small yaw or roll movement. Roll is preferred. This prevents the capsule from generating power optimally, so active control is preferred in all cases.
+
+The proper sun-seeking attitude for the AOC-3 is with the sun forward of aft or the capsule and executing a slow roll. The secondary sun-seeking attitude is with the sun above or below and a small induced yaw. No roll with the sun anywhere within 30 degrees of flight path is acceptable.
+
+There are 4 batteries present in the AOC-3 (5 in K models):
+	HECS battery	(KR-2042, only in K models, considered an extension of this battery)
+	Mk1 battery
+	Z-100
+	Z-200
+
+All batteries are connected to the generation and distribution buses and provide EC at all times, with the exception of the HECS battery. The HECS battery is a small (10 EC) store that is to be kept isolated from the buses except in emergency situations. The battery is there to provide a final EC reserve used for recovery operations in case of accidental power depletion. This emergency battery can be used to attain sun-seeking attitude or for other recovery operations. As a last resource, it can be used to power the life support when waiting for recovery.
+
+The isolated battery is not counted towards electrical reserves. Note that in most cases, the panels provide the majority of power. Batteries are a small reserve to be used when the sun is temporarily eclipsed. When orbiting, power management is crucial to avoid battery depletion. To recharge isolated batteries, use resource transfer and transfer EC into them.
+
+**Power budget**
+
+Generation
+	Optimal attitude				3.41	EC/sec
+							1	Exposure
+	Sun-seeking attitude				3.39	EC/sec			Any angle error causes modulation of power output
+							0.99	Exposure
+	Rotating towards sun				1.85	EC/sec
+							0.54	Exposure
+	Stationary, 30 degrees				3.03	EC/sec
+							0.89	Exposure
+
+SP-L dynamics when rotating towards sun
+			0 to 45				0.90
+			45 to 90			0.37
+			90 to 135			0.37
+			135 to 180			0.90
+			180 to 225			0.90
+			225 to 270			0
+			270 to 315			0
+			315 to 0			0.90
+
+			Avg exposure			0.5425
+
+Consumption						1.68	EC/sec
+
+	Life support					0.04	EC/sec
+
+	Comms						0.96	EC/sec
+		Communotron 16-S			0.02	EC/sec
+		Communotron 16 (ventral)		0.13	EC/sec
+		Communotron 16 (left)			0.13	EC/sec
+		Communotron 16 (right)			0.13	EC/sec
+		HG-5					0.55	EC/sec
+
+	Computers					0.02	EC/sec
+		HECS					0.02	EC/sec
+		KR-2042					(pending)
+
+	Lights						0.16	EC/sec
+		Domelights (x6)				0.06	EC/sec
+		Nav lights (x2)				0.10	EC/sec
+		Cockpit lights				0	EC/sec
+
+	Attitude					0.25	EC/sec
+		HECS wheel				0.05	EC/sec
+		Mk1 wheel				0.2	EC/sec
+	
+	Sensors						0.16	EC/sec
+		PresMat barometer			0.08	EC/sec
+		2HOT thermometer			0.08	EC/sec
+
+***Life support***
+
+The life support is supplied by two hexacans stored in the payload bay. The life support can keep one kerbonaut alive for 40 days. The two cans provide a redundant system that can tolerate one failure without putting the pilot at risk. The capsule has a small reserve of supplies that is kept isolated. This emergency reserve can be used as a last resort.
+
+In normal operation, both hexacans are to remain active while the capsule supply storage remains isolated. Nominal values do not take the emergency supplies into account. In case of depletion, the emergency supplies can give a pilot 3 days worth of food, water and oxygen to allow him to divert to a nearby facility.
+
+Supplies
+	Main storage						248	hours
+		Left Hexacan					
+			Oxygen					125	hours
+			Water					124	hours
+			Food					124	hours
+		Right Hexacan
+			Oxygen					125	hours
+			Water					124	hours
+			Food					124	hours
+	
+	Emergency reserve
+		Mk1
+			Oxygen					18	hours
+			Water					18	hours
+			Food					18	hours
+
+***Docking***
+
+The capsule is equipped with a Clamp-o-tron jr. port and an RCS capable of thrusting the ship in any direction. This allows the spacecraft to dock with any ship or station capable of accepting the clamp-o-tron jr interface. See attitude control section for details on propulsion.
+
+***Attitude control***		
+
+**Reaction wheels**
+
+The capsule is equipped with the internal Mk1 capsule wheels and the HECS wheel. The dominant wheel is the one in the capsule and is the main mode of rotation. While two wheels are provided, failure of the capsule wheel may hinder attitude control. 
+
+In case of failure or emergency, the forward thrusters can be activated using the actuation toggles to contribute to the pitch/yaw authority.
+
+**RCS blocks**
+
+The AOC-3 is equipped with 4 pairs of Linear 7 thrusters each pointing up, down, left and right. The paired arrangement (with two thrusters per side) allows calibration of the thrust to accouint for changes in the centre of mass due to propellant and resource consumption without changing the mass distribution of the vehicle. The thrusters are calibrated in the VAB and each pair provides thrust in one direction. The thrusters are configured not to react to rotation commands or translation in directions other than the one in their main function.
+
+The left and right pairs are configured in symmetry to simplify calibration. The up and down thruster pairs are configured separately because of the presence of the hatch. The hatch and ventral finlet prevents the forward thruster of each pair to be located at the same distance from the after pair, requiring different configuration. All thruster pairs are placed in a position that always bracket the centre of mass, irrespective of resources in the ship.
+
+The craft also has 4 RV-105 RS blocks pointing forward and aft. These blocks have two nozzles each and provide forward and backwards thrust only. Calibration of these blocks is not necessary, as they are arranged in two pairs and therefore symmetrical. The blocks are offset 15 degrees to each side of the vertical and surround the aft up/down nozzles, limiting access to it and therefore configuration.
+
+All thrusters can be fired at all times, including when a launch rocket is attached to the craft's heat shield. This allows the AOC-3 to use the launching upper stage as a thruster for long range, long dV missions.
+
+TODO: The RCS can be recalibrated using the onboard computer. The calibration routine can be run once, restoring balance to the system, or be left running constantly. In that case, changes in the centre of mass should have no visible effect, with the exception of changes in the thrust.
+
+The RCS specifications for a model TKL craft are as follows.
+
+Model								TKL			TK			T
+Thrust
+	Fore							4	KN		4	KN		4	KN
+	Aft							4	KN		4	KN		4	KN
+	Left							3.55	KN		3.66	KN			KN	
+		Adjustment					Aft, 77.5 %		83	%			%
+	Right							3.55	KN		3.66	KN			KN
+		Adjustment					Aft, 77.5 %		83	%			%
+	Up							3.15	KN		3.25	KN			KN
+		Adjustment					Aft, 42.5 %		62.5	%			%
+	Down							2.85	KN		2.81	KN			KN
+		Adjustment					Fore, 42.5 %		40.5	%			%
+
+***Communications***
+
+The capsule is provided with a Communotron 16-S in the payload bay. The antenna is normally kept on at all times and provides communications in low kerbin orbit. When in view of the KSC, the capsule can remain in contact up to 5350 Km in altitude and to an HG-5 equipped satellite at 3250 Km distance.
+For longer range communications, three Communotron 16 radios are present. These radios are normally turned off, but can be turned on in space when range is insufficient, almost tripling range. Antennas can be turned on individually to have longer range than with the C16S at a lower power usage compared with all 4 radios active. With all omni antennas, an HG-5 equipped satellite is kerbosynchronous orbit can reach the capsule close to the Mun orbit (at about 8000 Km) or KSC at 11800 Km.
+An HG-5 dish is kept in storage in panels inside the hull and payload bay. The antenna has a 10000 Km range and does not stack with the omni antennas. Communications can be established with other HG-5 equipped satellites from beneath the orbit of Mun (about 20000 Km) or to mission control (tested at 22700 Km)
+
+Antenna ranges		(assumes root model, 0.5 antenna multiplier and 0.5 multiple antenna bonus)
+								Range			Power usage
+Short range							625	Km		0.02	EC/sec
+Long range							2812	Km		0.41	EC/sec	(all 4 omnis)
+HG-5 dish							10000	Km		0.55	EC/sec	(+ power used for omni array)
+
+***Computers***
+
+The capsule can be operated both manned or unmanned. The computer system allows remote control of the capsule or programmed operation.
+
+The AOC-3 has 3 different computers on board. The first computer is the RemoteTech flight computer, which can be programmed for different maneuvers and is designed to compensate for possible loss of communications. There is also a HECS computer that is used for remote control of the capsule. The HECS can relay orders from KSC and has SAS, prograde and retrograde attitude assist. Finally, K models have a RK-2042 kOS core. The core can be used for running locally stored programs.
+
+TODO: software is not ready, but the RK-2042 is expected to run a RCS balancer and a resource isolator for countering leaks. 
+
+***Lights***
+
+The AOC-3 contains 6 omni lights and 2 navigation lights. The lights are turned on using the lights action group or can be turned on and off manually. Each navigation light consumes 0.05 EC/sec and each omni light 0.01 EC/sec. The cockpit has internal lighting. No power consumption has been measured for these lamps.
+
+***Science***
+
+The capsule is equipped with the standard set of scientific instruments (barometer and thermometer). A single Goo capsule is provided in the payload bay. An experiment storage unit is present in the bay to allow for multiple experiments to take place. Reloading of the Goo capsule must be done during EVA and by specialised personnel only.
+
+***Re-entry***
+
+AOC-3 capsules are designed to be able to passively re-enter Kerbin's atmosphere without any control inputs or power. There are three parts that form the re-entry system: the RCS, the heat shield and the finlets.
+
+The RCS can be used to lower the craft's orbit so that it intersects the atmosphere. In most cases, 10 units of monopropellant are necessary for re-entry. The capsule's monopropellant reserves may be isolated to provide such a reserve, but they are usually connected to reduce centre of mass changes because of propellant use.
+
+The heat shield covers the whole aft section and is provided with 50 units of ablator. This allows the capsule to re-enter in a single atmospheric transit without needing to skip on the upper atmosphere to dissipate excess speed. The shield is rated for a single re-entry from Minmus.
+
+The finlets are three small fins (derived from the basic fin used in launchers) that make passive re-entry posible. These finlets interact with the atmosphere and move the centre of pressure away from the equipment bay and closer to the capsule tip. Without them, the capsule would tumble and acquire a front-first attitude, requiring constant corrections to maintain the back-first attitude needed for re-entry.
+
+The interaction between the finlets and the heat shield makes passive re-entry safe to execute. The finlets are installed in a way that they are able to interact with the atmosphere (and orient the capsule as a consequence) without getting impacted by the shockwave caused by the compression of the atmosphere when it contacts the heat shield. The heat shield serves both to protect the ship and to divert the shockwave and plasma away from the finlets.
+
+While is is possible (and has been tested) for the capsule to do a fully passive re-entry, we recommend stating the process in a retrograde attitude, if possible. The finlets are not able to sustain the full impact of the shockwave for more than a few seconds at altitudes below 40 Km, and the risk of damage should be reduced to as minimally as possible. During the tests, the capsule tends to stabilize in a retrograde attitude in the upper atmosphere before reaching 40 Km, at some risk to the finlets. In the case of excessive exposure, a roll can be induced to minimise the time each finlet spends in the shockwave zone. Rolling is highly recommended when returning from higher orbits and, when following this procedure, the capsule has been successfully tested for a re-entry from 75000 Km apoapsis.
+
+The presence of the finlets create the requirement for the ship to be launched within a cargo fairing. The ship is not designed to be launched naker on top of a booster and minding the centre of mass and centre of pressure is critical if such a launch is to be attempted.
+
+Recommended re-entry corridor PE is 32 Km +- 2 Km.
+
+***Landing***
+
+Capsule landing is achieved by means of parachutes. The capsule contains 2 full parachutes and a drogue chute. The drogue chute is used for rapid deceleration at medium altitude and triggers immediately after the re-entry phase, at about 18 Km altitude. In most cases, the drogue chute is not necessary. The braking action can be useful in gaining time for main parachute adjustment if landing in rough areas (like mountains) or to tune the landing spot (by adjusting the drogue or cutting it, or by prematurely opening the main chutes).
+
+The main parachutes allow a landing speed of 5 m/s at sea level. Only one parachute is needed for a safe landing (at about 7.5 m/s). Damage to the heat shield may occur if landing using one parachute. The main parachutes open partially at an altitude of 3000 m (0.6 pressure) and fully at 1000 metres. They need to be adjusted if the predicted course will cause the landing to happen on mountaineous terrain.
+
+WARNING: Avoid mountains. Cut the drogue parachute to extend range and open main parachutes prematurely to shorten it.
+
+The capsule is designed to land on top of its heat shield. This provides a small amount of protection in case of a rough landing and causes the capsule to stand upright, preventing movement. 
+Should the capsule land in mountains, it is possible that the capsule may tumble and start rolling on its side. The abort button is configured as an emergency arrestor. If the capsule starts rolling, the abort button can be used to extend the radio antennas and solar panels. This should stop the capsule from moving.
+
+WARNING: If capsule starts to roll, IMMEDIATELY press the ABORT button. Do not delay. Do not let capsule gather speed and compensate for roll with reaction wheels.
+
+***Orbital change booster***
+
+As of now, there are no purposely built boosters for the AOC-3 series. The capsule can use the upper stage of an R-3 for orbital change and can reach up to minmus, if refueled first.
+TODO: Refuelling will be possible by docking into a soon to be released SLT-1 tanker.
+TODO: A Monopropellant Maneuvering unit (MPMU) is in the early design stages.
+
+
+

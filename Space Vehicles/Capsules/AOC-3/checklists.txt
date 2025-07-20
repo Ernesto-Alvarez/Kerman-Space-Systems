@@ -1,11 +1,12 @@
 AOC-3/R-3 1200L Checklists
 
-****Pre-flight****
+****Pre-flight, VAB ****
 
 Check staging
 	Stage 5
 		R-3 lower stage sustainer
 		R-3 lower stage boosters
+		Clamps (if present)
 	Stage 4
 		Booster separators
 		Booster parachutes
@@ -17,7 +18,7 @@ Check staging
 		Fairing
 	Stage 1
 		Upper stage decoupler
-		Upper stage parachutes
+		Upper stage parachutes (May be moved to stage 0 for long return flights)
 	Stage 0
 		Capsule parachutes
 		Capsule drogue chute
@@ -49,15 +50,82 @@ Upper stage parachutes
 
 US service bay					CLOSED
 US service bay parts				0
-Capsule service bay				CLOSED
-Capsule service bay parts			0
+
+
+Capsule service bay				Temporarily open for inspection
 Capsule pod parts				15
 Capsule EC
 	Mk1 pod					FULL
 	HECS					FULL
+	Bay Z-100				FULL
+	Bay Z-200				FULL
 
-Capsule supplies (O2,H2O,FOOD)			FULL
-Capsule waste (CO2,waste,wastewater)		EMPTY
-Capsule mk1 pod supplies tank			ISOLATED
-Capsule LS container supplies			ENABLED
-Capsule LS hexacan supplies			ENABLED
+Capsule monoprop
+	Mk1					FULL
+	Service bay tanks			FULL
+
+Capsule supplies (O2,H2O,FOOD)
+	Left bay hexacan			FULL
+	Right bay hexacan			FULL
+	Mk1					FULL, ISOLATED
+
+Capsule waste (CO2,waste,wastewater)
+	Mk1					EMPTY
+HG-5 antenna					STOWED
+Reaction wheels
+	Mk1					ACTIVE, 100%
+	HECS					ACTIVE, 100%
+Pilot inventory					JETPACK, PARACHUTE
+
+HECS
+	Hibernation				OFF
+	Hibernate in warp			AUTO
+
+Communotron 16					3 STOWED
+Communotron 16-S				ACTIVE
+
+Parachutes (x2)
+	Pressure				0.6
+	Altitude				1000
+	Spread Angle				10
+	Deployment				SAFE
+
+Drogue chute
+	Pressure				0.03
+	Altitude				5000
+	Spread Angle				10
+	Deployment				SAFE	
+
+Capsule service bay				CLOSED
+Capsule service bay parts			0
+
+***Pre-flight launch pad***
+
+Booster parachutes
+	Pressure				0.6
+	Altitude				1350
+	Spread angle 				0
+
+LS sustainer parachutes
+	Pressure				0.6
+	Altitude				1000
+	Spread angle				10
+
+Booster Thrust limiter				72
+Sustainer thrust limiter			100
+AV-R8 winglet
+	Deploy angle				0
+	Authority limiter			4
+
+Lower stage LFOX levels				FULL
+Booster LFOX levels				FULL
+Lower stage decoupler				STAGEABLE
+Upper stage decoupler				STAGEABLE
+Upper stage parachutes
+	Pressure				0.6
+	Altitude				1250
+	Spread angle				0
+
+US service bay					CLOSED
+US service bay parts				0
+Upper stage radios (x2)				ENABLED
