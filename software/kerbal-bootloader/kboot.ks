@@ -3,7 +3,7 @@
 
 //VARIABLES
 LOCAL programName IS "FILL PROGRAM NAME HERE".
-LOCAL entryPoint IS "entrypoint.ks".
+LOCAL entryPoint IS "entrypoint".
 
 //INITIAL STATE
 print "Setting initial computer state".
