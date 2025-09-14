@@ -6,9 +6,14 @@ AOC-2 Flight Operations Manual
 
 ***Document organisation***
 
+***Related development***
+
+	AOC-4 cargo vessel
+		The AOC-4 is based on the AOC-2 shuttle and shares many of its systems.
+	
 ***Mission description***
 
-The AOC-2 is a 3 person shuttle. The shuttle has been designed with simplicity and redundancy in mind. It has been designed for moving up to 2 passengers (plus one pilot) between space stations and to/from Kerbin. A launch vehicle is needed for ascent from Kerbin. The shuttle is designed to use the R-3 1200L rocket with a B2 faring as a launcher (but any rocket that can carry the mass and volume of the payload should be acceptable).
+The AOC-2 is a 3 person shuttle. The shuttle has been designed with simplicity and redundancy in mind. It has been designed for moving up to 2 passengers (plus one pilot) between space stations and to/from Kerbin. A launch vehicle is needed for ascent from Kerbin. The shuttle is designed to use the R-3 1200L rocket with a B2 faring as a launcher (but any rocket that can carry the mass and volume of the shuttle should be acceptable).
 
 ***Electrical system***
 
@@ -64,21 +69,21 @@ Consumption
 	
 ***Life support***
 
-The life support is supplied by three hexacans stored radially. The life support can keep a crew of 3 alive for 21 days. The three cans provide a redundant system that can tolerate one failure without putting the occupants at risk. The capsule has a small reserve of supplies that is kept isolated. This emergency reserve can be used as a last resort.
+The life support is supplied by three hexcans stored radially. The life support can keep a crew of 3 alive for 21 days. The three cans provide a redundant system that can tolerate one failure without putting the occupants at risk. The capsule has a small reserve of supplies that is kept isolated. This emergency reserve can be used as a last resort.
 
 In normal operation, the hexcans are to remain active while the capsule supply storage remains isolated. Nominal values do not take the emergency supplies into account. In case of depletion, the emergency supplies can give a pilot 3 days worth of food, water and oxygen to allow him to divert to a nearby facility or can supply a crew of 3 for about 1 day.
 
 Supplies (assumes pilot and 2 passengers)
 	Main storage						124	hours
-		Left Hexacan					
+		Left Hexcan					
 			Oxygen					41	hours
 			Water					41	hours
 			Food					41	hours
-		Right Hexacan
+		Right Hexcan
 			Oxygen					41	hours
 			Water					41	hours
 			Food					41	hours
-		Ventral Hexacan
+		Ventral Hexcan
 			Oxygen					41	hours
 			Water					41	hours
 			Food					41	hours
@@ -99,11 +104,11 @@ The capsule is equipped with a Clamp-o-tron jr. port and an RCS capable of thrus
 
 The capsule is equipped with the internal Mk1 capsule wheels and the HECS wheel. The dominant wheel is the one in the capsule and is the main mode of rotation. While two wheels are provided, failure of the capsule wheel may hinder attitude control. 
 
-In case of failure or emergency, the shuttle can only roll using the RCS blocks. Do not launch without the two wheels operational.
+In case of failure or emergency, the shuttle can only roll using the RCS blocks. Do not launch without the two wheels operational. Yaw and pitch may be induced by shifting passengers and supplies around and then using the RCS blocks as if for translation.
 
 **RCS blocks**
 
-The AOC-2 is equipped with a simple RCS comprised of two blocks. The 5 horned blocks can move the ship in any direction. The RCS blocks are calibrated not to produce unwanted torque with two passengers and full load. The reaction wheels should be engaged in any other situation. The wheels are capable of compensating for any rolling action caused by the RCS.
+The AOC-2 is equipped with a simple RCS comprised of two blocks. The 5 horned blocks can move the ship in any direction. The RCS blocks are calibrated not to produce unwanted torque with a pilot and a passenger and full load. The reaction wheels should be engaged in any other situation. The wheels are capable of compensating for any rolling action caused by the RCS.
 
 Thrust
 	Fore							2	KN
@@ -130,7 +135,7 @@ The main mode of remote operation of the shuttle is remote control via the HECS 
 
 ***Lights***
 
-The AOC-2 contains 5 omni lights and 4 navigation lights. The omni and cabin lights are turned on using the lights action group or can be turned on and off manually. The navigation lights are turned on and off using the gear action group. Each navigation light consumes 0.05 EC/sec and each omni light 0.01 EC/sec.
+The AOC-2 contains 5 omni lights and 4 navigation lights. The omni and cabin lights are turned on using the lights action group or can be turned on and off manually. The navigation lights are turned on and off using the gear action group. Each navigation light consumes 0.01 EC/sec and each omni light 0.01 EC/sec.
 
 ***Re-entry***
 

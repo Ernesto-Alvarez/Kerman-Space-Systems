@@ -53,34 +53,40 @@ Model B only
 **Part list**
 
 1x	Mk1 Command Pod
-1x	Mk1 Crew Cabin
 1x	Probodobodyne HECS
 1x	Z-200 Rechargeable Battery Bank
 1x	Clamp-o-Tron Docking Port jr.
-1x	Heat Shield (1.25m)
-3x	OX-STAT Photovoltaic Panels
 3x	Basic Fin
+2x	Communotron 16-S
+3x	OX-STAT Photovoltaic Panels
+5x	Surface Mounted Omni Light
+2x	Mk2-R Radial-Mount Parachute
+
+
+1x	Mk1 Crew Cabin
+1x	Heat Shield (1.25m)
 3x	Life Support HexCan 0.75m
 6x	Stratus-V Minified Monopropellant Tank
 4x	Navigation Light Mk1
-5x	Surface Mounted Omni Light
-2x	Communotron 16-S
 2x	RV-105 RCS Thruster block
 
 **Assembly procedure**
+Note that all items not connected to the passenger cabin are common to both the AOC-2 and AOC-4. The common parts are called the cockpit module or the cab. Conversions from one type to the other are easy.
+
+***Cockpit module***
 
 Start with the Mk1 pod
-Assemble Mk1 cabin axially below Mk1 pod
+	Recommended colour scheme: white and grey
 Assemble HECS axially on top of Mk1 pod
+	HECS logo on the same side of hatch
 Install Z-200 axially on top of HECS
 Install Clamp-o-Tron axially on top of Z-200
-Install heat shield axially at bottom of stack
 Install Basic fins as finlets on HECS
 	3x symmetry with snap
 	Facing downwards
 	At ventral position (and 120 degrees from ventral)
 	Top of finlet barely touching clamp-o-tron
-	Yellow stripe half embedded in Z-200
+	Yellow stripe half embedded in HECS and somewhat embedded in Z-200
 Install radios on Mk1 pod
 	Mirror symmetry, 2x with snap
 	At sides of flag
@@ -94,6 +100,34 @@ Install OX-STAT panels radially on HECS
 	Long side facing finlets
 	Top end covers Z-200 battery black part
 	Leaves a bit of the HECS panel at the bottom
+	When installed, lower part should be at the same distance from bottom and side joints on the HECS panels
+Install omni lights on HECS
+	3x symmetry with snap
+	In space left by solar panels
+	Half-half between HECS and Pod
+	Dorsal position
+	One light between each two finlets
+Install omni light in Mk1 pod
+	1x symmetry with snap
+	At the exact centre of the flag
+Install parachutes radially on capsule
+	2x symmetry with snap
+	On grey stripes at the sides
+	Lower part of parachute touching first "pip"
+	Upper part of parachute touching line after sixth "pip"
+
+Configure HECS computer
+	Command, hibernate in warp		TRUE
+	ElectricCharge				ISOLATED
+Configure Mk1 pod
+	Food					ISOLATED
+	Water					ISOLATED
+	Oxygen					ISOLATED
+
+***Passenger cabin***
+
+Start Mk1 cabin
+Install heat shield axially at bottom of stack
 Install propellant tanks radially on Mk1 Cabin
 	6x symmetry with snap
 	Dorsal position
@@ -110,15 +144,6 @@ Install navigation lights on Mk1 cabin
 	45 degrees from ventral
 	Light points in direction of travel
 	Thin end of teardrop barely touches the heat shield
-Install omni lights on HECS
-	3x symmetry with snap
-	In space left by solar panels
-	Half-half between HECS and Pod
-	Dorsal position
-	One light between each two finlets
-Install omni light in Mk1 pod
-	1x symmetry with snap
-	At the exact centre of the flag
 Install omni light in Mk1 cabin
 	1x symmetry with snap
 	Ventral position
@@ -129,7 +154,33 @@ Install RCS on Mk1 cabin
 	Orthogonal 5-horn configuration
 	Ventral/Dorsal position
 	In clean space above propellant tanks
-	Use RCSBA to calibrate exact vertical position
-		Calibrate to null torque with two passengers on board and full load
-		Clean space above tanks is left for this calibration purpose
-	Use actuator toggles to disable pitch/yaw/roll use
+	About halfway between propellant tank and top of cabin
+		Calibration will be done during final assembly
+
+Configure heat shield
+	Ablator					60
+Configure Mk1 Cabin
+	Spare parts				0
+Configure navigation lights
+	Blink on
+	Remove from symmetry
+	Starboard light colour			GREEN
+	Port light colour			RED
+Configure RCS
+	Use actuator toggles to disable Y/P/R
+
+***Final assembly***
+
+Start with cab
+Install passenger cabin at bottom of cab
+Calibrate RCS
+	Add the pilot and a passenger to craft
+	Use RCS build aid to measure side or ventral/dorsal translation
+	Move RCS blocks to minimise torque
+
+Configure action groups
+	Gear
+		Navigation lights, toggle lights
+	Lights
+		Mk1 pod, toggle lights
+		Surface mounted omni lights, toggle lights

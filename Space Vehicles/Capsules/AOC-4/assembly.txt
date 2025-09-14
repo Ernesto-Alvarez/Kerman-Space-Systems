@@ -1,0 +1,213 @@
+AOC-4 assembly instructions
+
+***Variants***
+
+AOC-4	TACLS version with lights
+
+***Mod requirements***
+
+Base model
+	RemoteTech
+		Not strictly necessary, but RT alters capsule battery storage. Stock AOC-2 have to be rebuilt from assembly instructions or modified.
+	TAC Life support
+	RCS Build Aid
+		Required for calibration only.
+	Infernal robotics
+		IR provides the navigation lights
+	Surface lights
+
+***Science requirements***
+	Start
+		Capsule
+		Finlets
+		EVA inventory (Jetpack, parachute)
+	Engineering 101
+		Omni comms
+		Utility wrench
+		Instruction manual
+	Survivability
+		Parachutes
+		Heat shield
+		Life support
+	General construction
+		IMIC-800
+	Electrics
+		Z-200
+		Omni lights
+		Solar panels
+	Aviation
+		Navigation lights
+	Miniaturization
+		Clamp-o-tron jr.
+	Propulsion systems
+		Monoprop tanks
+	Precision engineering
+		HECS
+		Explosives
+	Advanced electrics
+		Electric screwdriver
+	Advanced flight control
+		RCS
+		AIS
+
+***Assembly***
+
+
+**Part list**
+
+1x	Mk1 Command Pod
+1x	Probodobodyne HECS
+1x	Z-200 Rechargeable Battery Bank
+1x	Clamp-o-Tron Docking Port jr.
+3x	Basic Fin
+2x	Communotron 16-S
+3x	OX-STAT Photovoltaic Panels
+12x	Surface Mounted Omni Light
+2x	Mk2-R Radial-Mount Parachute	
+1x	E-SD80 Electric Screwdriver
+1x	BS-8 Utility Wrench
+2x	K4 Standard Explosives
+1x	KIS for Dummies (KIS instruction manual)
+1x	Advanced Inline Stabilizer
+1x	IMiC-800 Container	
+1x	Heat Shield (1.25m)
+2x	Life Support HexCan 0.75m
+2x	Navigation Light Mk1
+4x	Stratus-V Minified Monopropellant Tank
+4x	RV-105 RCS Thruster block
+
+
+**Assembly procedure**
+Note that all items not connected to the IMIC-800 are common to both the AOC-2 and AOC-4. The common parts are called the cockpit module or the cab. Conversions from one type to the other are easy.
+
+***Cockpit module***
+
+Start with the Mk1 pod
+	Recommended colour scheme: white and grey
+Assemble HECS axially on top of Mk1 pod
+	HECS logo on the same side of hatch
+Install Z-200 axially on top of HECS
+Install Clamp-o-Tron axially on top of Z-200
+Install Basic fins as finlets on HECS
+	3x symmetry with snap
+	Facing downwards
+	At ventral position (and 120 degrees from ventral)
+	Top of finlet barely touching clamp-o-tron
+	Yellow stripe half embedded in HECS and somewhat embedded in Z-200
+Install radios on Mk1 pod
+	Mirror symmetry, 2x with snap
+	At sides of flag
+	30 degrees to the sides of centre
+		Two positions of snap
+	White tips embedded in HECS
+	Antennas should not project from capsule
+Install OX-STAT panels radially on HECS
+	3x symmetry with snap
+	On dorsal position
+	Long side facing finlets
+	Top end covers Z-200 battery black part
+	Leaves a bit of the HECS panel at the bottom
+	When installed, lower part should be at the same distance from bottom and side joints on the HECS panels
+Install omni lights on HECS
+	3x symmetry with snap
+	In space left by solar panels
+	Half-half between HECS and Pod
+	Dorsal position
+	One light between each two finlets
+Install omni light in Mk1 pod
+	1x symmetry with snap
+	At the exact centre of the flag
+Install parachutes radially on capsule
+	2x symmetry with snap
+	On grey stripes at the sides
+	Lower part of parachute touching first "pip"
+	Upper part of parachute touching line after sixth "pip"
+
+Configure HECS computer
+	Command, hibernate in warp		TRUE
+	ElectricCharge				ISOLATED
+Configure Mk1 pod
+	Food					ISOLATED
+	Water					ISOLATED
+	Oxygen					ISOLATED
+Configure parachutes
+	Pressure				0.6
+	Altitude				1000
+	Angle					10
+
+Equip vessel
+	Set 0 KIS inventory
+		Electric screwdriver
+		Wrench
+		Explosive packs
+		Instruction manual	
+
+
+***Cargo module***
+
+Start with AIS
+Install IMIC-800 axially below AIS
+Install heat shield axially below IMIC-800
+Install two sets of Omni lights radially
+	4x symmetry with snap
+	First set goes at the bottom of the IMIC-800
+		At the junction with the heat shield
+		Top/bottom/port/stdb position (one lamp should be in line with the hatch)
+	Second set goes on AIS
+		At the centre of the "warning" pattern
+		At 45 degrees from horizontal/vertical
+Install HexCans radially on IMIC-800
+	2x symmetry with snap
+	At the sides of the container
+	Immediately above the side omni lights
+Install Nav lights on top of hexcans
+	2x symmetry with snap
+	1/3 of the length of the can, counting from the bottom
+	On the outside
+Install monoprop tanks on IMIC-800
+	Two sets, 2x symmetry with snap
+	Install 15 degrees to the sides of the craft
+	Move into the structure using local reference until half of the tank is embedded in the container
+		Calibrate relative tank insertion with pattern of studs in hexcans
+	Move tanks up and down until they are in next to each other
+		Calibrate relative position using central band in each tank
+	Tanks should create a minor obstruction in the containers upper doors
+Install RCS blocks radially on AIS
+	4x symmetry with snap
+	4 horns, angled
+	On up/down/port/stdb of ship
+	On clear "metal" parts of AIS
+	As high as possible without obstructing anything of impacting anything with the RCS jets
+	Jets should pass in between of the RCS tanks and over parachutes
+	Use actuator toggles to disable Y/P/R
+
+Configure AIS
+	Control toggle torque			DISABLED
+
+Configure navigation lights
+	Blink					ON
+	Remote from symmetry
+	Light color (port)			RED
+	Light color (stdb)			GREEN
+
+Configure heat shield
+	Ablator					60
+
+
+***Final Assembly***
+Start with AOC-4 cab
+Attach cargo module axially below cab
+Configure action groups
+	Gear
+		Navigation lights, toggle lights
+	Lights
+		Mk1 pod, toggle lights
+		Surface mounted omni lights, toggle lights
+	Brake
+		AIS, toggle RW
+Determine cargo for balanced CoM
+	Add cargo to IMIC-800 until torque is minimal during translation
+	375 Kg cargo for system in savefile
+	IMIC-800 should read 475 Kg total mass
+
+Fully loaded mass: 2147 Kg
