@@ -1,3 +1,5 @@
+@LazyGlobal off.
+
 //	SCHEDULER
 //	Process control object that acts as a multitasking scheduler
 //	The scheduler contains data structures that are used to control multiple "daemon threads" running as triggers
@@ -112,7 +114,7 @@ LOCAL FUNCTION dispatcher
 
 	//Determine next process to be run
 
-	set nextTime TO 9999999999999999999999999999999.
+	LOCAL nextTime IS 9999999999999999999999999999999.
 
 	FOR proc IN self["runtable"]:VALUES
 		IF nextTime > proc["nextRun"] SET nextTime to proc["nextRun"].

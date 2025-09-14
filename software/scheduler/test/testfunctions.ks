@@ -16,3 +16,8 @@ GLOBAL FUNCTION hello3
 {
 	print("Hello3").
 }
+
+GLOBAL FUNCTION hello4
+{
+	print("Hello4").
+}
