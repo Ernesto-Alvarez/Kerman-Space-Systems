@@ -13,12 +13,6 @@
 //	Process status
 //	R	Running
 //	P	Paused
-//	T	Terminated (should not be present)
-//	p	Pausing
-//	t	Terminating
-//	r	Run requested
-//
-//	L	Loading
 
 //Constructor: create an empty scheduler
 //Do we run the "init" task at this point?
@@ -35,24 +29,36 @@ GLOBAL FUNCTION scheduler
 	RETURN newScheduler.
 }
 
-GLOBAL FUNCTION loadProcess
+GLOBAL FUNCTION execProcess
 {
 	PARAMETER self.
 	PARAMETER funcPointer.
 	PARAMETER runPeriod.
+	PARAMETER paused IS false.
+	PARAMETER description IS "Undescribed function".
 
 	LOCAL pid IS self["nextPID"].
-
 	SET self["nextPID"] TO self["nextPID"] + 1.
 
-	SET self["runtable"][pid] TO list().
-	self["runtable"][pid]:ADD(pid).
-	self["runtable"][pid]:ADD(funcPointer).
-	self["runtable"][pid]:ADD(runPeriod).
-	self["runtable"][pid]:ADD(TIME+runPeriod).
-	self["runtable"][pid]:ADD("L").
+	SET self["runtable"][pid] TO lexicon().
+	SET self["runtable"][pid]["PID"] TO pid.
+	SET self["runtable"][pid]["funcPointer"] TO funcPointer.
+	SET self["runtable"][pid]["runPeriod"] TO runPeriod.
+	SET self["runtable"][pid]["nextRun"] TO TIME:SECONDS.
+	SET self["runtable"][pid]["description"] TO description.
+	IF paused SET self["runtable"][pid]["status"] TO "P".
+	ELSE SET self["runtable"][pid]["status"] TO "R".
 
-	start(self).
+	launchDispatcher(self).
+	return self["runtable"][pid]["PID"].
+}
+
+LOCAL FUNCTION launchDispatcher
+{
+	PARAMETER self.
+	SET self["dispatcherID"] TO self["dispatcherID"] + 1.
+	LOCAL ID IS self["dispatcherID"].
+	IF self["nextPid"] > 1 dispatcher(self,ID).
 }
 
 GLOBAL FUNCTION pauseProcess
@@ -60,23 +66,25 @@ GLOBAL FUNCTION pauseProcess
 	PARAMETER self.
 	PARAMETER pid.
 
-	SET self["runtable"][pid][4] TO "P".
+	SET self["runtable"][pid]["status"] TO "P".
 }
 
-GLOBAL FUNCTION contProcess
+GLOBAL FUNCTION continueProcess
 {
 	PARAMETER self.
 	PARAMETER pid.
 
-	SET self["runtable"][pid][4] TO "R".
+	SET self["runtable"][pid]["status"] TO "R".
 }
 
-GLOBAL FUNCTION start
+GLOBAL FUNCTION terminateProcess
 {
 	PARAMETER self.
-	SET self["dispatcherID"] TO self["dispatcherID"] + 1.
-	LOCAL ID IS self["dispatcherID"].
-	IF self["nextPid"] > 1 dispatcher(self,ID).
+	PARAMETER PID.
+
+	self["runtable"]:REMOVE(PID).
+	IF self["runtable"]:LENGTH = 0 SET self["dispatcherID"] TO self["dispatcherID"] + 1.
+	ELSE launchDispatcher(self).
 }
 
 LOCAL FUNCTION dispatcher
@@ -95,30 +103,24 @@ LOCAL FUNCTION dispatcher
 
 	FOR proc IN self["runtable"]:VALUES
 	{
-		IF proc[3] < now AND proc[4] = "R"
+		IF proc["nextRun"] < now 
 		{
-			toRun:ADD(proc[1]).
-			SET proc[3] TO now + proc[2].
+			SET proc["nextRun"] TO now + proc["runPeriod"].
+			IF proc["status"] = "R" toRun:ADD(proc["funcPointer"]).
 		}
 	}
-
-	//If any processes were in the LOADING STATE, they are now RUNNING
-
-	FOR proc IN self["runtable"]:VALUES
-		IF proc[4] = "L" SET proc[4] TO "R".
 
 	//Determine next process to be run
 
 	set nextTime TO 9999999999999999999999999999999.
 
 	FOR proc IN self["runtable"]:VALUES
-		IF nextTime > proc[3] SET nextTime to proc[3].
+		IF nextTime > proc["nextRun"] SET nextTime to proc["nextRun"].
 
 	WHEN nextTime < TIME:SECONDS THEN dispatcher(self,ID).
 
 	//Run ready processes
 	FOR func in toRun func:CALL.
-
 }	
 
 
