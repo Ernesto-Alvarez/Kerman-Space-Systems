@@ -5,6 +5,8 @@
 LOCAL programName IS "FILL PROGRAM NAME HERE".
 LOCAL entryPoint IS "entrypoint".
 
+print("Kerbal bootloader version 0.2.0").
+
 //INITIAL STATE
 print "Setting initial computer state".
 SWITCH TO 1.
