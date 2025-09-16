@@ -7,9 +7,10 @@
 //	The scheduler can have the necessary info so that a monitor process can launch (and re-launch) tasks as needed. The information contained in the scheduler also allows each task to know whether to run, pause or terminate.
 
 //	The scheduler data types are:
-//	(PID,Delegate,Run period, Next run time, Process status)	->	Run table
-//	Integer								->	Next PID to assign
-//	(implicit) (Delegate, Period)					->	Process loading table
+//	(PID,Delegate,Run period, Next run time, Process status,description)	->	Run table
+//	Integer									->	Next PID to assign
+//	Integer									->	Dispatcher thread ID
+//	(implicit) (Delegate, Period)						->	Process loading table
 
 
 //	Process status
@@ -17,8 +18,7 @@
 //	P	Paused
 
 //Constructor: create an empty scheduler
-//Do we run the "init" task at this point?
-//Let´s not for now, but we'll need one if we want to be able to control processes
+//Dispatcher won't run until we have at least one process running
 
 GLOBAL FUNCTION scheduler
 {
@@ -31,6 +31,14 @@ GLOBAL FUNCTION scheduler
 	RETURN newScheduler.
 }
 
+//PROCESS CONTROL
+//exec, stop, cont and terminate functions
+
+//exec creates a new process that calls a delegate
+//process may start paused or not, as requested
+//Dispatcher thread will start if it's the first process being launched
+//Dispatcher thread will be renewed in any case as the new process might run before the current process to run
+
 GLOBAL FUNCTION execProcess
 {
 	PARAMETER self.
@@ -42,26 +50,24 @@ GLOBAL FUNCTION execProcess
 	LOCAL pid IS self["nextPID"].
 	SET self["nextPID"] TO self["nextPID"] + 1.
 
-	SET self["runtable"][pid] TO lexicon().
-	SET self["runtable"][pid]["PID"] TO pid.
-	SET self["runtable"][pid]["funcPointer"] TO funcPointer.
-	SET self["runtable"][pid]["runPeriod"] TO runPeriod.
-	SET self["runtable"][pid]["nextRun"] TO TIME:SECONDS.
-	SET self["runtable"][pid]["description"] TO description.
-	IF paused SET self["runtable"][pid]["status"] TO "P".
-	ELSE SET self["runtable"][pid]["status"] TO "R".
+	//This is an attempt to minimise the race condition. Entries are filled separately first and assigned as close as the dispatcher launch as possible
+	LOCAL newprocess IS lexicon().
+	SET newprocess["PID"] TO pid.
+	SET newprocess["funcPointer"] TO funcPointer.
+	SET newprocess["runPeriod"] TO runPeriod.
+	SET newprocess["nextRun"] TO TIME:SECONDS.
+	SET newprocess["description"] TO description.
+	IF paused SET newprocess["status"] TO "P".
+	ELSE SET newprocess["status"] TO "R".
 
+	SET self["runtable"][pid] TO newprocess.	//If this instruction is atomic, there will be no race condition
 	launchDispatcher(self).
 	return self["runtable"][pid]["PID"].
 }
 
-LOCAL FUNCTION launchDispatcher
-{
-	PARAMETER self.
-	SET self["dispatcherID"] TO self["dispatcherID"] + 1.
-	LOCAL ID IS self["dispatcherID"].
-	IF self["nextPid"] > 1 dispatcher(self,ID).
-}
+//Pauses the process, setting a special status
+//Paused processes are still in the process queue and processed by the dispatcher, but are inhibited from running
+//Process overhead is the same as a running process and will run at its programmed time if re-enabled
 
 GLOBAL FUNCTION pauseProcess
 {
@@ -71,6 +77,9 @@ GLOBAL FUNCTION pauseProcess
 	SET self["runtable"][pid]["status"] TO "P".
 }
 
+//The complement of the pause call
+//Process runs after the call
+
 GLOBAL FUNCTION continueProcess
 {
 	PARAMETER self.
@@ -79,6 +88,11 @@ GLOBAL FUNCTION continueProcess
 	SET self["runtable"][pid]["status"] TO "R".
 }
 
+//Termination function
+//Process is removed from the table
+//New dispatcher thread is launched in case ???. We shouldn't need a new dispatcher thread when killing processes, do we?
+//If last process, bump up thread ID to kill dispatcher
+
 GLOBAL FUNCTION terminateProcess
 {
 	PARAMETER self.
@@ -86,7 +100,19 @@ GLOBAL FUNCTION terminateProcess
 
 	self["runtable"]:REMOVE(PID).
 	IF self["runtable"]:LENGTH = 0 SET self["dispatcherID"] TO self["dispatcherID"] + 1.
-	ELSE launchDispatcher(self).
+}
+
+//Dispatch program. The launcher assigns an ID to the thread, allowing it to self-kill if necessary
+//Possible race condition: if the old launcher is running while a new process is exec'd, it might read the process entry while incomplete, crashing the system
+//Could be mitigated by changing the dispatcherID in the execProcess call at the very beginning or by somehow liimting access to an entry while incomplete
+//but without semaphores, a complete fix is not possible
+
+LOCAL FUNCTION launchDispatcher
+{
+	PARAMETER self.
+	SET self["dispatcherID"] TO self["dispatcherID"] + 1.
+	LOCAL ID IS self["dispatcherID"].
+	IF self["nextPid"] > 1 dispatcher(self,ID).
 }
 
 LOCAL FUNCTION dispatcher
@@ -114,7 +140,7 @@ LOCAL FUNCTION dispatcher
 
 	//Determine next process to be run
 
-	LOCAL nextTime IS 9999999999999999999999999999999.
+	LOCAL nextTime IS TIME:SECONDS + 9203544600000.		//will re-run once in at least 1 million years
 
 	FOR proc IN self["runtable"]:VALUES
 		IF nextTime > proc["nextRun"] SET nextTime to proc["nextRun"].
@@ -125,29 +151,4 @@ LOCAL FUNCTION dispatcher
 	FOR func in toRun func:CALL.
 }	
 
-
-//GLOBAL FUNCTION daemon
-
-//	PARAMETER self.
-//	PARAMETER PID.
-
-
-
-//THIS IDEA WORKS
-//
-//LOCAL nextRun IS TIME:SECONDS + 20.
-//WHEN nextRun < TIME:SECONDS THEN daemon().
-//
-//LOCAL FUNCTION daemon
-//{
-//	print("daemon").
-//	SET nextRun TO TIME:SECONDS + 10.
-//	WHEN nextRun < TIME:SECONDS THEN daemon().
-//}
-//
-//UNTIL FALSE
-//{
-//	WAIT 1.
-//	print(nextRun).
-//	print(TIME:SECONDS).
-//}
+print "Scheduler version 0.2.1 loaded".
