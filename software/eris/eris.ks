@@ -34,12 +34,25 @@ GLOBAL FUNCTION ERIS
 	resourceBlacklist:ADD("Waste").			//We do not care if it leaks
 	resourceBlacklist:ADD("WasteWater").		//We do not care if it leaks
 
+	resourceBlacklist:ADD("Oxygen").
+	resourceBlacklist:ADD("Water").
 
 	SET newIsolator["resources"] TO list().
 
 	FOR resource in SHIP:RESOURCES
 		IF resourceBlacklist:CONTAINS(resource:NAME) = FALSE
 			newIsolator["resources"]:ADD(resource:NAME).
+
+
+	//Get list of bad tanks from configuration storage
+
+	LOCAL badTanks IS lexicon().
+
+	IF EXISTS("/config/eris.cfg")
+		LOCAL badTanks IS READJSON("/config/eris.cfg").
+	ELSE
+		FOR resource in	newIsolator["resources"]
+			SET badTanks[resource] TO list().
 
 	//Prepare hierarchy of tanks
 
@@ -57,14 +70,43 @@ GLOBAL FUNCTION ERIS
 			IF newIsolator["resources"]:CONTAINS(tank:NAME)
 			{
 				//Assign tanks to proper section in hierarchy
-				IF tank:ENABLED newIsolator["tanks"][tank:NAME]["activeTanks"]:ADD(tank).
+				IF badTanks[tank:NAME]:CONTAINS(part:UID)
+				{
+					newIsolator["tanks"][tank:NAME]["badTanks"]:ADD(tank).
+				}
+				ELSE
+					IF tank:ENABLED newIsolator["tanks"][tank:NAME]["activeTanks"]:ADD(tank).
 					ELSE newIsolator["tanks"][tank:NAME]["isolatedTanks"]:ADD(tank).
-
+	
 				//Create dictionary that goes from specific tank to its part
 				newIsolator["parts"]:ADD(tank,part).
 			}
 
 	RETURN newIsolator.
+}
+
+GLOBAL FUNCTION resetERISConfig
+{
+	DELETEPATH("/config/eris.cfg").
+}
+
+LOCAL FUNCTION saveStatus
+{
+	PARAMETER self.
+
+	LOCAL badTanks IS lexicon().
+	
+	FOR resource IN self["resources"]
+	{
+		SET badTanks[resource] TO list().
+		FOR tank in self["tanks"][resource]["badTanks"]
+			badTanks[resource]:ADD(self["parts"][tank]:UID).
+
+	}
+	IF NOT EXISTS("/config")
+		CREATEDIR("/config").
+
+	WRITEJSON(badTanks,"/config/eris.cfg").	
 }
 
 GLOBAL FUNCTION ERISCheck
@@ -74,6 +116,8 @@ GLOBAL FUNCTION ERISCheck
 	reclassifyTanks(self).
 	tankTest(self).
 	classConstraints(self).
+
+	saveStatus(self).
 }
 
 LOCAL FUNCTION reclassifyTanks
@@ -289,4 +333,4 @@ LOCAL FUNCTION tankTest
 	}
 }
 
-print "ERIS version 0.3.2 loaded".
+print "ERIS version 0.4.1 loaded".
