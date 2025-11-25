@@ -88,6 +88,7 @@ GLOBAL FUNCTION ERIS
 GLOBAL FUNCTION resetERISConfig
 {
 	DELETEPATH("/config/eris.cfg").
+	reboot.
 }
 
 LOCAL FUNCTION saveStatus
@@ -333,4 +334,4 @@ LOCAL FUNCTION tankTest
 	}
 }
 
-print "ERIS version 0.4.1 loaded".
+print "ERIS version 0.4.2 loaded".
