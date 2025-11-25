@@ -71,8 +71,8 @@ GLOBAL FUNCTION ERISCheck
 {
 	PARAMETER self.
 
-	tankTest(self).
 	reclassifyTanks(self).
+	tankTest(self).
 	classConstraints(self).
 }
 
@@ -289,4 +289,4 @@ LOCAL FUNCTION tankTest
 	}
 }
 
-print "ERIS version 0.3.1 loaded".
+print "ERIS version 0.3.2 loaded".
