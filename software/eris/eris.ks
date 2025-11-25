@@ -34,11 +34,6 @@ GLOBAL FUNCTION ERIS
 	resourceBlacklist:ADD("Waste").			//We do not care if it leaks
 	resourceBlacklist:ADD("WasteWater").		//We do not care if it leaks
 
-//Limit to monoprop for test
-
-	resourceBlacklist:ADD("Water").
-	resourceBlacklist:ADD("Oxygen").
-
 
 	SET newIsolator["resources"] TO list().
 
@@ -252,17 +247,30 @@ LOCAL FUNCTION tankTest
 	//Test all tanks for leaks. Interrupts service while test is taking place
 
 	LOCAL allTanks IS list().
+	LOCAL firstTanks IS list().
 
 	FOR resource in self["resources"]
 	{
+		LOCAL first IS TRUE.
 		FOR tank in self["tanks"][resource]["activeTanks"]
-			alltanks:ADD(tank).
+			IF first
+			{
+				firstTanks:ADD(tank).
+				SET first TO FALSE.
+			}
+			ELSE
+				allTanks:ADD(tank).
 
 		FOR tank in self["tanks"][resource]["isolatedTanks"]
 			alltanks:ADD(tank).
 	}
 
-	LOCAL failedTanks IS findLeaks(allTanks).
+	LOCAL bigFailed IS findLeaks(allTanks).
+	LOCAL smallFailed IS findLeaks(firstTanks).
+
+	LOCAL failedTanks IS bigFailed:COPY.
+	FOR tank IN smallFailed
+		failedTanks:ADD(tank).
 
 	FOR tank IN failedTanks
 	{
@@ -281,4 +289,4 @@ LOCAL FUNCTION tankTest
 	}
 }
 
-print "ERIS version 0.3.0 loaded".
+print "ERIS version 0.3.1 loaded".
