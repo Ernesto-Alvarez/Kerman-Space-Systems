@@ -32,7 +32,7 @@ KR-2042b battery present in K models only
 
 The two solar arrays are identical (type SP-L) and have the same coverage. The panels are able to rotate around the pitch axis to follow the sun. They have a null round that axis (exactly to the left and right of the capsule). To ensure at least some EC generation, induce a small yaw or roll movement. Roll is preferred. This prevents the capsule from generating power optimally, so active control is preferred in all cases.
 
-The proper sun-seeking attitude for the AOC-3 is with the sun forward of aft or the capsule and executing a slow roll. The secondary sun-seeking attitude is with the sun above or below and a small induced yaw. No roll with the sun anywhere within 30 degrees of flight path is acceptable.
+The proper sun-seeking attitude for the AOC-3 is with the sun forward of aft or the capsule and executing a slow roll. The secondary sun-seeking attitude is with the sun exactly above or below and a small induced yaw. No roll with the sun anywhere within 30 degrees of flight path is acceptable.
 
 There are 4 batteries present in the AOC-3 (5 in K models):
 	HECS battery	(KR-2042, only in K models, considered an extension of this battery)
@@ -129,21 +129,21 @@ The capsule is equipped with a Clamp-o-tron jr. port and an RCS capable of thrus
 
 The capsule is equipped with the internal Mk1 capsule wheels and the HECS wheel. The dominant wheel is the one in the capsule and is the main mode of rotation. While two wheels are provided, failure of the capsule wheel may hinder attitude control. 
 
-In case of failure or emergency, the forward thrusters can be activated using the actuation toggles to contribute to the pitch/yaw authority.
+In case of failure or emergency, the RCS can be activated using the actuation toggles to contribute to the pitch/yaw authority.
 
 **RCS blocks**
 
-The AOC-3 is equipped with 4 pairs of Linear 7 thrusters each pointing up, down, left and right. The paired arrangement (with two thrusters per side) allows calibration of the thrust to accouint for changes in the centre of mass due to propellant and resource consumption without changing the mass distribution of the vehicle. The thrusters are calibrated in the VAB and each pair provides thrust in one direction. The thrusters are configured not to react to rotation commands or translation in directions other than the one in their main function.
+The AOC-3 is equipped with 4 pairs of Linear 7 thrusters each pointing up, down, left and right. The paired arrangement (with two thrusters per side) allows calibration of the thrust to accouint for changes in the centre of mass due to propellant and resource consumption without changing the mass distribution of the vehicle. The thrusters are calibrated by the RK-2042 computer and each pair provides thrust in one direction. The thrusters are configured not to react to rotation commands or translation in directions other than the one in their main function.
 
 The left and right pairs are configured in symmetry to simplify calibration. The up and down thruster pairs are configured separately because of the presence of the hatch. The hatch and ventral finlet prevents the forward thruster of each pair to be located at the same distance from the after pair, requiring different configuration. All thruster pairs are placed in a position that always bracket the centre of mass, irrespective of resources in the ship.
 
-The craft also has 4 RV-105 RS blocks pointing forward and aft. These blocks have two nozzles each and provide forward and backwards thrust only. Calibration of these blocks is not necessary, as they are arranged in two pairs and therefore symmetrical. The blocks are offset 15 degrees to each side of the vertical and surround the aft up/down nozzles, limiting access to it and therefore configuration.
+The craft also has 4 RV-105 RS blocks pointing forward and aft. These blocks have two nozzles each and provide forward and backwards thrust only. Calibration of these blocks is not necessary, as they are arranged in two pairs and therefore symmetrical. The blocks are offset 15 degrees to each side of the vertical and surround the aft up/down nozzles, limiting access to it and therefore manual configuration.
 
 All thrusters can be fired at all times, including when a launch rocket is attached to the craft's heat shield. This allows the AOC-3 to use the launching upper stage as a thruster for long range, long dV missions.
 
-TODO: The RCS can be recalibrated using the onboard computer. The calibration routine can be run once, restoring balance to the system, or be left running constantly. In that case, changes in the centre of mass should have no visible effect, with the exception of changes in the thrust.
+The RCS can be recalibrated using the onboard computer. The calibration routine can be be left running constantly or it can be turned off using the kOS core. If running, changes in the centre of mass should have no visible effect, with the exception of changes in the thrust. In practice, a small error causes a slight torque.
 
-The RCS specifications for a model TKL craft are as follows.
+The RCS specifications are as follows.
 
 Model								TKL			TK			T
 Thrust
@@ -161,7 +161,7 @@ Thrust
 ***Communications***
 
 The capsule is provided with a Communotron 16-S in the payload bay. The antenna is normally kept on at all times and provides communications in low kerbin orbit. When in view of the KSC, the capsule can remain in contact up to 5350 Km in altitude and to an HG-5 equipped satellite at 3250 Km distance.
-For longer range communications, three Communotron 16 radios are present. These radios are normally turned off, but can be turned on in space when range is insufficient, almost tripling range. Antennas can be turned on individually to have longer range than with the C16S at a lower power usage compared with all 4 radios active. With all omni antennas, an HG-5 equipped satellite is kerbosynchronous orbit can reach the capsule close to the Mun orbit (at about 8000 Km) or KSC at 11800 Km.
+For longer range communications, three Communotron 16 radios are present. These radios are normally turned off, but can be turned on in space when range is insufficient, almost tripling range. Antennas can be turned on individually to have longer range than with the C16S at a lower power usage compared with all 4 radios active. With all omni antennas, an HG-5 equipped satellite is kerbosynchronous orbit can reach the capsule close to the Mun orbit (at about 8000 Km). KSC can reach the capsule at a distance of 11800 Km.
 An HG-5 dish is kept in storage in panels inside the hull and payload bay. The antenna has a 10000 Km range and does not stack with the omni antennas. Communications can be established with other HG-5 equipped satellites from beneath the orbit of Mun (about 20000 Km) or to mission control (tested at 22700 Km)
 
 Antenna ranges		(assumes root model, 0.5 antenna multiplier and 0.5 multiple antenna bonus)
@@ -176,11 +176,13 @@ The capsule can be operated both manned or unmanned. The computer system allows 
 
 The AOC-3 has 3 different computers on board. The first computer is the RemoteTech flight computer, which can be programmed for different maneuvers and is designed to compensate for possible loss of communications. There is also a HECS computer that is used for remote control of the capsule. The HECS can relay orders from KSC and has SAS, prograde and retrograde attitude assist. Finally, K models have a RK-2042 kOS core. The core can be used for running locally stored programs.
 
-TODO: software is not ready, but the RK-2042 is expected to run a RCS balancer and a resource isolator for countering leaks. 
+The KR-2042 runs ERIS, the emergency resource isolator. This software is used to prevent leaks from draining intact tanks and can transfer resources from leaking to intact tanks.
+
+The KR-2042 also runs a simple RCS balancer. The balancer greatly reduces torque from the RCS system by balancing the RCS rockets' thrust. There is a minimal induced torque, but most effects should be greatly reduced.
 
 ***Lights***
 
-The AOC-3 contains 6 omni lights and 2 navigation lights. The lights are turned on using the lights action group or can be turned on and off manually. Each navigation light consumes 0.05 EC/sec and each omni light 0.01 EC/sec. The cockpit has internal lighting. No power consumption has been measured for these lamps.
+The AOC-3 contains 6 omni lights and 2 navigation lights. The lights are turned on using the lights action group or can be turned on and off manually. Each navigation light consumes 0.01 EC/sec and each omni light 0.01 EC/sec. The cockpit has internal lighting. No power consumption has been measured for these lamps.
 
 ***Science***
 
@@ -200,7 +202,7 @@ The interaction between the finlets and the heat shield makes passive re-entry s
 
 While is is possible (and has been tested) for the capsule to do a fully passive re-entry, we recommend stating the process in a retrograde attitude, if possible. The finlets are not able to sustain the full impact of the shockwave for more than a few seconds at altitudes below 40 Km, and the risk of damage should be reduced to as minimally as possible. During the tests, the capsule tends to stabilize in a retrograde attitude in the upper atmosphere before reaching 40 Km, at some risk to the finlets. In the case of excessive exposure, a roll can be induced to minimise the time each finlet spends in the shockwave zone. Rolling is highly recommended when returning from higher orbits and, when following this procedure, the capsule has been successfully tested for a re-entry from 75000 Km apoapsis.
 
-The presence of the finlets create the requirement for the ship to be launched within a cargo fairing. The ship is not designed to be launched naker on top of a booster and minding the centre of mass and centre of pressure is critical if such a launch is to be attempted.
+The presence of the finlets create the requirement for the ship to be launched within a cargo fairing. The ship is not designed to be launched naked on top of a booster and minding the centre of mass and centre of pressure is critical if such a launch is to be attempted.
 
 Recommended re-entry corridor PE is 32 Km +- 2 Km.
 
@@ -215,7 +217,7 @@ WARNING: Avoid mountains. Cut the drogue parachute to extend range and open main
 The capsule is designed to land on top of its heat shield. This provides a small amount of protection in case of a rough landing and causes the capsule to stand upright, preventing movement. 
 Should the capsule land in mountains, it is possible that the capsule may tumble and start rolling on its side. The abort button is configured as an emergency arrestor. If the capsule starts rolling, the abort button can be used to extend the radio antennas and solar panels. This should stop the capsule from moving.
 
-WARNING: If capsule starts to roll, IMMEDIATELY press the ABORT button. Do not delay. Do not let capsule gather speed and compensate for roll with reaction wheels.
+WARNING: If capsule starts to roll, IMMEDIATELY press the ABORT button. Do not delay. Do not let capsule gather speed. Compensate for roll with reaction wheels.
 
 ***Orbital change booster***
 
