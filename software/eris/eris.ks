@@ -1,4 +1,5 @@
 @LazyGlobal off.
+RUNONCEPATH("scheduler").
 RUNONCEPATH("resourcexfer").
 
 //ERIS, the emergency resource isolation system
@@ -16,15 +17,12 @@ RUNONCEPATH("resourcexfer").
 
 GLOBAL FUNCTION ERIS
 {
+	PARAMETER sch.
 
-	LOCAL newIsolator IS lexicon("tanks",lexicon(),"parts",lexicon()).
-
-	//TO DO:Check for and restore configuration from file
+	LOCAL newIsolator IS lexicon("tanks",lexicon(),"parts",lexicon(),"active",FALSE,"scheduler",sch,"pid",0).
 
 	//Enumerate tanks 
-
 	//Limit which resources to manage
-
 	LOCAL resourceBlacklist IS list().
 	resourceBlacklist:ADD("ElectricCharge").	//Shorted batteries go to 0 and do not leak
 	resourceBlacklist:ADD("Ablator").		//Transferring ablator makes no sense (even if kOS lets you) and does not leak
@@ -43,19 +41,20 @@ GLOBAL FUNCTION ERIS
 		IF resourceBlacklist:CONTAINS(resource:NAME) = FALSE
 			newIsolator["resources"]:ADD(resource:NAME).
 
+	//Load active/inactive status from configuration storage
+	IF EXISTS("/config/eris-active.cfg")
+		SET newIsolator["active"] TO READJSON("/config/eris-active.cfg").
 
 	//Get list of bad tanks from configuration storage
-
 	LOCAL badTanks IS lexicon().
 
-	IF EXISTS("/config/eris.cfg")
-		LOCAL badTanks IS READJSON("/config/eris.cfg").
+	IF EXISTS("/config/eris-badtanks.cfg")
+		LOCAL badTanks IS READJSON("/config/eris-badtanks.cfg").
 	ELSE
 		FOR resource in	newIsolator["resources"]
 			SET badTanks[resource] TO list().
 
 	//Prepare hierarchy of tanks
-
 	FOR resource in newIsolator["resources"]
 	{
 		SET newIsolator["tanks"][resource] TO lexicon().
@@ -82,13 +81,33 @@ GLOBAL FUNCTION ERIS
 				newIsolator["parts"]:ADD(tank,part).
 			}
 
+	//Schedule ERIS checker
+	LOCAL ec IS { ERISCheck(newIsolator). }.
+	SET newIsolator["pid"] TO execProcess(newIsolator["scheduler"],ec,10,TRUE,"ERIS Check function").
+	IF newIsolator["active"]
+		startERIS(newIsolator).
+
 	RETURN newIsolator.
 }
 
 GLOBAL FUNCTION resetERISConfig
 {
-	DELETEPATH("/config/eris.cfg").
+	DELETEPATH("/config/eris-badtanks.cfg").
 	reboot.
+}
+
+GLOBAL FUNCTION startERIS
+{
+	PARAMETER self.
+	continueProcess(self["scheduler"],self["pid"]).
+	saveStatus(self).
+}
+
+GLOBAL FUNCTION stopERIS
+{
+	PARAMETER self.
+	pauseProcess(self["scheduler"],self["pid"]).
+	saveStatus(self).
 }
 
 LOCAL FUNCTION saveStatus
@@ -107,7 +126,8 @@ LOCAL FUNCTION saveStatus
 	IF NOT EXISTS("/config")
 		CREATEDIR("/config").
 
-	WRITEJSON(badTanks,"/config/eris.cfg").	
+	WRITEJSON(badTanks,"/config/eris-badtanks.cfg").
+	WRITEJSON(self["active"],"/config/eris-active.cfg").
 }
 
 GLOBAL FUNCTION ERISCheck
