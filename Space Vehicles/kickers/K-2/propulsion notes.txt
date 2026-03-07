@@ -1,0 +1,109 @@
+K-2 kicker propulsion notes
+
+
+dV = Isp * 9.8 * ln ( m0 / mf )			Tsiolkovsky's rocket equation
+
+Isp = 320
+m0 = 2066
+mf = 586
+
+dV = 320 * 9.8 * ln ( (m0 + P) / (mf + P) )	Rocket equation for a kicker transporting a payload of mass P
+
+dV / 320 * 9.8 = ln ( (m0 + P) / (mf + P) )
+
+dV / 3136 = ln ( (m0 + P) / (mf + P) )
+
+m0 = 2066
+mf = 586
+
+dV / 3136 = ln ( (2066 + P) / (586 + P) )
+
+e^(dV / 3136) = (2066 + P) / (586 + P)
+
+e^(dV / 3136) * (586 + P) = 2066 + P
+
+e^(dV / 3136) * 586 + e^(dV / 3136) * P = 2066 + P
+
+e^(dV / 3136) * 586 + e^(dV / 3136) * P - 2066 = P
+
+e^(dV / 3136) * 586 -2066 = P - e^(dV / 3136) * P
+
+e^(dV / 3136) * 586 -2066 = P (1 - e^(dV / 3136) )
+
+[ e^(dV / 3136) * 586 - 2066 ] / [ (1 - e^(dV / 3136) ) ] = P 
+
+dV = 2696
+e^(dV / 3136) = 2.3624
+
+[ 2.3624 * 586 - 2066 ] / [ 1 - 2.3624] = P = 500.3182
+
+
+[ e^(dV / 3136) * mf - m0 ] / [ (1 - e^(dV / 3136) ) ] = P 	Inverse rocket equation, how much payload we can transport to a specific dV
+
+
+K-1 kicker, P = 1000
+
+dV = 764
+K = 1.276
+mf = 451
+m0 = 851
+
+[ 1.276 * 451 - 851 ] / [1 - 1.276 ]
+
+P = 998.275
+
+K-2 kicker, one way to various targets
+
+dV to (one way)									(all injections are assumed to depart from 100x100 Km orbit)
+	Kerbol orbit				930	m/s
+	Trans Minmus Injection			921	m/s
+	Trans Munar Injection			852	m/s
+	Kerbostationary transfer orbit		652	m/s
+	Kerbostationary orbit			1077	m/s
+
+Thrust						20	KN
+Mass (dry)					586	Kg
+Mass (wet)					2066	Kg
+
+K = e^(dV / 3136)
+K_kerbol = 1,3465
+K_TMiI = 1,3426
+K_TMuI = 1,3133
+K_KSTO = 1,2319
+K_KO = 1,4113
+
+[ K * mf - m0 ] / [ ( 1 - K ) ] = P 
+
+
+
+dV = Isp * 9.8 * ln ( m0 / mf )			Tsiolkovsky's rocket equation
+
+dV = 320 * 9.8 * ln ( mf + F / mf )		Rocket equation for a dry mass + F fuel mass
+
+dV = 3136 * ln ( mf + F / mf )
+
+e^(dV / 3136) = ( mf + F ) / mf
+
+e^(dV / 3136) = 1 + (F / mf)
+
+( e^(dV / 3136) - 1 ) * mf = F			Inverse rocket equation, how much fuel mass to get to a certain dV, dry
+
+K_12 = 1,0038
+K_25 = 1,008
+K_17 = 1,0054
+K_447 = 1,1531
+
+
+
+
+
+
+dV = Isp * 9.8 * ln ( m0 / mf )
+
+dV = Isp * 9.8 * ln ( mK + mP + mF / mK + mP )	Rocket equation for a kicker with dry mass mK, fuel mass mF and payload mass mP
+
+dV(P) = 320 * 9.8 * ln (2066 + P / 586 + P )
+
+dV(P) = 3136 * ln ( 2066 + P / 586 + P)
+
+dV(P) = 3136 * ( ln ( 2066 + P) - ln (586 + P) )	dV budget with payload P

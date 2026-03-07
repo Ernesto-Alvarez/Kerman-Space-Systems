@@ -1,0 +1,103 @@
+K-3 kicker assembly
+
+**Part list**
+
+1x	K-1 kicker
+4x	R-12 'Doughnut' External Tank
+
+
+**Costs and tech**
+
+Cost							Funds
+
+Technology
+	
+**Important assembly instruction**
+To make an effective use of the R-12 tanks, they are mounted axially on the cubic strut that is used to mount the parachute on the K-1. The tank mounting uses the same trick that allows the creation of a new axial point where the parachute is mounted. The tank mounts on the lower axial node present in the cubic strut.
+This trick allows the tanks to "wrap around" the K-1 body.
+
+**Assembly**
+
+Start with fully assembled K-1 kicker
+Remove 4x OX-STAT panels
+	Keep handy for later use
+Install R-12 tanks
+	Take an R-12 tank (tank 1)and slide upwards along the body until it locks up on the OKTO computer.
+	Slide tanks 2, 3 and 4 in the same way, locking them on the preceding tank
+Install OX-STAT panels radially over R-12 tanks
+	4x symmetry with snap
+	Long side of panels vertically (following direction of thrust)
+	Mount on tank 2
+		Orient in direction of thrust using rotation tool
+		Directions N,S,E,W
+		
+
+**Configuration**
+
+Configuration is identical to K-1.
+
+Set parachute
+	Min pressure				0.6
+	Altitude				1000
+	Spread angle				0
+
+OKTO
+	Command
+		Hibernate in warp		Auto
+Radios
+	Remove from symmetry					(RemoteTech only)
+
+Radio assignment is arbitrary. They are asigned separately to allow for different configurations. Radio 1 is to be permanently listen, radio 2 is shut down to conserve power if necessary.
+
+Radio 1
+	Enabled
+	Deactivate at				0	%	(RemoteTech only)
+	Activate at				1	%	(RemoteTech only)
+
+Radio 2
+	Enabled
+	Deactivate at				20	%	(RemoteTech only)
+	Activate at				40	%	(RemoteTech only)
+
+
+
+Staging
+	Stage 2
+		Engine
+	Stage 1
+		Decoupler
+	Stage 0
+		Parachute
+
+**Final checks**
+Final checks are identical to K-1.
+
+Ensure that RCS BA indicates engine thrust and no torque on rocket
+	Vac thrust				20 	KN
+	Torque					0	NM
+Ensure parachute pull is above CoM and DCom
+	Should be by a large margin, by design
+
+
+**Servicing instructions**
+TD-06 decoupler
+						Enable staging
+Battery
+						Full
+
+Radios
+	Active
+	Verify power configuration				(RemoteTech only)
+
+Computer
+	Battery					Full
+	Hibernation				Check config
+
+R-12 tanks					Dismount grabbing tank 1, leave handy on VAB. This exposes internal tanks
+
+OSCAR-B tanks					Full
+
+R-12 tanks					Remount, slide set of tanks + panels upwards until it locks in place
+R-12 tanks					Full
+
+Parachute					Check parameters

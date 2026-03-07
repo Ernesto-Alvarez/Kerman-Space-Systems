@@ -1,0 +1,93 @@
+K-2 kicker assembly
+
+**Part list**
+
+1x	K-1 kicker
+4x	R-11 'Baguette' External Tank
+
+
+**Costs and tech**
+
+Cost							Funds
+
+Technology
+	
+**Assembly**
+
+Start with fully assembled K-1 kicker
+Remove 4x OX-STAT panels
+	Keep handy for later use
+Install R-11 tanks radially over OSCAR-B tanks
+	4x symmetry with snap
+	Top of tanks should be aligned with top of OKTO computer
+Install OX-STAT panels radially over R-11 tanks
+	4x symmetry with snap
+		Each tank should get 1 panel
+	Long side of panels vertically (following direction of thrust)
+	Centred between structural elements of the R-11 tanks
+
+**Configuration**
+
+Configuration is identical to K-1.
+
+Set parachute
+	Min pressure				0.6
+	Altitude				1000
+	Spread angle				0
+
+OKTO
+	Command
+		Hibernate in warp		Auto
+Radios
+	Remove from symmetry					(RemoteTech only)
+
+Radio assignment is arbitrary. They are asigned separately to allow for different configurations. Radio 1 is to be permanently listen, radio 2 is shut down to conserve power if necessary.
+
+Radio 1
+	Enabled
+	Deactivate at				0	%	(RemoteTech only)
+	Activate at				1	%	(RemoteTech only)
+
+Radio 2
+	Enabled
+	Deactivate at				20	%	(RemoteTech only)
+	Activate at				40	%	(RemoteTech only)
+
+
+
+Staging
+	Stage 2
+		Engine
+	Stage 1
+		Decoupler
+	Stage 0
+		Parachute
+
+**Final checks**
+Final checks are identical to K-1.
+
+Ensure that RCS BA indicates engine thrust and no torque on rocket
+	Vac thrust				20 	KN
+	Torque					0	NM
+Ensure parachute pull is above CoM and DCom
+	Should be by a large margin, by design
+
+
+**Servicing instructions**
+TD-06 decoupler
+						Enable staging
+Battery
+						Full
+
+Radios
+	Active
+	Verify power configuration				(RemoteTech only)
+
+Computer
+	Battery					Full
+	Hibernation				Check config
+
+OSCAR-B tanks					Full
+R-11 Baguette tanks				Full
+
+Parachute					Check parameters
