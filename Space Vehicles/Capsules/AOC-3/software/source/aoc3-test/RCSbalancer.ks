@@ -21,7 +21,8 @@ GLOBAL FUNCTION rounded
 GLOBAL FUNCTION RCSBalancer
 {
 	PARAMETER scheduler.
-	PARAMETER enginePairs.
+	PARAMETER engineAxes.
+	PARAMETER axisDescriptions.
 
 	LOCAL newBalancer IS lexicon().
 
@@ -29,31 +30,14 @@ GLOBAL FUNCTION RCSBalancer
 	SET newBalancer["runStatus"] TO FALSE.
 	SET newBalancer["runFunctions"] TO list().
 
-	//Rolling this into a loop causes only one of the engine pairs to calibrate!
-	//Started happening after introducing the relative coordinates
-
-	LOCAL balanceFunction IS { balanceTwo(enginePairs[0][0],enginePairs[0][1]). }.
-	LOCAL pid IS execProcess(scheduler,balanceFunction,0.1,TRUE,"RCS Balancer " + enginePairs[0][2]).
-	newBalancer["runFunctions"]:ADD(pid).
-
-	LOCAL balanceFunction IS { balanceTwo(enginePairs[1][0],enginePairs[1][1]). }.
-	LOCAL pid IS execProcess(scheduler,balanceFunction,0.1,TRUE,"RCS Balancer " + enginePairs[1][2]).
-	newBalancer["runFunctions"]:ADD(pid).
-
-	LOCAL balanceFunction IS { balanceTwo(enginePairs[2][0],enginePairs[2][1]). }.
-	LOCAL pid IS execProcess(scheduler,balanceFunction,0.1,TRUE,"RCS Balancer " + enginePairs[2][2]).
-	newBalancer["runFunctions"]:ADD(pid).
-
-	LOCAL balanceFunction IS { balanceTwo(enginePairs[3][0],enginePairs[3][1]). }.
-	LOCAL pid IS execProcess(scheduler,balanceFunction,0.1,TRUE,"RCS Balancer " + enginePairs[3][2]).
-	newBalancer["runFunctions"]:ADD(pid).
-
-//	FOR pair in enginePairs
-//	{
-//		LOCAL balanceFunction IS { balanceTwo(pair[0],pair[1]). }.
-//		LOCAL pid IS execProcess(scheduler,balanceFunction,0.1,TRUE,"RCS Balancer " + pair[2]).
-//		newBalancer["runFunctions"]:ADD(pid).
-//	}
+	FROM { LOCAL i IS 0. } UNTIL i = engineAxes:LENGTH STEP { SET i TO i + 1. } DO
+	{
+		LOCAL engines IS engineAxes[i].
+		LOCAL axis IS axisDescriptions[i].
+		LOCAL balanceFunction IS { balanceMany(engines). }.
+		LOCAL pid IS execProcess(scheduler,balanceFunction,0.1,TRUE,"RCS Balancer " + axis).
+		newBalancer["runFunctions"]:ADD(pid).
+	}
 
 	loadStatus(newBalancer).
 
@@ -85,71 +69,84 @@ GLOBAL FUNCTION stopBalancer
 	saveStatus(self).
 }
 
-LOCAL FUNCTION balanceTwo
+LOCAL FUNCTION balanceMany
 {
-	PARAMETER engineOne.
-	PARAMETER engineTwo.
+	PARAMETER engines.
 
-	//Compute distances to CoM in the X axis
-	LOCAL E1R IS relative(engineOne:position):x.
-	LOCAL E2R IS relative(engineTwo:position):x.
+	LOCAL positions IS list().
+	LOCAL forces IS list().
+	LOCAL coefficients IS list().
+	FOR rcs IN engines
+		{
+		positions:ADD(relative(rcs:POSITION):X).
+		forces:ADD(cos(vectorangle(relative(rcs:FACING:VECTOR),rounded(relative(rcs:FACING:VECTOR)))) * rcs:MAXTHRUST).
+		coefficients:ADD(1).
+		}
 
-	////print "E1 Pos".
-	//print E1R.
-	//print "E2 Pos".
-	//print E2R.
+	LOCAL indices IS sortToIndex(positions).
 
-	//Derate engines based on angle to top/side vectors
-	LOCAL E1D IS sin(vectorangle(relative(engineOne:facing:vector),rounded(relative(engineOne:facing:vector)))).
-	LOCAL E2D IS sin(vectorangle(relative(engineTwo:facing:vector),rounded(relative(engineTwo:facing:vector)))).
+	LOCAL torque IS computeTorque(forces,positions,coefficients).
 
-	//Compute thrust at 100%, derated for angle
-	LOCAL E1F IS engineOne:MAXTHRUST * E1D.
-	LOCAL E2F IS engineTwo:MAXTHRUST * E2D.
-
-	//print "E1 Force".
-	//print E1F.
-	//print "E2 Force".
-	//print E2F.
-
-	//Compute engine torques
-	LOCAL T1M IS E1R * E1F.
-	LOCAL T2M IS E2R * E2F.
-
-	//print "E1 Torque".
-	//print T1M.
-	//print "E2 Torque".
-	//print T2M.
-
-	//T = rF ==> r1 * F1 = r2 * F2
-	//locate which F to reduce below 100%
-
-	IF ABS(T1M) > ABS(T2M)
+	IF torque < 0
 	{
-		LOCAL NewThrust IS ABS((E2R / E1R) * E2F).
-		//print "New Thrust E1".
-		//print NewThrust.
+		//Shut off outermost engines if not needed
+		LOCAL i IS 0.
 
-		LOCAL NewPercent IS 100 * (NewThrust/E1F).
-		//print "E1 Thrust %".
-		//print NewPercent.
-		SET engineOne:THRUSTLIMIT TO NewPercent.
-		SET engineTwo:THRUSTLIMIT TO 100.
+		FROM {  } UNTIL torque - forces[indices[i]] * positions[indices[i]] > 0 STEP { SET i TO i+1. } DO
+		{
+			SET coefficients[indices[i]] TO 0.
+			SET torque TO torque - forces[indices[i]] * positions[indices[i]].
+		}
+		//Remaining torque can be compensated by throttling down outermost engine
+		LOCAL engineTorque IS positions[indices[i]] * forces[indices[i]].
+		SET coefficients[indices[i]] TO ( ABS(engineTorque) - ABS(torque) ) / ABS(engineTorque). 
+
 	}
-	ELSE
+	ELSE IF torque > 0
 	{
-		LOCAL NewThrust IS ABS((E1R / E2R) * E1F).
-		//print "New Thrust E2".
-		//print NewThrust.
-
-		LOCAL NewPercent IS 100 * (NewThrust/E2F).
-		//print "E2 Thrust %".
-		//print NewPercent.
-		SET engineOne:THRUSTLIMIT TO 100.
-		SET engineTwo:THRUSTLIMIT TO NewPercent.
+		//Shut off outermost engines if not needed
+		LOCAL i IS forces:LENGTH.
+		FROM { } UNTIL torque - forces[indices[i]] * positions[indices[i]] < 0 STEP { SET i TO i-1. } DO
+		{
+			SET coefficients[indices[i]] TO 0.
+			SET torque TO torque - forces[indices[i]] * positions[indices[i]].
+		}
+		//Remaining torque can be compensated by throttling down outermost engine
+		LOCAL engineTorque IS positions[indices[i]] * forces[indices[i]].
+		SET coefficients[indices[i]] TO ( ABS(engineTorque) - ABS(torque) ) / ABS(engineTorque). 
 	}
+
+	FROM { LOCAL i IS 0. } UNTIL i = engines:LENGTH STEP { SET i to i+1. } DO
+		SET engines[i]:THRUSTLIMIT TO 100 * coefficients[i].
+
 
 }
+
+LOCAL FUNCTION computeTorque
+{
+	PARAMETER forces.
+	PARAMETER positions.
+	PARAMETER coefficients.
+	LOCAL retval IS 0.
+
+	FROM {LOCAL i IS 0.} UNTIL i = forces:LENGTH STEP { SET i TO i+1. } DO
+		SET retval TO retval + forces[i] * positions[i] * coefficients[i].
+	return retval.
+}
+
+LOCAL FUNCTION sortToIndex
+{
+	PARAMETER input.
+	LOCAL indices IS list(0).
+
+	FROM {LOCAL i IS 1. LOCAL j IS 0.} UNTIL i = input:LENGTH STEP {SET i TO i+1.} DO
+	{
+		FROM {SET j TO 0.} UNTIL (j = i OR input[i] < input[j]) STEP {SET j TO j+1.} DO {}.
+			indices:INSERT(j,i).
+	}
+	return(indices).
+}
+
 
 LOCAL FUNCTION loadStatus
 {
@@ -168,4 +165,4 @@ LOCAL FUNCTION saveStatus
 	WRITEJSON(self["runStatus"],"/config/RCSBalancer.cfg").	
 }
 
-print "RCS Balancer version 0.3.1 loaded".
+print "RCS Balancer version 0.4.0 loaded".
