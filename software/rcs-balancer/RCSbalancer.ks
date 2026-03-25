@@ -105,7 +105,7 @@ LOCAL FUNCTION balanceMany
 	ELSE IF torque > 0
 	{
 		//Shut off outermost engines if not needed
-		LOCAL i IS forces:LENGTH.
+		LOCAL i IS forces:LENGTH - 1.
 		FROM { } UNTIL torque - forces[indices[i]] * positions[indices[i]] < 0 STEP { SET i TO i-1. } DO
 		{
 			SET coefficients[indices[i]] TO 0.
@@ -165,4 +165,4 @@ LOCAL FUNCTION saveStatus
 	WRITEJSON(self["runStatus"],"/config/RCSBalancer.cfg").	
 }
 
-print "RCS Balancer version 0.4.0 loaded".
+print "RCS Balancer version 0.4.1 loaded".
