@@ -1,10 +1,10 @@
 ship = RS-1C
 version = 1.12.5
-description = RS-1C atlatl first stage, disposable
+description = 
 type = VAB
-size = 2.97035146,7.56081772,2.97035122
+size = 2.97219563,9.34248257,2.97219515
 steamPublishedFileId = 0
-persistentId = 1017659577
+persistentId = 3900175993
 rot = 0,0,0,0
 missionFlag = Squad/Flags/capsule
 vesselType = Debris
@@ -14,9 +14,9 @@ OverrideAxisControl = 0,0,0,0
 OverrideGroupNames = ,,,
 PART
 {
-	part = liquidEngine.v2_4291911728
+	part = liquidEngine.v2_4294122422
 	partName = Part
-	persistentId = 3489173150
+	persistentId = 2367867312
 	pos = 0,15,0
 	attPos = 0,0,0
 	attPos0 = 0,15,0
@@ -38,8 +38,8 @@ PART
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	link = fuelTank_4291886030
-	attN = top,fuelTank_4291886030_0|0|0_0|1|0_0|0|0_0|1|0
+	link = fuelTank_4294121828
+	attN = top,fuelTank_4294121828_0|0|0_0|1|0_0|0|0_0|1|0
 	attN = bottom,Null_0_0|-1.63|0_0|-1|0_0|-1.63|0_0|-1|0
 	EVENTS
 	{
@@ -59,6 +59,42 @@ PART
 		RemoveSameVesselInteraction
 		{
 			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			active = False
 			wasActiveBeforePartWasAdjusted = False
 		}
 	}
@@ -224,6 +260,7 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = -1
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
@@ -238,12 +275,251 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleAlternatorReliability
+		isEnabled = True
+		MTBF = 4380
+		LifeTime = 10
+		RepairCost = 1
+		RepairBonus = 1
+		MaintenanceCost = 1
+		MaintenanceBonus = 1
+		InspectionBonus = 300
+		Silent = False
+		Priority = MEDIUM
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleCoolantReliabilityCore
+		isEnabled = True
+		MTBF = 8760
+		LifeTime = 1
+		RepairCost = 10
+		RepairBonus = 0.100000001
+		MaintenanceCost = 2
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 120
+		Silent = False
+		Priority = MEDIUM
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 2
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleEngineReliability
+		isEnabled = True
+		oldSurfaceFXMaxDistance = -1
+		MTBF = 8760
+		LifeTime = 1
+		RepairCost = 10
+		RepairBonus = 0.100000001
+		MaintenanceCost = 2
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 120
+		Silent = False
+		Priority = HIGH
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 3
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 2367867312
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = stack
+		defaultScale = 1.25
+		currentScale = 1.25
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 }
 PART
 {
-	part = fuelTank_4291886030
+	part = fuelTank_4294121828
 	partName = Part
-	persistentId = 2047473449
+	persistentId = 115485682
 	pos = 0,15.9125004,0
 	attPos = 0,0,0
 	attPos0 = 0,0.912500381,0
@@ -255,7 +531,7 @@ PART
 	autostrutMode = Off
 	rigidAttachment = False
 	istg = 1
-	resPri = 2
+	resPri = 3
 	dstg = 0
 	sidx = -1
 	sqor = -1
@@ -265,13 +541,13 @@ PART
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	link = R8winglet_4291885990
-	link = R8winglet_4291883414
-	link = R8winglet_4291883368
-	link = R8winglet_4291883322
-	link = fuelTank_4294480374
-	attN = top,fuelTank_4294480374_0|0.981724977|0_0|1|0_0|0.981724977|0_0|1|0
-	attN = bottom,liquidEngine.v2_4291911728_0|-0.912500024|0_0|-1|0_0|-0.912500024|0_0|-1|0
+	link = R8winglet_4294118602
+	link = R8winglet_4294115842
+	link = R8winglet_4294115778
+	link = R8winglet_4294115714
+	link = fuelTank_4294020858
+	attN = top,fuelTank_4294020858_0|0.981724977|0_0|1|0_0|0.981724977|0_0|1|0
+	attN = bottom,liquidEngine.v2_4294122422_0|-0.912500024|0_0|-1|0_0|-0.912500024|0_0|-1|0
 	EVENTS
 	{
 	}
@@ -288,6 +564,40 @@ PART
 			wasActiveBeforePartWasAdjusted = False
 		}
 		RemoveSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
 		{
 			actionGroup = None
 			wasActiveBeforePartWasAdjusted = False
@@ -316,6 +626,7 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = -1
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
@@ -330,10 +641,182 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleTankReliability
+		isEnabled = True
+		pole = 0.01
+		MaxTC = 360
+		MinTC = 90
+		leakName = none
+		MTBF = 350400
+		LifeTime = 131400
+		RepairCost = 1
+		RepairBonus = 0.100000001
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 7200
+		Silent = False
+		Priority = HIGH
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 115485682
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = stack
+		defaultScale = 1.25
+		currentScale = 1.25
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 	RESOURCE
 	{
 		name = LiquidFuel
-		amount = 180
+		amount = 0
 		maxAmount = 180
 		flowState = True
 		isTweakable = True
@@ -344,7 +827,7 @@ PART
 	RESOURCE
 	{
 		name = Oxidizer
-		amount = 220
+		amount = 0
 		maxAmount = 220
 		flowState = True
 		isTweakable = True
@@ -355,12 +838,12 @@ PART
 }
 PART
 {
-	part = R8winglet_4291885990
+	part = R8winglet_4294118602
 	partName = Part
-	persistentId = 2387329986
-	pos = -0.819005489,14.9939775,-0.819005609
-	attPos = 0,0,0
-	attPos0 = -0.819005489,-0.918522835,-0.819005609
+	persistentId = 2131340587
+	pos = -0.819927573,14.9791822,-0.819927573
+	attPos = 0,0.00554847717,0
+	attPos0 = -0.819927573,-0.938866615,-0.819927573
 	rot = 5.9261378E-08,0.382683456,-1.43069627E-07,-0.923879623
 	attRot = 0,0,0,1
 	attRot0 = 5.9261378E-08,0.382683456,-1.43069627E-07,-0.923879623
@@ -379,10 +862,10 @@ PART
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	sym = R8winglet_4291883414
-	sym = R8winglet_4291883368
-	sym = R8winglet_4291883322
-	srfN = srfAttach,fuelTank_4291886030,COL3,0.540501237|0.174731255|0,0.125|0|0,0.540501237|0.174731255|0
+	sym = R8winglet_4294115842
+	sym = R8winglet_4294115778
+	sym = R8winglet_4294115714
+	srfN = srfAttach,fuelTank_4294121828,COL3,0.540501237|0.174731255|0,0.125|0|0,0.540501237|0.174731255|0
 	EVENTS
 	{
 	}
@@ -403,6 +886,42 @@ PART
 			actionGroup = None
 			wasActiveBeforePartWasAdjusted = False
 		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
 	}
 	PARTDATA
 	{
@@ -419,8 +938,8 @@ PART
 		deploy = False
 		deployInvert = False
 		partDeployInvert = False
-		deployAngle = 0.449999988
-		authorityLimiter = 24
+		deployAngle = 0
+		authorityLimiter = 27.0000019
 		stagingEnabled = True
 		EVENTS
 		{
@@ -523,6 +1042,7 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = 650
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
@@ -537,15 +1057,186 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleControlSurfaceReliability
+		isEnabled = True
+		ignorePitch = False
+		ignoreRoll = False
+		ignoreYaw = False
+		MTBF = 4000
+		LifeTime = 8760
+		RepairCost = 1
+		RepairBonus = 0.100000001
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 1800
+		Silent = False
+		Priority = MEDIUM
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 2131340587
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = free_square
+		defaultScale = 100
+		currentScale = 100
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 }
 PART
 {
-	part = R8winglet_4291883414
+	part = R8winglet_4294115842
 	partName = Part
-	persistentId = 568736780
-	pos = -0.819005609,14.9939775,0.81900537
-	attPos = 0,0,0
-	attPos0 = -0.819005609,-0.918522835,0.81900537
+	persistentId = 2784092579
+	pos = -0.819927573,14.9791822,0.819927454
+	attPos = 0,0.00554847717,0
+	attPos0 = -0.819927573,-0.938866615,0.819927454
 	rot = -5.9261378E-08,-0.382683456,-1.43069627E-07,-0.923879564
 	attRot = 0,0,0,1
 	attRot0 = -5.9261378E-08,-0.382683456,-1.43069627E-07,-0.923879564
@@ -564,10 +1255,10 @@ PART
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	sym = R8winglet_4291883368
-	sym = R8winglet_4291883322
-	sym = R8winglet_4291885990
-	srfN = srfAttach,fuelTank_4291886030,COL3,0.540501237|0.174731255|0,0.125|0|0,0.540501237|0.174731255|0
+	sym = R8winglet_4294115778
+	sym = R8winglet_4294115714
+	sym = R8winglet_4294118602
+	srfN = srfAttach,fuelTank_4294121828,COL3,0.540501237|0.174731255|0,0.125|0|0,0.540501237|0.174731255|0
 	EVENTS
 	{
 	}
@@ -588,6 +1279,42 @@ PART
 			actionGroup = None
 			wasActiveBeforePartWasAdjusted = False
 		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
 	}
 	PARTDATA
 	{
@@ -604,8 +1331,8 @@ PART
 		deploy = False
 		deployInvert = False
 		partDeployInvert = False
-		deployAngle = 0.449999988
-		authorityLimiter = 24
+		deployAngle = 0
+		authorityLimiter = 27.0000019
 		stagingEnabled = True
 		EVENTS
 		{
@@ -708,6 +1435,7 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = 650
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
@@ -722,15 +1450,186 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleControlSurfaceReliability
+		isEnabled = True
+		ignorePitch = False
+		ignoreRoll = False
+		ignoreYaw = False
+		MTBF = 4000
+		LifeTime = 8760
+		RepairCost = 1
+		RepairBonus = 0.100000001
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 1800
+		Silent = False
+		Priority = MEDIUM
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 2784092579
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = False
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = free_square
+		defaultScale = 100
+		currentScale = 100
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 }
 PART
 {
-	part = R8winglet_4291883368
+	part = R8winglet_4294115778
 	partName = Part
-	persistentId = 199627906
-	pos = 0.819005549,14.9939775,0.819005549
-	attPos = 0,0,0
-	attPos0 = 0.819005549,-0.918522835,0.819005549
+	persistentId = 1428362082
+	pos = 0.819927633,14.9791822,0.819927514
+	attPos = 0,0.00554847717,0
+	attPos0 = 0.819927633,-0.938866615,0.819927514
 	rot = -1.43069627E-07,-0.923879623,-5.92613709E-08,-0.382683426
 	attRot = 0,0,0,1
 	attRot0 = -1.43069627E-07,-0.923879623,-5.92613709E-08,-0.382683426
@@ -749,10 +1648,10 @@ PART
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	sym = R8winglet_4291883322
-	sym = R8winglet_4291885990
-	sym = R8winglet_4291883414
-	srfN = srfAttach,fuelTank_4291886030,COL3,0.540501237|0.174731255|0,0.125|0|0,0.540501237|0.174731255|0
+	sym = R8winglet_4294115714
+	sym = R8winglet_4294118602
+	sym = R8winglet_4294115842
+	srfN = srfAttach,fuelTank_4294121828,COL3,0.540501237|0.174731255|0,0.125|0|0,0.540501237|0.174731255|0
 	EVENTS
 	{
 	}
@@ -773,6 +1672,42 @@ PART
 			actionGroup = None
 			wasActiveBeforePartWasAdjusted = False
 		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
 	}
 	PARTDATA
 	{
@@ -789,8 +1724,8 @@ PART
 		deploy = False
 		deployInvert = False
 		partDeployInvert = False
-		deployAngle = 0.449999988
-		authorityLimiter = 24
+		deployAngle = 0
+		authorityLimiter = 27.0000019
 		stagingEnabled = True
 		EVENTS
 		{
@@ -893,6 +1828,7 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = 650
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
@@ -907,15 +1843,186 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleControlSurfaceReliability
+		isEnabled = True
+		ignorePitch = False
+		ignoreRoll = False
+		ignoreYaw = False
+		MTBF = 4000
+		LifeTime = 8760
+		RepairCost = 1
+		RepairBonus = 0.100000001
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 1800
+		Silent = False
+		Priority = MEDIUM
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 1428362082
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = False
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = free_square
+		defaultScale = 100
+		currentScale = 100
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 }
 PART
 {
-	part = R8winglet_4291883322
+	part = R8winglet_4294115714
 	partName = Part
-	persistentId = 1678170908
-	pos = 0.819005489,14.9939775,-0.819005489
-	attPos = 0,0,0
-	attPos0 = 0.819005489,-0.918522835,-0.819005489
+	persistentId = 3875913519
+	pos = 0.819927454,14.9791822,-0.819927573
+	attPos = 0,0.00554847717,0
+	attPos0 = 0.819927454,-0.938866615,-0.819927573
 	rot = -1.43069627E-07,-0.923879564,5.9261378E-08,0.382683456
 	attRot = 0,0,0,1
 	attRot0 = -1.43069627E-07,-0.923879564,5.9261378E-08,0.382683456
@@ -934,10 +2041,10 @@ PART
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	sym = R8winglet_4291885990
-	sym = R8winglet_4291883414
-	sym = R8winglet_4291883368
-	srfN = srfAttach,fuelTank_4291886030,COL3,0.540501237|0.174731255|0,0.125|0|0,0.540501237|0.174731255|0
+	sym = R8winglet_4294118602
+	sym = R8winglet_4294115842
+	sym = R8winglet_4294115778
+	srfN = srfAttach,fuelTank_4294121828,COL3,0.540501237|0.174731255|0,0.125|0|0,0.540501237|0.174731255|0
 	EVENTS
 	{
 	}
@@ -958,6 +2065,42 @@ PART
 			actionGroup = None
 			wasActiveBeforePartWasAdjusted = False
 		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
 	}
 	PARTDATA
 	{
@@ -974,8 +2117,8 @@ PART
 		deploy = False
 		deployInvert = False
 		partDeployInvert = False
-		deployAngle = 0.449999988
-		authorityLimiter = 24
+		deployAngle = 0
+		authorityLimiter = 27.0000019
 		stagingEnabled = True
 		EVENTS
 		{
@@ -1078,6 +2221,7 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = 650
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
@@ -1092,13 +2236,502 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleControlSurfaceReliability
+		isEnabled = True
+		ignorePitch = False
+		ignoreRoll = False
+		ignoreYaw = False
+		MTBF = 4000
+		LifeTime = 8760
+		RepairCost = 1
+		RepairBonus = 0.100000001
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 1800
+		Silent = False
+		Priority = MEDIUM
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 3875913519
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = False
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = free_square
+		defaultScale = 100
+		currentScale = 100
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 }
 PART
 {
-	part = fuelTank_4294480374
+	part = fuelTank_4294020858
 	partName = Part
-	persistentId = 2398707235
+	persistentId = 278051313
 	pos = 0,17.8067265,0
+	attPos = 0,0,0
+	attPos0 = 0,1.89422607,0
+	rot = 0,0,0,1
+	attRot = 0,0,0,1
+	attRot0 = 0,0,0,1
+	mir = 1,1,1
+	symMethod = Radial
+	autostrutMode = Off
+	rigidAttachment = False
+	istg = 1
+	resPri = 2
+	dstg = 0
+	sidx = -1
+	sqor = -1
+	sepI = -1
+	attm = 0
+	sameVesselCollision = False
+	modCost = 0
+	modMass = 0
+	modSize = 0,0,0
+	link = fuelTank_4294020632
+	attN = top,fuelTank_4294020632_0|0.981724977|0_0|1|0_0|0.981724977|0_0|1|0
+	attN = bottom,fuelTank_4294121828_0|-0.912500024|0_0|-1|0_0|-0.912500024|0_0|-1|0
+	EVENTS
+	{
+	}
+	ACTIONS
+	{
+		ToggleSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		SetSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		RemoveSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+	}
+	PARTDATA
+	{
+	}
+	MODULE
+	{
+		name = ModulePartVariants
+		isEnabled = True
+		useVariantMass = True
+		stagingEnabled = True
+		selectedVariant = GrayAndOrange
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleCargoPart
+		isEnabled = True
+		packedVolume = -1
+		beingAttached = False
+		beingSettled = False
+		reinitResourcesOnStoreInVessel = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleTankReliability
+		isEnabled = True
+		pole = 0.01
+		MaxTC = 360
+		MinTC = 90
+		leakName = none
+		MTBF = 350400
+		LifeTime = 131400
+		RepairCost = 1
+		RepairBonus = 0.100000001
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 7200
+		Silent = False
+		Priority = HIGH
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 278051313
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = stack
+		defaultScale = 1.25
+		currentScale = 1.25
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	RESOURCE
+	{
+		name = LiquidFuel
+		amount = 0
+		maxAmount = 180
+		flowState = True
+		isTweakable = True
+		hideFlow = False
+		isVisible = True
+		flowMode = Both
+	}
+	RESOURCE
+	{
+		name = Oxidizer
+		amount = 0
+		maxAmount = 220
+		flowState = True
+		isTweakable = True
+		hideFlow = False
+		isVisible = True
+		flowMode = Both
+	}
+}
+PART
+{
+	part = fuelTank_4294020632
+	partName = Part
+	persistentId = 608285722
+	pos = 0,19.7009525,0
 	attPos = 0,0,0
 	attPos0 = 0,1.89422607,0
 	rot = 0,0,0,1
@@ -1119,9 +2752,9 @@ PART
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	link = fuelTank_4294558838
-	attN = top,fuelTank_4294558838_0|0.981724977|0_0|1|0_0|0.981724977|0_0|1|0
-	attN = bottom,fuelTank_4291886030_0|-0.912500024|0_0|-1|0_0|-0.912500024|0_0|-1|0
+	link = fuelTank_4294038878
+	attN = top,fuelTank_4294038878_0|0.981724977|0_0|1|0_0|0.981724977|0_0|1|0
+	attN = bottom,fuelTank_4294020858_0|-0.912500024|0_0|-1|0_0|-0.912500024|0_0|-1|0
 	EVENTS
 	{
 	}
@@ -1138,6 +2771,40 @@ PART
 			wasActiveBeforePartWasAdjusted = False
 		}
 		RemoveSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
 		{
 			actionGroup = None
 			wasActiveBeforePartWasAdjusted = False
@@ -1167,6 +2834,7 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = -1
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
@@ -1181,10 +2849,182 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleTankReliability
+		isEnabled = True
+		pole = 0.01
+		MaxTC = 360
+		MinTC = 90
+		leakName = none
+		MTBF = 350400
+		LifeTime = 131400
+		RepairCost = 1
+		RepairBonus = 0.100000001
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 7200
+		Silent = False
+		Priority = HIGH
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 608285722
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = stack
+		defaultScale = 1.25
+		currentScale = 1.25
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 	RESOURCE
 	{
 		name = LiquidFuel
-		amount = 180
+		amount = 0
 		maxAmount = 180
 		flowState = True
 		isTweakable = True
@@ -1195,7 +3035,7 @@ PART
 	RESOURCE
 	{
 		name = Oxidizer
-		amount = 220
+		amount = 0
 		maxAmount = 220
 		flowState = True
 		isTweakable = True
@@ -1206,10 +3046,10 @@ PART
 }
 PART
 {
-	part = fuelTank_4294558838
+	part = fuelTank_4294038878
 	partName = Part
-	persistentId = 4145238084
-	pos = 0,19.7009525,0
+	persistentId = 2592780894
+	pos = 0,21.5951786,0
 	attPos = 0,0,0
 	attPos0 = 0,1.89422607,0
 	rot = 0,0,0,1
@@ -1230,9 +3070,11 @@ PART
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	link = Decoupler.1_4294487860
-	attN = top,Decoupler.1_4294487860_0|0.981724977|0_0|1|0_0|0.981724977|0_0|1|0
-	attN = bottom,fuelTank_4294480374_0|-0.912500024|0_0|-1|0_0|-0.912500024|0_0|-1|0
+	link = parachuteRadial_4294033776
+	link = parachuteRadial_4294033228
+	link = Decoupler.1_4294011108
+	attN = top,Decoupler.1_4294011108_0|0.981724977|0_0|1|0_0|0.981724977|0_0|1|0
+	attN = bottom,fuelTank_4294020632_0|-0.912500024|0_0|-1|0_0|-0.912500024|0_0|-1|0
 	EVENTS
 	{
 	}
@@ -1249,6 +3091,40 @@ PART
 			wasActiveBeforePartWasAdjusted = False
 		}
 		RemoveSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
 		{
 			actionGroup = None
 			wasActiveBeforePartWasAdjusted = False
@@ -1263,7 +3139,7 @@ PART
 		isEnabled = True
 		useVariantMass = True
 		stagingEnabled = True
-		selectedVariant = White
+		selectedVariant = BlackAndWhite
 		EVENTS
 		{
 		}
@@ -1278,6 +3154,7 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = -1
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
@@ -1292,10 +3169,182 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleTankReliability
+		isEnabled = True
+		pole = 0.01
+		MaxTC = 360
+		MinTC = 90
+		leakName = none
+		MTBF = 350400
+		LifeTime = 131400
+		RepairCost = 1
+		RepairBonus = 0.100000001
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 7200
+		Silent = False
+		Priority = HIGH
+		PerksRequirementName = Engineer
+		PerksRequirementValue = 1
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 2592780894
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = stack
+		defaultScale = 1.25
+		currentScale = 1.25
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 	RESOURCE
 	{
 		name = LiquidFuel
-		amount = 180
+		amount = 0
 		maxAmount = 180
 		flowState = True
 		isTweakable = True
@@ -1306,7 +3355,7 @@ PART
 	RESOURCE
 	{
 		name = Oxidizer
-		amount = 220
+		amount = 0
 		maxAmount = 220
 		flowState = True
 		isTweakable = True
@@ -1317,32 +3366,32 @@ PART
 }
 PART
 {
-	part = Decoupler.1_4294487860
+	part = parachuteRadial_4294033776
 	partName = Part
-	persistentId = 3099901784
-	pos = 0,20.7326775,0
+	persistentId = 205824082
+	pos = -5.27926893E-08,22.0010529,-0.603877962
 	attPos = 0,0,0
-	attPos0 = 0,1.03172493,0
-	rot = 0,0,0,1
+	attPos0 = -5.27926893E-08,0.405873299,-0.603877962
+	rot = 1.78813934E-07,0,0,-1
 	attRot = 0,0,0,1
-	attRot0 = 0,0,0,1
+	attRot0 = 1.78813934E-07,0,0,-1
 	mir = 1,1,1
 	symMethod = Radial
 	autostrutMode = Off
 	rigidAttachment = False
 	istg = 0
 	resPri = 0
-	dstg = 1
+	dstg = 0
 	sidx = 0
 	sqor = 0
-	sepI = 0
-	attm = 0
+	sepI = -1
+	attm = 1
 	sameVesselCollision = False
 	modCost = 0
 	modMass = 0
 	modSize = 0,0,0
-	attN = top,Null_0_0|0.0500000007|0_0|1|0_0|0.0500000007|0_0|1|0
-	attN = bottom,fuelTank_4294558838_0|-0.0500000007|0_0|-1|0_0|-0.0500000007|0_0|-1|0
+	sym = parachuteRadial_4294033228
+	srfN = srfAttach,fuelTank_4294038878,COL3,0|0|0,0|0|-1,0|0|0
 	EVENTS
 	{
 	}
@@ -1361,6 +3410,746 @@ PART
 		RemoveSameVesselInteraction
 		{
 			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+	}
+	PARTDATA
+	{
+	}
+	MODULE
+	{
+		name = ModuleParachute
+		isEnabled = True
+		persistentState = STOWED
+		animTime = 0
+		minAirPressureToOpen = 0.600000024
+		deployAltitude = 500
+		spreadAngle = 10
+		automateSafeDeploy = 0
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+			DeployAction
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+			CutAction
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleTestSubject
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleDragModifier
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleDragModifier
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleCargoPart
+		isEnabled = True
+		packedVolume = 100
+		beingAttached = False
+		beingSettled = False
+		reinitResourcesOnStoreInVessel = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleParachuteReliability
+		isEnabled = True
+		MTBF = 17520
+		LifeTime = 20
+		RepairCost = 1
+		RepairBonus = 1
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 3600
+		Silent = False
+		Priority = HIGH
+		PerksRequirementName = 
+		PerksRequirementValue = 0
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 205824082
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = free_square
+		defaultScale = 100
+		currentScale = 100
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+}
+PART
+{
+	part = parachuteRadial_4294033228
+	partName = Part
+	persistentId = 185280497
+	pos = 1.05585379E-07,22.0010529,0.603877962
+	attPos = 0,0,0
+	attPos0 = 1.05585379E-07,0.405873299,0.603877962
+	rot = -7.81620489E-15,-1,-1.78813934E-07,4.37113883E-08
+	attRot = 0,0,0,1
+	attRot0 = -7.81620489E-15,-1,-1.78813934E-07,4.37113883E-08
+	mir = 1,1,1
+	symMethod = Radial
+	autostrutMode = Off
+	rigidAttachment = False
+	istg = 0
+	resPri = 0
+	dstg = 0
+	sidx = 0
+	sqor = 0
+	sepI = -1
+	attm = 1
+	sameVesselCollision = False
+	modCost = 0
+	modMass = 0
+	modSize = 0,0,0
+	sym = parachuteRadial_4294033776
+	srfN = srfAttach,fuelTank_4294038878,COL3,0|0|0,0|0|-1,0|0|0
+	EVENTS
+	{
+	}
+	ACTIONS
+	{
+		ToggleSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		SetSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		RemoveSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+	}
+	PARTDATA
+	{
+	}
+	MODULE
+	{
+		name = ModuleParachute
+		isEnabled = True
+		persistentState = STOWED
+		animTime = 0
+		minAirPressureToOpen = 0.600000024
+		deployAltitude = 500
+		spreadAngle = 10
+		automateSafeDeploy = 0
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+			DeployAction
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+			CutAction
+			{
+				actionGroup = None
+				wasActiveBeforePartWasAdjusted = False
+			}
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleTestSubject
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleDragModifier
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleDragModifier
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleCargoPart
+		isEnabled = True
+		packedVolume = 100
+		beingAttached = False
+		beingSettled = False
+		reinitResourcesOnStoreInVessel = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleParachuteReliability
+		isEnabled = True
+		MTBF = 17520
+		LifeTime = 20
+		RepairCost = 1
+		RepairBonus = 1
+		MaintenanceCost = 1
+		MaintenanceBonus = 0.300000012
+		InspectionBonus = 3600
+		Silent = False
+		Priority = HIGH
+		PerksRequirementName = 
+		PerksRequirementValue = 0
+		HasInitted = False
+		TimeOfLastReset = Infinity
+		TimeOfLastInspection = -Infinity
+		Age = 0
+		LastFixedUpdate = 0
+		CurrentMTBF = Infinity
+		LifeTimeSecs = Infinity
+		HasFailed = False
+		alarmDisabled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 185280497
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = False
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = free_square
+		defaultScale = 100
+		currentScale = 100
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+}
+PART
+{
+	part = Decoupler.1_4294011108
+	partName = Part
+	persistentId = 1421142154
+	pos = 0,22.6269035,0
+	attPos = 0,0,0
+	attPos0 = 0,1.03172493,0
+	rot = 0,0,0,1
+	attRot = 0,0,0,1
+	attRot0 = 0,0,0,1
+	mir = 1,1,1
+	symMethod = Radial
+	autostrutMode = Off
+	rigidAttachment = False
+	istg = 0
+	resPri = 0
+	dstg = 1
+	sidx = 1
+	sqor = 0
+	sepI = 0
+	attm = 0
+	sameVesselCollision = False
+	modCost = 0
+	modMass = 0
+	modSize = 0,0,0
+	attN = top,Null_0_0|0.0500000007|0_0|1|0_0|0.0500000007|0_0|1|0
+	attN = bottom,fuelTank_4294038878_0|-0.0500000007|0_0|-1|0_0|-0.0500000007|0_0|-1|0
+	EVENTS
+	{
+	}
+	ACTIONS
+	{
+		ToggleSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		SetSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		RemoveSameVesselInteraction
+		{
+			actionGroup = None
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutOff
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutRoot
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutHeaviest
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		AutostrutGrandparent
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesEnableFlow
+		{
+			actionGroup = None
+			active = False
+			wasActiveBeforePartWasAdjusted = False
+		}
+		ResourcesDisableFlow
+		{
+			actionGroup = None
+			active = False
 			wasActiveBeforePartWasAdjusted = False
 		}
 	}
@@ -1455,9 +4244,143 @@ PART
 	{
 		name = ModuleCargoPart
 		isEnabled = True
+		packedVolume = 260
 		beingAttached = False
 		beingSettled = False
 		reinitResourcesOnStoreInVessel = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleReliabilityInfo
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InspectionModule
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = FMRS_PM
+		isEnabled = True
+		stagingEnabled = True
+		MM_DYNAMIC = true
+		parent_vessel = 0
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleSYPartTracker
+		isEnabled = True
+		id = 1421142154
+		TimesRecovered = 0
+		Inventoried = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = USI_ModuleRecycleablePart
+		isEnabled = True
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = KOSNameTag
+		isEnabled = True
+		nameTag = 
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TweakScale
+		isEnabled = True
+		currentScaleFactor = 1
+		defaultTransformScale = (0, 0, 0)
+		extraCost = 0
+		extraMass = 0
+		stagingEnabled = True
+		type = stack_square
+		defaultScale = 1.25
+		currentScale = 1.25
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleIREditorHelper
+		isEnabled = True
 		stagingEnabled = True
 		EVENTS
 		{
